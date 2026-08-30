@@ -29,7 +29,7 @@
   --color-tints-500: #cebf92;
   --color-tints-250: #dfd8c3;
   --color-tints-0: #f5f4ef;
-  --color-brand: #A88344;
+  --color-brand: #8b6c38;
 
   --background-color: var(--color-tints-0); /* Background color for the entire website, including individual sections */
   --default-color: var(--color-shades-100); /* Default color used for the majority of the text content across the entire website */
@@ -1239,7 +1239,6 @@ section,
   position: relative;
   z-index: 3;
   border-radius: 15px;
-  z-index: 3;
 }
 
 /*--------------------------------------------------------------
@@ -1695,7 +1694,6 @@ section,
   padding: 12px 40px;
   border-radius: 6px;
   color: var(--default-color);
-  transition: none;
   font-size: 16px;
   font-weight: 500;
   transition: 0.3s;
@@ -1955,7 +1953,6 @@ section,
 }
 
 .team .team-member .social a {
-  transition: color 0.3s;
   color: var(--contrast-color);
   background: var(--accent-color);
   margin: 0 5px;
@@ -2341,7 +2338,7 @@ section,
 
 .portfolio-details .portfolio-description .testimonial-item p {
   font-style: italic;
-  margin: 0 0 15px 0 0 0;
+  margin: 0 0 15px 0;
   padding: 0;
 }
 
