@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 560" width="600" height="560" role="img" aria-label="Map of Saudi Arabia showing nationwide deployment coverage">
+  <g fill="none" fill-rule="evenodd">
+    <path d="M104 96 L150 74 L196 66 L243 72 L286 62 L330 54 L372 60 L404 78 L430 104 L452 132 L478 150 L502 170 L516 196 L508 224 L486 244 L470 268 L482 292 L500 314 L494 340 L470 358 L440 372 L412 392 L388 416 L360 438 L326 452 L292 462 L258 458 L228 442 L204 420 L184 394 L166 366 L146 340 L124 314 L106 286 L92 256 L82 224 L78 190 L84 156 L92 124 Z"
+      fill="#8b6c38" fill-opacity="0.14" stroke="#8b6c38" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <g fill="#8b6c38">
+      <circle cx="300" cy="248" r="9"/>
+      <circle cx="300" cy="248" r="18" fill="none" stroke="#8b6c38" stroke-width="2" opacity="0.45"/>
+      <circle cx="300" cy="248" r="28" fill="none" stroke="#8b6c38" stroke-width="1.5" opacity="0.2"/>
+      <circle cx="168" cy="214" r="6"/>
+      <circle cx="214" cy="352" r="6"/>
+      <circle cx="404" cy="152" r="6"/>
+      <circle cx="428" cy="316" r="6"/>
+      <circle cx="332" cy="404" r="6"/>
+      <circle cx="250" cy="150" r="6"/>
+    </g>
+
+    <g stroke="#8b6c38" stroke-width="1.4" stroke-dasharray="5 6" opacity="0.5">
+      <path d="M300 248 L168 214"/>
+      <path d="M300 248 L214 352"/>
+      <path d="M300 248 L404 152"/>
+      <path d="M300 248 L428 316"/>
+      <path d="M300 248 L332 404"/>
+      <path d="M300 248 L250 150"/>
+    </g>
+  </g>
+</svg>
