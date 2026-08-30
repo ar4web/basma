@@ -13,6 +13,7 @@
   const searchBox = document.querySelector('#job-search');
   const countEl = document.querySelector('#job-result-count');
   const emptyEl = document.querySelector('#job-empty');
+  const noneEl = document.querySelector('#job-none');
 
   let activeCat = 'All';
   let term = '';
@@ -144,7 +145,18 @@
     out.sort((a, b) => (b.urgent - a.urgent) || (new Date(b.posted) - new Date(a.posted)));
 
     list.innerHTML = out.map(card).join('');
-    emptyEl.hidden = out.length !== 0;
+
+    // Two different empty states, because they mean different things:
+    //  - no jobs posted at all  -> invite the candidate to register in advance
+    //  - jobs exist but the search/filter matched none -> offer to clear filters
+    const noneAtAll = jobs.length === 0;
+    if (noneEl) noneEl.hidden = !noneAtAll;
+    emptyEl.hidden = noneAtAll || out.length !== 0;
+
+    // Hide the toolbar entirely when there is nothing to search through.
+    const toolbar = document.querySelector('.job-toolbar');
+    if (toolbar) toolbar.style.display = noneAtAll ? 'none' : '';
+
     countEl.textContent = out.length
       ? 'Showing ' + out.length + ' of ' + jobs.length + ' vacancies'
       : '';
@@ -169,6 +181,20 @@
       clearTimeout(timer);
       const v = e.target.value.trim();
       timer = setTimeout(() => { term = v; render(); }, 180);
+    });
+  }
+
+  /* ---------- clear filters ---------- */
+
+  const clearBtn = document.querySelector('#job-clear');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      term = '';
+      activeCat = 'All';
+      if (searchBox) searchBox.value = '';
+      filterBar.querySelectorAll('button').forEach(b =>
+        b.classList.toggle('active', b.dataset.cat === 'All'));
+      render();
     });
   }
 

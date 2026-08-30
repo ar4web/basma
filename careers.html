@@ -165,12 +165,22 @@
           <!-- Vacancy cards generated from assets/js/jobs-data.js -->
         </div>
 
-        <!-- Shown when a search matches nothing -->
+        <!-- Shown when a search or filter matches nothing -->
         <div class="job-empty" id="job-empty" hidden>
-          <i class="bi bi-inbox"></i>
+          <i class="bi bi-search"></i>
           <h4>No vacancies match your search</h4>
-          <p>Try a different keyword or clear the filters. You can also send us your CV and we will contact you when a suitable role opens.</p>
-          <a href="cv-builder.html" class="btn-brand">Build and Send Your CV</a>
+          <p>Try a different keyword, or clear the filters to see all open roles.</p>
+          <button type="button" class="btn-brand-outline" id="job-clear">Clear Filters</button>
+        </div>
+
+        <!-- Shown when there are genuinely no vacancies posted at all -->
+        <div class="job-empty" id="job-none" hidden>
+          <i class="bi bi-hourglass-split"></i>
+          <h4>No vacancies are open at this moment</h4>
+          <p>New requirements come in from our clients every week, and they are often filled from
+             candidates already registered with us before the role is ever advertised.
+             Register now and we will contact you the moment something matches your profile.</p>
+          <a href="apply.html" class="btn-brand">Register for Future Openings</a>
         </div>
 
       </div>

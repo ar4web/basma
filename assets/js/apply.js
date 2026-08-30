@@ -42,7 +42,7 @@
 
   const spec = document.createElement('option');
   spec.value = 'SPECULATIVE';
-  spec.textContent = 'No specific role — add me to the talent pool';
+  spec.textContent = 'No specific role — register me for future openings';
   sel.appendChild(spec);
 
   // Preselect from ?job=WH-104
@@ -56,7 +56,23 @@
     const j = jobs.find(x => x.id === sel.value);
     document.querySelector('#job_title_hidden').value =
       j ? j.title : (sel.value === 'SPECULATIVE' ? 'Speculative Application' : '');
-    if (!j) { brief.hidden = true; return; }
+    if (!j) {
+      if (sel.value === 'SPECULATIVE') {
+        brief.hidden = false;
+        brief.innerHTML =
+          '<div style="background: color-mix(in srgb, var(--accent-color), transparent 95%);' +
+          ' border-left: 3px solid var(--accent-color); border-radius: 6px; padding: 14px 16px;">' +
+          '<div style="font-size:13.5px; line-height:1.7;">' +
+          '<strong>Registering for future openings</strong><br>' +
+          '<span style="color: color-mix(in srgb, var(--default-color), transparent 30%);">' +
+          'Your details go into our candidate pool. When a client requirement matches your ' +
+          'profile we contact you directly, usually before the role is advertised.' +
+          '</span></div></div>';
+      } else {
+        brief.hidden = true;
+      }
+      return;
+    }
     brief.hidden = false;
     brief.innerHTML =
       '<div style="background: color-mix(in srgb, var(--accent-color), transparent 95%);' +
