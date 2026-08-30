@@ -210,4 +210,14 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
+  /**
+   * Stamp the contact form with its render time.
+   * The server rejects submissions completed faster than a human could type,
+   * which blocks the bulk of automated spam without a CAPTCHA.
+   */
+  const formTimeField = document.querySelector('#form-time');
+  if (formTimeField) {
+    formTimeField.value = Math.floor(Date.now() / 1000);
+  }
+
 })();

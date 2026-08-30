@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Do not index internal or template scaffolding
+Disallow: /forms/
+Disallow: /bam_applications/
+Disallow: /starter-page.html
+Disallow: /assets/vendor/
+
+Sitemap: https://basmat-almawared.com/sitemap.xml

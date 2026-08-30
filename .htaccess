@@ -1,0 +1,94 @@
+# =============================================================================
+# Basmat Al Mawared — server hardening, caching and compression
+# Apache 2.4+. Safe to remove any block your host does not support.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 1. Security headers
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Block clickjacking (site framed by an attacker to hijack clicks)
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Stop browsers MIME-sniffing a response away from the declared type
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Limit referrer leakage to third parties
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Deny access to sensitive browser APIs this site never uses
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+
+    # Force HTTPS for two years, including subdomains.
+    # Enable ONLY once your TLS certificate is confirmed working.
+    # Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+    # Content Security Policy.
+    # Allows: self, Google Fonts, YouTube embeds (lightbox video).
+    # 'unsafe-inline' is required because the template uses inline styles and
+    # inline JSON config blocks for Swiper.
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; frame-src https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'"
+
+    # Do not advertise the PHP version
+    Header unset X-Powered-By
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 2. Block access to sensitive files
+# -----------------------------------------------------------------------------
+<FilesMatch "^\.|\.(txt|md|json|lock|yml|yaml|ini|log|sh|bak|sql|map)$">
+    Require all denied
+</FilesMatch>
+
+# Allow the two text files that must stay public
+<Files "robots.txt">
+    Require all granted
+</Files>
+
+# Never serve the repository metadata
+RedirectMatch 404 /\.git
+
+# Disable directory listing
+Options -Indexes
+
+# Disable server signature in error pages
+ServerSignature Off
+
+# -----------------------------------------------------------------------------
+# 3. Compression
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE image/svg+xml application/json
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 4. Browser caching
+# -----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg               "access plus 1 year"
+    ExpiresByType image/png                "access plus 1 year"
+    ExpiresByType image/svg+xml            "access plus 1 year"
+    ExpiresByType image/webp               "access plus 1 year"
+    ExpiresByType font/woff2               "access plus 1 year"
+    ExpiresByType text/css                 "access plus 1 month"
+    ExpiresByType application/javascript   "access plus 1 month"
+    ExpiresByType text/html                "access plus 0 seconds"
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 5. Force HTTPS and canonical host
+#    Uncomment after DNS and TLS are live.
+# -----------------------------------------------------------------------------
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# -----------------------------------------------------------------------------
+# 6. Custom error pages
+# -----------------------------------------------------------------------------
+ErrorDocument 404 /index.html
