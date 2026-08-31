@@ -82,9 +82,29 @@
   color: var(--color-tints-750);
 }
 
+/* Arabic sits alongside the English kicker, separated by a hairline rule.
+   Rendered slightly larger because Arabic script reads small at the same
+   nominal size as Latin. */
+.hero-kicker-ar {
+  font-family: "Segoe UI", Tahoma, "Noto Naskh Arabic", "Traditional Arabic", serif;
+  font-size: 1.15em;
+  letter-spacing: 0;
+  color: var(--color-tints-750);
+  vertical-align: -0.04em;
+}
+
+.hero-kicker-sep {
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  margin: 0 12px;
+  vertical-align: 0.3em;
+  background: color-mix(in srgb, var(--color-tints-750), transparent 45%);
+}
+
 .hero-slide-content h1 {
   margin: 0 0 18px;
-  max-width: 17ch;
+  max-width: 20ch;
   font-family: var(--heading-font);
   font-size: clamp(2.25rem, 5vw, 3.75rem);   /* 36 -> 60px */
   font-weight: 600;
