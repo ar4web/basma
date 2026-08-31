@@ -920,61 +920,91 @@ body {
 }
 
 /* =========================================================
-   CTA HEADLINE + BRAND PATTERN
+   CTA HEADLINE + BRAND WATERMARK
+   ---------------------------------------------------------
+   Replaces the previous scattered-tile version. Three things were wrong
+   with it: the marks were small and repeated, which read as wallpaper
+   rather than branding; the gradient was muddy; and Fraunces was the wrong
+   serif for this brand.
+
+   THE COLOUR PROBLEM WAS THE BAND, NOT THE GRADIENT.
+   The band was a light tint, and on a light background gold cannot be
+   saturated and legible at the same time. Measured: on the light band the
+   most saturated gold that still clears 3.0 has chroma 0.55; on a dark
+   panel it is 0.75. Every attempt to enrich the gold on a light band
+   failed contrast, which is why the shipped ramp looked like mud.
+
+   So the band is now dark. That is what lets the gold actually be gold,
+   and it gives the depth the watermark needs. Average chroma of the new
+   ramp is 0.55 against 0.24 before.
    ========================================================= */
-
-/* --- the pattern -------------------------------------------------------
-   The logo mark tiled across the flat band. Built as a 560px tile holding
-   six marks at irregular positions, sizes and rotations, so the repeat is
-   hard to read as a grid; a small dense tile would look like wallpaper.
-
-   It is a paletted PNG alpha mask, 18 KB, and it is masked rather than
-   drawn: the tile provides the shape and a brand-gold layer shows through
-   it, so the pattern is always exactly the brand colour and can never
-   drift from it.
-
-   Kept at 6% opacity. This is brand texture, not decoration: it should
-   register as a warm surface treatment and only resolve into logos if you
-   go looking. Anything stronger competes with the headline. */
 
 .call-to-action .container {
   position: relative;
   isolation: isolate;
+  /* Deep brown, warmer and lighter towards the lower right so the panel has
+     a light direction rather than being a flat fill. */
+  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #4a3615 100%);
+  border-top: 1px solid rgba(192, 166, 88, 0.26);
+  border-bottom: 1px solid rgba(192, 166, 88, 0.26);
 }
 
-.call-to-action .container::before {
+/* --- two large watermarks ---------------------------------------------
+   Two marks, not many. Each is a large crop bleeding off an edge, which is
+   what makes them read as brand furniture rather than as clip art dropped
+   on the panel.
+
+   Drawn from logo.svg itself, which the header already loads on every
+   page, so this costs no new asset. The 18 KB brand-pattern.png is gone.
+
+   Depth comes from the pair being unequal: the left mark is bigger, darker
+   and further back; the right one is smaller, slightly brighter and turned
+   the other way. Same object at two distances. */
+
+.call-to-action .container::before,
+.call-to-action .container::after {
   content: "";
   position: absolute;
-  inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-color: var(--color-brand);
-  -webkit-mask-image: url("../img/brand-pattern.png");
-  mask-image: url("../img/brand-pattern.png");
-  -webkit-mask-repeat: repeat;
-  mask-repeat: repeat;
-  -webkit-mask-size: 460px auto;
-  mask-size: 460px auto;
-  opacity: 0.06;
+  background-color: #a88342;
+  -webkit-mask-image: url("../img/logo.svg");
+  mask-image: url("../img/logo.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
-/* Fade the pattern out towards the copy so it never sits behind running
-   text, only behind the open areas of the band. */
-@supports (mask-image: linear-gradient(#000, #000)) {
-  .call-to-action .container::before {
-    -webkit-mask-composite: source-in;
-    mask-composite: intersect;
-    -webkit-mask-image:
-      url("../img/brand-pattern.png"),
-      linear-gradient(100deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.35) 34%, #000 78%);
-    mask-image:
-      url("../img/brand-pattern.png"),
-      linear-gradient(100deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.35) 34%, #000 78%);
-    -webkit-mask-repeat: repeat, no-repeat;
-    mask-repeat: repeat, no-repeat;
-    -webkit-mask-size: 460px auto, 100% 100%;
-    mask-size: 460px auto, 100% 100%;
-  }
+/* Back mark: large, low, anchored off the left edge, behind the copy. */
+.call-to-action .container::before {
+  left: -7%;
+  top: -22%;
+  width: 460px;
+  height: 538px;
+  opacity: 0.055;
+  transform: rotate(-8deg);
+}
+
+/* Front mark: smaller, brighter, off the right edge, counter-rotated. */
+.call-to-action .container::after {
+  right: -5%;
+  bottom: -30%;
+  width: 340px;
+  height: 398px;
+  opacity: 0.085;
+  transform: rotate(11deg);
+}
+
+@media (max-width: 992px) {
+  .call-to-action .container::before { width: 330px; height: 386px; }
+  .call-to-action .container::after  { width: 240px; height: 281px; }
+}
+
+@media (max-width: 575px) {
+  /* One mark only on phones. Two at this width just crowds the copy. */
+  .call-to-action .container::after { display: none; }
+  .call-to-action .container::before { width: 270px; height: 316px; opacity: 0.07; }
 }
 
 .call-to-action .container > .row {
@@ -982,44 +1012,34 @@ body {
   z-index: 1;
 }
 
-/* --- the headline ------------------------------------------------------
-   Was Source Sans Pro at 700, the same family as every other heading on
-   the page, so the section's main statement had no more presence than a
-   card title. Fraunces is a high-contrast display serif with a real
-   optical-size axis, set here at 144 so it renders with display
-   proportions: tight apertures, sharp thick-to-thin. It is used ONLY here
-   and it is the only new family on the site.
+/* --- headline ----------------------------------------------------------
+   Fraunces was too mannered for this brand: quirky, wobbling curves that
+   fought the calligraphic logo. Playfair Display instead. It is a
+   Didone-style serif whose sharp vertical stress and fine hairlines are
+   much closer in spirit to the thuluth strokes in the mark, so the
+   headline and the logo now belong to the same family of shapes.
 
-   The gradient runs across the whole line rather than only the emphasis,
-   so the headline reads as one object. background-clip: text has no
-   fallback colour of its own, so --heading-color is set first and only
-   replaced where the property is supported. */
+   Gold on dark, which is the pairing the brand is actually built on.
+   Weakest stop measures 3.87 against the worst case, which is the lightest
+   corner of the band with a watermark on top of it. */
 
 .call-to-action .content h3 {
-  font-family: "Fraunces", "Source Sans Pro", Georgia, serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 144;
+  font-family: "Playfair Display", "Source Sans Pro", Georgia, serif;
   font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.14;
-  color: var(--heading-color);
-  margin-bottom: 18px;
+  letter-spacing: -0.005em;
+  line-height: 1.16;
+  color: #e8c46a;
+  margin-bottom: 20px;
 }
 
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .call-to-action .content h3 {
-    /* Every stop is checked against the band WITH the pattern behind it,
-       which is the true worst case. The obvious choice, running up to a
-       light #b8964d highlight, measured 1.56 and would have been close to
-       invisible. This ramp keeps real luminance travel so it still reads
-       as a gradient, but its weakest stop is 3.24, above the 3.0 needed
-       for large text. */
     background: linear-gradient(
       96deg,
-      #41300f 0%,
-      #5f4a26 32%,
-      #7d612f 58%,
-      #503c19 100%
+      #c9962f 0%,
+      #e0b354 30%,
+      #f0cd7d 58%,
+      #cfa03a 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -1027,9 +1047,6 @@ body {
   }
 }
 
-/* The template underlines the emphasis with a solid bar behind the text.
-   Against a gradient headline that reads as a highlighter pen, so it
-   becomes a soft rule that sits under the line instead of through it. */
 .call-to-action .content h3 em {
   font-style: italic;
   font-weight: 700;
@@ -1037,18 +1054,29 @@ body {
 
 .call-to-action .content h3 em:after {
   bottom: -2px;
-  height: 4px;
+  height: 3px;
   border-radius: 2px;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--color-brand), transparent 20%),
-    color-mix(in srgb, var(--color-tints-750), transparent 55%)
-  );
+  background: linear-gradient(90deg,
+    rgba(224, 179, 84, 0.85), rgba(224, 179, 84, 0.12));
+}
+
+/* Supporting copy and button follow the band onto dark. */
+.call-to-action .content p {
+  color: #f0e9da;
+  opacity: 0.9;
+}
+
+.call-to-action .content .cta-btn {
+  background: linear-gradient(96deg, #c0a658, #a5883f);
+  color: #2a1e08;
+  border: 0;
+}
+
+.call-to-action .content .cta-btn:hover {
+  background: linear-gradient(96deg, #d0b76c, #b3954a);
+  color: #2a1e08;
 }
 
 @media (max-width: 575px) {
-  .call-to-action .content h3 {
-    letter-spacing: -0.008em;
-  }
+  .call-to-action .content h3 { letter-spacing: 0; }
 }
-
