@@ -1384,3 +1384,121 @@ body {
   border-color: color-mix(in srgb, var(--color-success), transparent 55%);
 }
 
+/* =========================================================
+   CREDENTIALS BAR
+   ---------------------------------------------------------
+   This section had no CSS of its own. It borrowed class="clients", which
+   is the greyscale logo-strip style, so it inherited padding: 20px 0 and
+   nothing else. Everything holding it together was fifteen inline style
+   attributes on the elements themselves.
+
+   Three things were wrong beyond the styling:
+
+   1. Five items in col-lg-4 is three per row then an orphan row of two,
+      centred. A five-item set needs a five-column grid, not a
+      three-column one it does not divide into.
+   2. Five hardcoded <br> tags broke the copy at fixed points regardless
+      of column width.
+   3. The markup was a stack of divs. A list of credentials is a list.
+
+   Rebuilt as a semantic ul with a real five-across grid, no inline styles
+   and no forced breaks. Class renamed from clients to credentials so it
+   stops inheriting logo-strip rules; checked first that nothing in the CSS
+   or JS targeted it, and that the marquee uses a separate section.
+   ========================================================= */
+
+.credentials {
+  padding: 46px 0 40px;
+}
+
+.credential-grid {
+  display: grid;
+  /* Five across on desktop. Collapses to three then two rather than
+     jumping straight to one, so the row never leaves a single orphan. */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.credential-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 26px 16px 22px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--color-brand), transparent 88%);
+  border-radius: var(--r-md);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.28s ease,
+              border-color 0.28s ease;
+}
+
+.credential-item:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--color-brand), transparent 68%);
+  box-shadow: 0 10px 26px rgba(58, 42, 15, 0.09);
+}
+
+/* The icon sits in a tinted chip rather than floating loose, which is what
+   made the original read as clip art dropped above the text. */
+.credential-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-brand), transparent 90%);
+  color: var(--heading-color);
+  font-size: 24px;
+  line-height: 1;
+  transition: background 0.28s ease;
+}
+
+.credential-item:hover .credential-icon {
+  background: color-mix(in srgb, var(--color-brand), transparent 82%);
+}
+
+.credential-title {
+  margin: 0 0 5px;
+  font-size: var(--fs-base);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--heading-color);
+}
+
+.credential-detail {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-wrap: balance;
+}
+
+@media (max-width: 1199px) {
+  .credential-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .credential-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .credential-item { padding: 22px 12px 18px; }
+  .credential-icon { width: 46px; height: 46px; font-size: 21px; }
+}
+
+@media (max-width: 420px) {
+  .credential-grid { grid-template-columns: 1fr; }
+  /* Single column: go horizontal so five stacked cards do not become a
+     long scroll of centred text. */
+  .credential-item {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 14px;
+    padding: 16px 18px;
+  }
+  .credential-icon { margin-bottom: 0; flex: none; }
+}
+
