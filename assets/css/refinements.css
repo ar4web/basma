@@ -1345,3 +1345,42 @@ body {
   }
 }
 
+/* =========================================================
+   INVALID FIELD FEEDBACK
+   ---------------------------------------------------------
+   Nothing in the project styled :invalid, so a field the browser had
+   rejected looked exactly like a valid one. The only signal was the native
+   tooltip on submit, which appears once and then disappears.
+
+   Uses :user-invalid, not :invalid. Plain :invalid matches from first
+   paint, so an empty required field is red before the user has typed
+   anything, which reads as an error the visitor has not made yet.
+   :user-invalid only matches after the field has been interacted with and
+   blurred, which is the behaviour people expect.
+
+   Scoped to the two real forms so it cannot leak into the CV builder,
+   which manages its own validation state.
+   ========================================================= */
+
+.contact .php-email-form .form-control:user-invalid,
+.form-wrap .form-control:user-invalid,
+.form-wrap .form-select:user-invalid {
+  border-color: var(--color-danger);
+  background-color: color-mix(in srgb, var(--color-danger), transparent 96%);
+}
+
+.contact .php-email-form .form-control:user-invalid:focus,
+.form-wrap .form-control:user-invalid:focus,
+.form-wrap .form-select:user-invalid:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger), transparent 84%);
+}
+
+/* Matching valid state, kept subtle: a green border on every completed
+   field turns a long form into a christmas tree, so this is only a soft
+   brand-tinted edge confirming the field is accepted. */
+.contact .php-email-form .form-control:user-valid,
+.form-wrap .form-control:user-valid {
+  border-color: color-mix(in srgb, var(--color-success), transparent 55%);
+}
+

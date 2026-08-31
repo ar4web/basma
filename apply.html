@@ -27,10 +27,10 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="assets/css/main.css?v=42" rel="stylesheet">
-  <link href="assets/css/careers.css?v=42" rel="stylesheet">
+  <link href="assets/css/main.css?v=43" rel="stylesheet">
+  <link href="assets/css/careers.css?v=43" rel="stylesheet">
 
-  <link href="assets/css/cookie.css?v=42" rel="stylesheet">
+  <link href="assets/css/cookie.css?v=43" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: HeroBiz
@@ -39,7 +39,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<link href="assets/css/refinements.css?v=42" rel="stylesheet">
+<link href="assets/css/refinements.css?v=43" rel="stylesheet">
 </head>
 
 <body class="apply-page">
@@ -181,7 +181,9 @@
                       <div class="col-md-6 mb-3">
                         <label class="field-label" for="phone">Mobile Number <span class="req">*</span></label>
                         <input type="tel" class="form-control" id="phone" name="phone"
-                               placeholder="+966 5X XXX XXXX" required autocomplete="tel">
+                               placeholder="+966 5X XXX XXXX" required autocomplete="tel"
+                               inputmode="tel" pattern="[0-9+()\s.\-]{9,40}" maxlength="40"
+                               title="Digits, spaces and + ( ) . - only, at least 9 digits">
                         <div class="field-error">Please enter a valid mobile number.</div>
                       </div>
                     </div>
