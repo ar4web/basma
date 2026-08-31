@@ -70,9 +70,12 @@
 
   /* ---------------- third-party gating ---------------- */
   /**
-   * The YouTube link is opened by GLightbox, which contacts youtube.com and
-   * lets it set cookies. Until functional consent is given we neutralise the
-   * link and cover it with an explanation.
+   * The company video is now self-hosted from assets/video/, so it sets no
+   * third-party cookies and needs no consent.
+   *
+   * This gate is kept active for any FUTURE third-party embed: if a YouTube or
+   * Vimeo link is ever added back, it is blocked automatically until the
+   * visitor allows functional cookies. Nothing to change at that point.
    */
   function gateEmbeds(allowed) {
     document.querySelectorAll('a.glightbox[href*="youtube.com"], a.glightbox[href*="youtu.be"], a.glightbox[href*="vimeo.com"]')
