@@ -1588,19 +1588,32 @@ body {
 }
 
 /* --- testimonials sits on a photo ------------------------------------
-   That section already stacks: the <img> is z-index 1 and the dark scrim
-   :before is z-index 2, with .container at 3. Layers dropped at z-index 0
-   would be buried under the photo, so this tier lifts the pattern between
-   the scrim and the content and drops the extra glass wash, since the
-   scrim is already doing that job. */
-.bam-pattern--photo > .bam-weave { z-index: 2; }
-.bam-pattern--photo > .bam-glass { z-index: 2; }
-.bam-pattern--photo > .container { z-index: 3; }
-.bam-pattern--photo > .bam-glass::after {
-  -webkit-backdrop-filter: blur(3px) saturate(1.06);
-  backdrop-filter: blur(3px) saturate(1.06);
-  background: linear-gradient(152deg, rgba(255,255,255,.03), rgba(0,0,0,.04));
-}
+   This section is the one place the shared treatment does not belong, and
+   it took two real defects to work that out.
+
+   It already has its own depth: a full-bleed photo and a dark scrim over
+   it. Adding the lattice and the glass on top of both muted the photo,
+   which is the entire point of the section.
+
+   The worse problem was the glass. .bam-glass paints a backdrop-filter
+   across the full section, carousel included, and .swiper-slide ships with
+   transform: translateZ(0) and backface-visibility: hidden. A composited,
+   moving element inside a backdrop-filtered region is re-rasterised
+   against the filtered backdrop every frame, so the prev/next slides
+   flickered and dimmed mid-transition. backdrop-filter over a moving
+   carousel is the wrong tool, so the glass is dropped here outright.
+
+   The lattice stays but is demoted beneath the scrim, so the scrim tints
+   it along with the photo and it reads as part of the image rather than as
+   a film laid over it. The carousel is then left completely alone. */
+.bam-pattern--photo > .bam-weave { z-index: 1; }
+.bam-pattern--photo > .bam-weave::before { opacity: 0.09; }
+
+/* No glass and no big marks on this section. */
+.bam-pattern--photo > .bam-glass { display: none; }
+
+/* Photo below the lattice; the scrim in main.css stays above both. */
+.testimonials.bam-pattern--photo > .testimonials-bg { z-index: 0; }
 
 /* The CTA's own ::before/::after watermark pair was deleted when the shared
    .bam-pattern treatment took over; four marks on one panel was too many. */
