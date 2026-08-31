@@ -478,6 +478,12 @@
   color: #c0392b;
 }
 
+.form-wrap label.field-label .opt {
+  color: color-mix(in srgb, var(--default-color), transparent 52%);
+  font-weight: 400;
+  font-size: 0.86em;
+}
+
 .form-wrap .form-control,
 .form-wrap .form-select {
   border-color: color-mix(in srgb, var(--default-color), transparent 82%);

@@ -122,7 +122,9 @@
 
   function idValid() {
     const v = idNum.value.trim();
-    if (!v) { idErr.textContent = 'Please enter your ID number.'; return false; }
+    // ID is optional: an empty field is valid. Only a filled-in field is checked,
+    // so a typo is still caught before submission.
+    if (!v) { idErr.textContent = ''; return true; }
     if (idType.value === 'iqama') {
       if (!/^2\d{9}$/.test(v)) { idErr.textContent = 'An Iqama number must be 10 digits starting with 2.'; return false; }
     } else if (idType.value === 'national') {

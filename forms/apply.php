@@ -193,15 +193,20 @@ if ($nationality === '')                 $errors[] = 'nationality';
 if ($yearsExp === '')                    $errors[] = 'experience level';
 if (field('consent') === '')             $errors[] = 'consent confirmation';
 
-// ID number rules mirror the client-side checks.
-if ($idType === 'iqama') {
-    if (!preg_match('/^2\d{9}$/', $idNumber)) $errors[] = 'Iqama number (10 digits starting with 2)';
-} elseif ($idType === 'national') {
-    if (!preg_match('/^1\d{9}$/', $idNumber)) $errors[] = 'Saudi National ID (10 digits starting with 1)';
-} elseif ($idType === 'passport') {
-    if (!preg_match('/^[A-Za-z0-9]{5,15}$/', $idNumber)) $errors[] = 'passport number';
-} else {
-    $errors[] = 'ID type';
+// ID is OPTIONAL. Candidates may apply without one and the CV alone is enough
+// to be considered. But if a number IS supplied we still validate its format,
+// so a typo is caught at submission rather than discovered weeks later.
+if ($idNumber !== '' || $idType !== '') {
+    if ($idType === 'iqama') {
+        if (!preg_match('/^2\d{9}$/', $idNumber)) $errors[] = 'Iqama number (10 digits starting with 2)';
+    } elseif ($idType === 'national') {
+        if (!preg_match('/^1\d{9}$/', $idNumber)) $errors[] = 'Saudi National ID (10 digits starting with 1)';
+    } elseif ($idType === 'passport') {
+        if (!preg_match('/^[A-Za-z0-9]{5,15}$/', $idNumber)) $errors[] = 'passport number';
+    } elseif ($idNumber !== '') {
+        // A number was typed but no type chosen — ambiguous, so ask.
+        $errors[] = 'ID type (you entered a number but did not choose its type)';
+    }
 }
 
 if ($errors) {

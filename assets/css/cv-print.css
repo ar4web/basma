@@ -185,6 +185,11 @@
 /*--------------------------------------------------------------
 # PRINT — only the CV sheet reaches the paper
 --------------------------------------------------------------*/
+/* Watermark: never visible in the on-screen preview, only in the export. */
+#cv-watermark {
+  display: none;
+}
+
 @page {
   size: A4;
   margin: 0;
@@ -229,6 +234,22 @@
     transform: none !important;
     box-shadow: none !important;
     background: #fff !important;
+  }
+
+  /* Bottom-right credit on the exported PDF. Real selectable text, not an
+     image and not a background, so any PDF reader can select and delete it. */
+  #cv-watermark {
+    display: block !important;
+    position: fixed !important;
+    right: 12mm !important;
+    bottom: 8mm !important;
+    margin: 0 !important;
+    font-size: 7.5pt !important;
+    letter-spacing: 0.3pt !important;
+    color: #b0a48c !important;
+    background: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   /* Keep entries from splitting across pages */

@@ -206,8 +206,8 @@
 
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <label class="field-label" for="id_type">ID Type <span class="req">*</span></label>
-                        <select class="form-select" id="id_type" name="id_type" required>
+                        <label class="field-label" for="id_type">ID Type <span class="opt">(optional)</span></label>
+                        <select class="form-select" id="id_type" name="id_type">
                           <option value="">Select...</option>
                           <option value="iqama">Iqama (Residency ID)</option>
                           <option value="national">Saudi National ID</option>
@@ -216,10 +216,10 @@
                         <div class="field-error">Please select your ID type.</div>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <label class="field-label" for="id_number">ID Number <span class="req">*</span></label>
+                        <label class="field-label" for="id_number">ID Number <span class="opt">(optional)</span></label>
                         <input type="text" class="form-control" id="id_number" name="id_number"
-                               placeholder="Select ID type first" required autocomplete="off">
-                        <div class="field-help" id="id-help">Saudi National ID starts with 1, Iqama starts with 2. Both are 10 digits.</div>
+                               placeholder="Select ID type first" autocomplete="off">
+                        <div class="field-help" id="id-help">Optional, but a valid Iqama or National ID speeds up hiring considerably &mdash; employers in the Kingdom can only hire candidates who hold one.</div>
                         <div class="field-error" id="id-error">Please enter a valid ID number.</div>
                       </div>
                     </div>
@@ -269,7 +269,11 @@
                       <div class="field-help">Separate with commas. Certificates and licences carry the most weight with employers.</div>
                     </div>
 
-                    <label class="field-label">Upload Your CV</label>
+                    <label class="field-label">Upload Your CV <span class="opt">&mdash; the fastest route to being hired</span></label>
+                    <div class="field-help mb-2">
+                      Your CV is what employers actually read. Attaching one moves your application
+                      to the front of the queue.
+                    </div>
                     <div class="upload-zone" id="upload-zone" tabindex="0" role="button"
                          aria-label="Upload your CV, PDF or Word document, maximum 5 megabytes">
                       <i class="bi bi-cloud-arrow-up"></i>
@@ -307,7 +311,7 @@
                   <!-- ============ STEP 4: REVIEW ============ -->
                   <div class="form-panel" data-panel="4">
                     <h4>Review your application</h4>
-                    <p class="panel-hint">Please check your details. Errors in your name or ID number will delay processing.</p>
+                    <p class="panel-hint">Please check your details. Errors in your name or contact details will delay processing.</p>
 
                     <div id="review-out"></div>
 
@@ -373,6 +377,16 @@
                   </p>
                   <div class="mt-3">
                     <a href="careers.html" class="btn-brand-outline">Browse More Vacancies</a>
+                  </div>
+
+                  <div class="mt-4 p-3" style="background: color-mix(in srgb, var(--accent-color), transparent 95%); border-radius: 8px; text-align: left;">
+                    <p class="mb-2" style="font-size: 14px;">
+                      <i class="bi bi-file-earmark-pdf" style="color: var(--accent-color);"></i>
+                      <strong>Need a PDF copy of your CV?</strong>
+                      Build one now and download it to use anywhere &mdash; other employers,
+                      our office, or your own records. Free, and yours to keep.
+                    </p>
+                    <a href="cv-builder.html" class="btn-brand-outline" style="padding: 8px 20px; font-size: 14px;">Open the CV Builder</a>
                   </div>
                 </div>
 
