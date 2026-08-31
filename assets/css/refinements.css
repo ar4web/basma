@@ -1026,7 +1026,7 @@ body {
   background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #4a3615 100%);
   border-top: 1px solid rgba(192, 166, 88, 0.26);
   border-bottom: 1px solid rgba(192, 166, 88, 0.26);
-  /* Containing block for the two watermarks. */
+  /* Containing block for the .bam-pattern layers. */
   position: relative;
   isolation: isolate;
 }
@@ -1100,64 +1100,6 @@ body {
    and it gives the depth the watermark needs. Average chroma of the new
    ramp is 0.55 against 0.24 before.
    ========================================================= */
-
-/* --- two large watermarks ---------------------------------------------
-   Two marks, not many. Each is a large crop bleeding off an edge, which is
-   what makes them read as brand furniture rather than as clip art dropped
-   on the panel.
-
-   Drawn from logo.svg itself, which the header already loads on every
-   page, so this costs no new asset. The 18 KB brand-pattern.png is gone.
-
-   Depth comes from the pair being unequal: the left mark is bigger, darker
-   and further back; the right one is smaller, slightly brighter and turned
-   the other way. Same object at two distances. */
-
-.call-to-action .container::before,
-.call-to-action .container::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  background-color: #a88342;
-  -webkit-mask-image: url("../img/logo.svg");
-  mask-image: url("../img/logo.svg");
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-}
-
-/* Back mark: large, low, anchored off the left edge, behind the copy. */
-.call-to-action .container::before {
-  left: -7%;
-  top: -22%;
-  width: 460px;
-  height: 538px;
-  opacity: 0.055;
-  transform: rotate(-8deg);
-}
-
-/* Front mark: smaller, brighter, off the right edge, counter-rotated. */
-.call-to-action .container::after {
-  right: -5%;
-  bottom: -30%;
-  width: 340px;
-  height: 398px;
-  opacity: 0.085;
-  transform: rotate(11deg);
-}
-
-@media (max-width: 992px) {
-  .call-to-action .container::before { width: 330px; height: 386px; }
-  .call-to-action .container::after  { width: 240px; height: 281px; }
-}
-
-@media (max-width: 575px) {
-  /* One mark only on phones. Two at this width just crowds the copy. */
-  .call-to-action .container::after { display: none; }
-  .call-to-action .container::before { width: 270px; height: 316px; opacity: 0.07; }
-}
 
 /* --- headline ----------------------------------------------------------
    Fraunces was too mannered for this brand: quirky, wobbling curves that
@@ -1514,3 +1456,176 @@ body {
   border-radius: 5px;
 }
 
+/* =========================================================
+   BRAND PATTERN ON DARK AREAS
+   ---------------------------------------------------------
+   Three stacked layers on every dark area, in this order:
+
+     1. the repeating half-drop logo lattice   (brand-tile.png)
+     2. two large cropped marks, top-right and bottom-left
+     3. a frosted glass wash over both
+
+   Layer 1 is a real repeat. brand-tile.png is a 200px tile carrying two
+   glyphs on the diagonal, so when it repeats the eye reads a staggered
+   lattice rather than straight columns. It is a mask, not an image, so the
+   colour comes from background-color and the same 3 KB file serves every
+   area at any tint.
+
+   Layer 2 is the pair of big marks you asked for: one cropped off the top
+   right, one off the bottom left, each bleeding past the edge so it reads
+   as a fragment rather than a sticker.
+
+   Layer 3 is the glass. It sits ABOVE the pattern and below the content,
+   so the pattern is seen through frosted glass instead of next to it.
+   ========================================================= */
+
+.bam-pattern {
+  position: relative;
+  isolation: isolate;
+}
+
+/* --- layer 1: the repeating lattice ---------------------------------- */
+.bam-pattern > .bam-weave {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bam-pattern > .bam-weave::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  background-color: #c9a24f;
+  opacity: 0.05;
+  -webkit-mask-image: url("../img/brand-tile.png");
+  mask-image: url("../img/brand-tile.png");
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-size: 200px 200px;
+  mask-size: 200px 200px;
+  transform: rotate(-8deg) scale(1.2);
+}
+
+/* --- layer 2: the two big cropped marks ------------------------------ */
+.bam-pattern > .bam-weave::after {
+  content: "";
+  position: absolute;
+  top: -18%;
+  right: -7%;
+  width: 380px;
+  height: 444px;
+  background-color: #d9b76a;
+  opacity: 0.030;
+  transform: rotate(11deg);
+  -webkit-mask-image: url("../img/logo.svg");
+  mask-image: url("../img/logo.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.bam-pattern > .bam-glass {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Bottom-left mark rides on the glass layer so the two big marks are not
+   both competing for the same pseudo-element. */
+.bam-pattern > .bam-glass::before {
+  content: "";
+  position: absolute;
+  bottom: -24%;
+  left: -8%;
+  width: 440px;
+  height: 515px;
+  background-color: #a88342;
+  opacity: 0.026;
+  transform: rotate(-9deg);
+  -webkit-mask-image: url("../img/logo.svg");
+  mask-image: url("../img/logo.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/* --- layer 3: the frosted glass -------------------------------------- */
+.bam-pattern > .bam-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  -webkit-backdrop-filter: blur(7px) saturate(1.15);
+  backdrop-filter: blur(7px) saturate(1.15);
+  background: linear-gradient(
+    152deg,
+    rgba(255, 255, 255, 0.055),
+    rgba(255, 255, 255, 0.018) 46%,
+    rgba(0, 0, 0, 0.05)
+  );
+}
+
+/* Content must clear all three layers. */
+.bam-pattern > *:not(.bam-weave):not(.bam-glass):not(.testimonials-bg) {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 991px) {
+  .bam-pattern > .bam-weave::after { width: 300px; height: 351px; }
+  .bam-pattern > .bam-glass::before { width: 340px; height: 398px; }
+}
+
+@media (max-width: 575px) {
+  .bam-pattern > .bam-weave::after { display: none; }
+  .bam-pattern > .bam-glass::before { width: 260px; height: 304px; opacity: 0.032; }
+  .bam-pattern > .bam-weave::before { opacity: 0.06; }
+}
+
+/* --- testimonials sits on a photo ------------------------------------
+   That section already stacks: the <img> is z-index 1 and the dark scrim
+   :before is z-index 2, with .container at 3. Layers dropped at z-index 0
+   would be buried under the photo, so this tier lifts the pattern between
+   the scrim and the content and drops the extra glass wash, since the
+   scrim is already doing that job. */
+.bam-pattern--photo > .bam-weave { z-index: 2; }
+.bam-pattern--photo > .bam-glass { z-index: 2; }
+.bam-pattern--photo > .container { z-index: 3; }
+.bam-pattern--photo > .bam-glass::after {
+  -webkit-backdrop-filter: blur(3px) saturate(1.06);
+  backdrop-filter: blur(3px) saturate(1.06);
+  background: linear-gradient(152deg, rgba(255,255,255,.03), rgba(0,0,0,.04));
+}
+
+/* The CTA's own ::before/::after watermark pair was deleted when the shared
+   .bam-pattern treatment took over; four marks on one panel was too many. */
+
+/* The CTA band is full-bleed via 100vw margins; its layers must not add a
+   second horizontal overflow. */
+.call-to-action .container > .bam-weave,
+.call-to-action .container > .bam-glass {
+  overflow: hidden;
+}
+
+/* .onfocus .content is a padded panel, so the marks are scaled to it
+   rather than to a full-width band. */
+.onfocus .content > .bam-weave::after { width: 260px; height: 304px; }
+.onfocus .content > .bam-glass::before { width: 300px; height: 351px; }
+
+/* The footer already shows a real logo in its first column. A big cropped
+   mark behind it would read as a duplicate, so the footer keeps the
+   lattice and the glass but only one mark, pushed to the far side. */
+.footer-top > .bam-weave::after { display: none; }
+.footer-top > .bam-glass::before {
+  left: auto;
+  right: -5%;
+  bottom: -26%;
+  width: 340px;
+  height: 398px;
+  opacity: 0.030;
+}
