@@ -284,3 +284,20 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-slider .swiper-slide-active img { animation: none; }
 }
+
+/* Six slides instead of four. At the base 30px bullet plus 10px gap, six
+   dots measure 252px, which fits a 320px screen but sits tight against the
+   edge padding once the active bullet expands. Trimmed below 400px so the
+   row keeps clear margins. */
+@media (max-width: 400px) {
+  .hero-slider .hero-pagination {
+    gap: 7px;
+  }
+  .hero-slider .hero-pagination .swiper-pagination-bullet {
+    width: 20px;
+  }
+  .hero-slider .hero-pagination .swiper-pagination-bullet-active {
+    width: 34px;
+  }
+}
+
