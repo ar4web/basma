@@ -18,13 +18,31 @@
   isolation: isolate;
 }
 
+/* Full bleed. The section sits inside a Bootstrap .container that caps at
+   1320px, so the panel used to float with a gutter either side. Breaking it
+   out to the viewport edge is what makes it read as a band rather than
+   another boxed card. Uses 100vw with a translate rather than negative
+   margins so it stays centred at every breakpoint, and calc against
+   100% guards the case where a scrollbar makes 100vw wider than the
+   content box. */
+#coverage > .container {
+  max-width: none;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-left: 0;
+  padding-right: 0;
+}
+
 #coverage .coverage-inner {
   position: relative;
-  border-radius: 18px;
+  /* No radius at full bleed: rounded corners against the viewport edge
+     leave slivers of page colour in the corners. */
+  border-radius: 0;
   overflow: hidden;
   /* Dark brown base so the panel still reads correctly for the moment
      before the photograph decodes. */
-  background-color: #241a0d;
+  background-color: #33240f;
 }
 
 /* --- background photograph ------------------------------------------- */
@@ -38,7 +56,7 @@
   /* The raw photograph is bright gold at the horizon. Pulling saturation and
      brightness down lets the gradient sit on top of it without the text
      having to fight the sun. */
-  filter: saturate(0.72) brightness(0.52) contrast(1.06);
+  filter: saturate(0.86) brightness(0.72) contrast(1.02);
   z-index: 0;
 }
 
@@ -51,15 +69,15 @@
   background:
     linear-gradient(
       100deg,
-      rgba(28, 19, 8, 0.97) 0%,
-      rgba(38, 26, 11, 0.93) 34%,
-      rgba(52, 36, 15, 0.80) 62%,
-      rgba(66, 46, 19, 0.62) 100%
+      rgba(38, 27, 12, 0.93) 0%,
+      rgba(52, 37, 16, 0.86) 34%,
+      rgba(72, 51, 22, 0.68) 62%,
+      rgba(92, 66, 28, 0.44) 100%
     ),
     radial-gradient(
       120% 90% at 88% 50%,
-      rgba(192, 166, 88, 0.20) 0%,
-      rgba(192, 166, 88, 0) 62%
+      rgba(214, 184, 100, 0.26) 0%,
+      rgba(192, 166, 88, 0) 64%
     );
 }
 
@@ -71,18 +89,25 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  border-radius: 18px;
-  border: 1px solid rgba(192, 166, 88, 0.26);
+  /* Only the horizontal rules survive at full bleed; a vertical border at
+     the viewport edge would read as a rendering artefact. */
+  border-top: 1px solid rgba(192, 166, 88, 0.22);
+  border-bottom: 1px solid rgba(192, 166, 88, 0.22);
 }
 
+/* Panel is full width, but the copy and map stay on the same measure as the
+   rest of the page so nothing drifts out of alignment with the sections
+   above and below. */
 #coverage .coverage-grid {
   position: relative;
   z-index: 3;
   display: grid;
   grid-template-columns: 1.02fr 0.98fr;
   align-items: center;
-  gap: 48px;
-  padding: 76px 72px;
+  gap: 56px;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding: 82px 32px;
 }
 
 /* --- copy -------------------------------------------------------------- */
@@ -260,16 +285,16 @@
 
 @media (max-width: 1199px) {
   #coverage .coverage-grid {
-    padding: 62px 52px;
-    gap: 36px;
+    padding: 68px 40px;
+    gap: 40px;
   }
 }
 
 @media (max-width: 991px) {
   #coverage .coverage-grid {
     grid-template-columns: 1fr;
-    padding: 52px 34px;
-    gap: 40px;
+    padding: 58px 32px;
+    gap: 42px;
   }
 
   #coverage .coverage-title {
@@ -286,16 +311,16 @@
     background:
       linear-gradient(
         180deg,
-        rgba(28, 19, 8, 0.96) 0%,
-        rgba(40, 27, 11, 0.92) 46%,
-        rgba(54, 38, 16, 0.86) 100%
+        rgba(40, 28, 12, 0.92) 0%,
+        rgba(54, 38, 16, 0.88) 46%,
+        rgba(72, 51, 22, 0.82) 100%
       );
   }
 }
 
 @media (max-width: 575px) {
   #coverage .coverage-grid {
-    padding: 42px 22px;
+    padding: 46px 20px;
   }
 
   #coverage .coverage-stats li {

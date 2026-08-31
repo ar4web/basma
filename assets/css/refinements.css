@@ -365,3 +365,85 @@ a,
   }
   .features .tab-pane.active { animation: none; }
 }
+
+/* =========================================================
+   RADIUS — one scale, applied everywhere
+   ---------------------------------------------------------
+   The project had seventeen different corner values in play: 2, 3, 4, 5, 6,
+   8, 10, 12, 15, 18, 26 and 30px, plus 50% and 50px. Most of that was the
+   original template's inconsistency rather than a decision, and it is very
+   visible when two differently-rounded cards sit next to each other.
+
+   Collapsed to three, plus the two that are genuinely shape-defining:
+     --r-sm   inputs, small controls, thumbnails, tags
+     --r-md   cards, panels, images, dropdowns
+     --r-lg   large feature panels (coverage, CTA, modals)
+     50%      avatars and icon circles, unchanged
+     50px     pill buttons, unchanged
+   ========================================================= */
+
+:root {
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  /* Kept in step with the scale; --radius predates it and is still
+     referenced by the focus-ring rule above. */
+  --radius: var(--r-md);
+}
+
+/* Small controls */
+.form-control,
+.form-select,
+textarea.form-control,
+.field-help,
+.cert-thumb,
+.tag,
+.badge,
+.job-tag,
+.filter-chip,
+.hero-kicker-sep {
+  border-radius: var(--r-sm);
+}
+
+/* Cards, panels and media */
+.service-item,
+.portfolio-content,
+.portfolio-item img,
+.team-member,
+.team-member img,
+.post-item,
+.post-img img,
+.pricing-item,
+.cert-card,
+.cert-card img,
+.faq-item,
+.info-item,
+.php-email-form,
+.features .tab-pane img,
+.about img,
+.call-to-action .img img,
+.testimonial-item,
+.card,
+.panel,
+.job-card,
+.form-wrap,
+.marquee-viewport {
+  border-radius: var(--r-md);
+}
+
+/* Large feature panels */
+.call-to-action .container,
+#coverage .coverage-inner,
+#coverage .coverage-inner::after,
+.bam-cc-modal,
+.modal-content {
+  border-radius: var(--r-lg);
+}
+
+/* Full-bleed sections use 100vw. When a vertical scrollbar is present 100vw
+   is wider than the content box, which can produce a horizontal scrollbar.
+   Clipping at the root prevents it without affecting anything else. */
+html {
+  overflow-x: hidden;
+}
+
