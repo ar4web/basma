@@ -912,11 +912,31 @@ body {
 }
 
 /* The rotated card stack behind the photo is the section's signature, so it
-   stays. Radius aligned to the scale rather than the template's 15px. */
+   stays. Radius aligned to the scale rather than the template's 15px.
+
+   Its two slabs also need recolouring for the dark band. main.css builds
+   them from --contrast-color at 80 percent and --default-color at 5
+   percent, both written for the original light panel. On the dark band the
+   first resolved to #d3cec5, a near-white slab sitting behind the photo,
+   and the second to #392a0f, invisible against the band. Warm gold at low
+   alpha instead, so the stack reads as two lit edges behind the photo. */
 .call-to-action .img:before,
 .call-to-action .img:after,
 .call-to-action .img img {
   border-radius: var(--r-md);
+}
+
+.call-to-action .img:before {
+  background: rgba(224, 179, 84, 0.16);
+}
+
+.call-to-action .img:after {
+  background: rgba(168, 131, 66, 0.10);
+}
+
+/* Lift the photo off the dark band so it does not float edgeless. */
+.call-to-action .img img {
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
 }
 
 /* =========================================================
