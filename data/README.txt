@@ -29,16 +29,34 @@ APPLICATION REFERENCE FORMAT
 ============================
 Every application and enquiry is given a reference in this form:
 
-    BMC + DD + MM + HH + MM        (Riyadh time)
+    BMC + YY + DD + MM + HH + MM        (Riyadh time)
 
-    BMC31080306   = 31 August, 03:06
+    BMC2631080306
+    BMC |26| 31| 08| 03| 06
+     |    |   |   |   |   +-- minute
+     |    |   |   |   +------ hour
+     |    |   |   +---------- month
+     |    |   +-------------- day
+     |    +------------------ year
+     +----------------------- company prefix
 
+    BMC2631080306  =  2026, 31 August, 03:06
+
+The reference is generated at the moment the candidate presses Submit, so it
+always records exactly when the application arrived. You can read the date and
+time straight off the reference without looking anything up.
+
+Including the year means a reference is never reused. Without it, 31 August
+2026 and 31 August 2027 would produce the same code.
+
+SAME-MINUTE APPLICATIONS
+------------------------
 If more than one application arrives in the SAME minute, a sequence letter is
 added so no two candidates ever share a reference:
 
-    BMC31080306    first
-    BMC31080306B   second
-    BMC31080306C   third
+    BMC2631080306    first
+    BMC2631080306B   second
+    BMC2631080306C   third
 
 The first keeps the clean form. Allocation uses an exclusive file lock, so two
 simultaneous submissions cannot be given the same code. The ledger that tracks

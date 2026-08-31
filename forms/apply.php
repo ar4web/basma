@@ -6,7 +6,7 @@
  * Receives applications from apply.html, validates everything server-side,
  * stores the CV and the record, and emails the recruitment team.
  *
- * Responds with JSON: {"ok":true,"reference":"BMC31080306"} or {"ok":false,"error":"..."}
+ * Responds with JSON: {"ok":true,"reference":"BMC2631080306"} or {"ok":false,"error":"..."}
  *
  * SECURITY MODEL
  *   - POST only, same-origin enforced
@@ -126,13 +126,13 @@ if ($originHost !== '' && !in_array(strtolower($originHost), $ALLOWED_HOSTS, tru
 
 // Honeypot: invisible to humans, irresistible to bots.
 if (field('website') !== '') {
-    respond(true, '', 'BMC' . date('dmHi'));   // pretend success so the bot does not retry
+    respond(true, '', 'BMC' . date('ydmHi'));   // pretend success so the bot does not retry
 }
 
 // Time trap.
 $formTime = (int) field('form_time', 20);
 if ($formTime > 0 && (time() - $formTime) < MIN_SECONDS) {
-    respond(true, '', 'BMC' . date('dmHi'));
+    respond(true, '', 'BMC' . date('ydmHi'));
 }
 
 // Rate limit per IP.
@@ -232,11 +232,12 @@ if (!is_dir($storageBase) && !@mkdir($storageBase, 0700, true)) {
 // -----------------------------------------------------------------------------
 // 5. REFERENCE NUMBER
 // -----------------------------------------------------------------------------
-// Format: BMC + DD + MM + HH + MM  (Riyadh time)   e.g. BMC31080306
+// Format: BMC + YY + DD + MM + HH + MM  (Riyadh time)   e.g. BMC2631080306
+//         BMC | 26 | 31 | 08 | 03 | 06  =  2026, 31 August, 03:06
 //
 // Two applications can easily arrive within the same minute, and that would
 // produce the same code. When the minute is already taken we append a sequence
-// letter, so the second is BMC31080306B, the third BMC31080306C, and so on.
+// letter, so the second is BMC2631080306B, the third BMC2631080306C, and so on.
 // The first keeps the clean unsuffixed form.
 //
 // Allocation is done under an exclusive file lock so two simultaneous
@@ -244,11 +245,11 @@ if (!is_dir($storageBase) && !@mkdir($storageBase, 0700, true)) {
 
 /**
  * Reserve the next free reference for the current minute.
- * Returns something like BMC31080306 or BMC31080306B.
+ * Returns something like BMC2631080306 or BMC2631080306B.
  */
 function allocate_reference(string $storageDir): string
 {
-    $base = 'BMC' . date('dmHi');
+    $base = 'BMC' . date('ydmHi');
 
     // Without writable storage we cannot track collisions, so fall back to a
     // random suffix rather than risk issuing a duplicate.

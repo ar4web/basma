@@ -160,7 +160,7 @@ $rows = [
     'Email'       => $email,
     'Phone'       => $phone !== '' ? $phone : '—',
     'Requirement' => $subject,
-    'Reference'   => 'BMC' . date('dmHi'),
+    'Reference'   => 'BMC' . date('ydmHi'),
     'Received'    => date('Y-m-d H:i:s T'),
     'Source IP'   => $ip,
 ];
