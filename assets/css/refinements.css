@@ -42,6 +42,64 @@
 }
 
 /* =========================================================
+   TONING DOWN THE WHITES
+   The theme used pure #ffffff for every card, panel and surface, sitting
+   on a warm cream page (#f5f4ef). Pure white next to a warm background
+   glares, and it fights the gold palette because it is the only element
+   on the page with no warmth in it at all.
+
+   These are warm off-whites on the same hue family as the brand, so the
+   surfaces still read as "white" but stop shouting. Overridden here as
+   tokens, so every card, dropdown and panel follows automatically and
+   main.css stays untouched.
+   ========================================================= */
+
+:root,
+.light-background {
+  /* Cards, panels, dropdowns: was #ffffff */
+  --surface-color: #fbfaf6;
+
+  /* Page background: was #f5f4ef, dropped very slightly so cards still
+     separate cleanly from the page behind them. */
+  --background-color: #f2f0e9;
+}
+
+/* Text on dark/accent backgrounds. Pure white on the gold brand colour is
+   harsh; a warm near-white keeps the contrast ratio while softening it. */
+:root {
+  --contrast-color: #faf8f3;
+}
+
+/* The header sits on the page background and was reading as a bright band */
+.header {
+  background-color: color-mix(in srgb, var(--background-color), #fff 35%);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-brand), transparent 92%);
+}
+
+.header.sticked,
+.header.scrolled {
+  background-color: color-mix(in srgb, var(--background-color), #fff 55%);
+  box-shadow: 0 2px 18px rgba(36, 28, 15, 0.07);
+}
+
+/* Form fields were pure white boxes on cream */
+.form-control,
+.form-select,
+textarea.form-control {
+  background-color: #fbfaf6;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: #fdfcfa;
+}
+
+/* Alternating sections: keep the contrast gentle rather than white vs cream */
+.light-background {
+  background-color: #f7f5ef;
+}
+
+/* =========================================================
    1. TYPOGRAPHY — snap stray sizes onto the scale
    ========================================================= */
 
