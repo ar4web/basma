@@ -778,6 +778,14 @@ body {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 84%);
 }
 
+/* The status block is wrapped in .my-3, which stacks Bootstrap margin on
+   top of the margin the panels already carry, leaving a gap even when all
+   three are display:none. Collapsed; the panels space themselves. */
+.contact .php-email-form .my-3 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 /* The row gutters gave uneven vertical spacing because the template mixed
    padding-bottom on .form-group with .mt-3 utilities on some columns only.
    One consistent gap instead. */
@@ -807,6 +815,14 @@ body {
 
 /* Submit button: was a 4px square in a form of 0px squares, and sat full
    left. Matched to the site button treatment. */
+/* The markup wraps the button in .text-center, so it sat centred under a
+   form whose fields, labels and status panels are all left-aligned. Pulled
+   back to the left edge to line up with the fields above it. */
+.contact .php-email-form .text-center {
+  text-align: left !important;
+  margin-top: 18px;
+}
+
 .contact .php-email-form button[type=submit] {
   border-radius: 50px;
   padding: 13px 38px;
@@ -823,6 +839,21 @@ body {
 .contact .php-email-form button[type=submit]:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px color-mix(in srgb, var(--color-brand), transparent 74%);
+}
+
+/* The loading panel was missed entirely last time. main.css gives it a flat
+   --surface-color fill with no border and no radius, so while the form was
+   submitting a hard square box appeared in the middle of a column of 8px
+   rounded fields. Matched to the fields. */
+.contact .php-email-form .loading {
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--color-brand), transparent 82%);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  text-align: left;
+  color: var(--text-muted);
+  font-size: var(--fs-base);
 }
 
 /* Status messages inherited hard red and green fills from the template,
@@ -850,12 +881,20 @@ body {
 /* The info column is a plain stack of rows with no shape. Given the same
    surface as the rest of the page's cards so the two halves of the section
    read as one composition. */
+/* height: 100% here resolved against a column that has no height of its
+   own, so it did nothing and the info card stopped short of the form beside
+   it, leaving the two halves of the section ragged at the bottom. The
+   column is made a flex item that stretches instead. */
+.contact .row.gy-5 > [class*="col-lg-4"] {
+  display: flex;
+}
+
 .contact .info {
   background-color: var(--surface-color);
   border: 1px solid color-mix(in srgb, var(--color-brand), transparent 88%);
   border-radius: var(--r-md);
   padding: 30px 28px;
-  height: 100%;
+  width: 100%;
 }
 
 .contact .info-item i {
@@ -1099,4 +1138,35 @@ body {
 
 @media (max-width: 575px) {
   .call-to-action .content h3 { letter-spacing: 0; }
+}
+
+/* =========================================================
+   TWO BROKEN TOKENS IN main.css
+   ---------------------------------------------------------
+   Both are pre-existing template bugs, found by diffing every var() used
+   against every custom property declared. A var() naming a property that
+   does not exist makes the whole declaration invalid, so these two have
+   been doing nothing since the template shipped.
+
+     main.css:1615  .pricing .pricing-item
+                    background-color: var(--backgroun-color)
+                    Typo for --background-color. The pricing cards have had
+                    no background at all, so they sit directly on the page
+                    with only their border to define them.
+
+     main.css:1338  .features .nav-link
+                    color: var(--color-secondary)
+                    No such token in the palette. The inactive feature tabs
+                    fall back to inherited colour instead of a muted one, so
+                    active and inactive tabs look nearly identical.
+
+   Fixed here rather than in main.css, which stays untouched.
+   ========================================================= */
+
+.pricing .pricing-item {
+  background-color: var(--surface-color);
+}
+
+.features .nav-link {
+  color: var(--text-muted);
 }
