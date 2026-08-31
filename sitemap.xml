@@ -26,6 +26,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://basmat-almawared.com/starter-page.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://basmat-almawared.com/portfolio-details.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
