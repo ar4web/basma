@@ -489,10 +489,14 @@ textarea.form-control,
   border-radius: var(--r-md);
 }
 
-/* Large feature panels */
-.call-to-action .container,
-#coverage .coverage-inner,
-#coverage .coverage-inner::after,
+/* Large feature panels.
+
+   NOT included here: .call-to-action .container and #coverage
+   .coverage-inner. Both are full-bleed bands that run to the viewport edge
+   and must stay square, and both are given border-radius: 0 further down /
+   in coverage.css. Listing them here was a real bug: this file loads after
+   coverage.css, so this rule silently re-rounded the coverage panel back to
+   16px and undid the squaring it was given when it went full bleed. */
 .bam-cc-modal,
 .modal-content {
   border-radius: var(--r-lg);
@@ -856,5 +860,62 @@ body {
 
 .contact .info-item i {
   color: var(--color-brand);
+}
+
+/* =========================================================
+   CALL TO ACTION — full bleed
+   ---------------------------------------------------------
+   Same treatment as the coverage section: the panel sat inside a Bootstrap
+   .container capped at 1320px, so it floated with a gutter either side.
+   Breaking it to the viewport edge makes it read as a band.
+
+   The container here is BOTH the width constraint and the visible panel
+   (main.css puts the 80px padding, tint and radius on .container itself),
+   so the breakout has to happen on the container and the inner content
+   needs its own measure put back. That is why this differs from coverage,
+   where the panel was a separate child element.
+   ========================================================= */
+
+.call-to-action .container {
+  max-width: none;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  /* No radius at full bleed: rounded corners against the viewport edge
+     leave slivers of page colour showing in each corner. */
+  border-radius: 0;
+  /* Slightly deeper than the template's 4% tint so the band separates from
+     the gradient page now that it has no edges to define it. */
+  background: color-mix(in srgb, var(--color-brand), transparent 92%);
+  border-top: 1px solid color-mix(in srgb, var(--color-brand), transparent 86%);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-brand), transparent 86%);
+  padding: 76px 32px;
+}
+
+/* Content keeps the page measure so it stays aligned with the sections
+   above and below; only the band runs edge to edge. */
+.call-to-action .container > .row {
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
+@media (max-width: 992px) {
+  .call-to-action .container {
+    padding: 58px 28px;
+  }
+}
+
+@media (max-width: 575px) {
+  .call-to-action .container {
+    padding: 46px 20px;
+  }
+}
+
+/* The rotated card stack behind the photo is the section's signature, so it
+   stays. Radius aligned to the scale rather than the template's 15px. */
+.call-to-action .img:before,
+.call-to-action .img:after,
+.call-to-action .img img {
+  border-radius: var(--r-md);
 }
 
