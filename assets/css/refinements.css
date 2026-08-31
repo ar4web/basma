@@ -526,7 +526,6 @@ a,
 .form-select,
 textarea.form-control,
 .field-help,
-.cert-thumb,
 .tag,
 .badge,
 .job-tag,
@@ -544,8 +543,6 @@ textarea.form-control,
 .post-item,
 .post-img img,
 .pricing-item,
-.cert-card,
-.cert-card img,
 .faq-item,
 .info-item,
 .php-email-form,
@@ -1500,5 +1497,20 @@ body {
     padding: 16px 18px;
   }
   .credential-icon { margin-bottom: 0; flex: none; }
+}
+
+/* =========================================================
+   CERTIFICATE CORNERS
+   ---------------------------------------------------------
+   Pulled out of the shared radius scale at your request. The scale puts
+   these at 8px and 12px; a document reads better with a tighter corner,
+   so all three surfaces are pinned to 5px and match the 5px radius now
+   drawn on the artwork itself.
+   ========================================================= */
+
+.certificates .cert-card,
+.certificates .cert-card img,
+.certificates .cert-thumb {
+  border-radius: 5px;
 }
 
