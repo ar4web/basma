@@ -841,6 +841,37 @@ body {
   box-shadow: 0 10px 24px color-mix(in srgb, var(--color-brand), transparent 74%);
 }
 
+/* The form had no labels at all, only placeholders, and those placeholders
+   did not agree with each other: "Your Name" and "Your Email" spoke to the
+   visitor, "Phone Number" and "Manpower Requirement" named the field, and
+   "Tell us about your workforce needs..." was an instruction. Three
+   different voices in five fields.
+
+   Placeholders also disappear the moment you start typing, so a form built
+   only from them leaves the user with no way to check what they filled in.
+   apply.html already solves this with .field-label plus .req and .opt
+   markers, but that CSS is scoped to .form-wrap, which the contact form
+   does not use. Same treatment extended here so the two forms match. */
+
+.contact .php-email-form label.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+.contact .php-email-form label.field-label .req {
+  color: var(--color-danger);
+}
+
+.contact .php-email-form label.field-label .opt {
+  color: var(--text-subtle);
+  font-weight: 400;
+  font-size: 0.86em;
+}
+
 /* The loading panel was missed entirely last time. main.css gives it a flat
    --surface-color fill with no border and no radius, so while the form was
    submitting a hard square box appeared in the middle of a column of 8px
