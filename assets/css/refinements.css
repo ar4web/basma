@@ -582,3 +582,124 @@ body {
   --heading-color: #7d612f;
 }
 
+/* =========================================================
+   AUDIT PASS — white surfaces, dark sections, logo lockups
+   ========================================================= */
+
+/* --- 1. Remaining pure-white surfaces --------------------------------
+   main.css still declares --surface-color: #ffffff twice, once in :root
+   and once inside .light-background. The :root one is already overridden
+   above, but the .light-background copy re-introduced pure white for any
+   card inside an alternating section. Pinned to the same warm surface so
+   a card does not change colour depending on which section it sits in. */
+
+.light-background {
+  --surface-color: #f1ede3;
+}
+
+/* The scroll-top button and preloader inherited white from the template
+   rather than from the token.
+
+   Note: main.css also styles .navmenu .dropdown with a white panel and a
+   15px white CSS arrow. Those selectors are intentionally NOT overridden
+   here, because the nav was flattened in the previous commit and no
+   .dropdown element exists in any page any more. Overriding them would be
+   dead CSS. The rules stay in main.css harmlessly in case a dropdown is
+   reintroduced, and would need revisiting then. */
+.scroll-top,
+#preloader {
+  background-color: var(--surface-color);
+}
+
+/* --- 2. Dark sections: two genuine contrast failures ------------------
+   .dark-background and the footer both sit on --color-brand (#8b6c38).
+   Measured against it:
+     body text #eeeadd      4.06  below the 4.5 minimum
+     footer text #f5f4ef    4.43  below the 4.5 minimum
+   Neither passed. The fix is a deeper brown rather than brighter text,
+   because lightening the text further would have washed those sections
+   out and they are meant to read as the dark bands of the page.
+
+   #5f4a26 is the same brand hue, three steps down. Body text now measures
+   7.65, headings 7.94, and gold accents 3.54 — gold only clears 3.0 at
+   this depth, which is why it is not taken further. */
+
+.dark-background {
+  --background-color: #5f4a26;
+  --surface-color: #6f5931;
+  /* Was #27200c: near-black heading text on a dark brown panel. */
+  --heading-color: #fdf8ec;
+  --default-color: #f5f0e4;
+}
+
+.footer {
+  background-color: #5f4a26;
+  color: #f2ede1;
+}
+
+.footer .footer-about .logo .sitename,
+.footer h4 {
+  color: #fdf8ec;
+}
+
+/* --- 3. Footer logo: same drift the header had ------------------------
+   40px mark against an independently-set 26px wordmark, two unrelated
+   numbers. Driven from one property now, matching the header lockup. */
+
+.footer .footer-about .logo {
+  --logo-h: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1;
+}
+
+.footer .footer-about .logo img {
+  height: var(--logo-h);
+  width: auto;
+  max-height: none;
+  margin-right: 0;
+  flex: none;
+}
+
+.footer .footer-about .logo .sitename {
+  font-size: calc(var(--logo-h) * 0.52);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* --- 4. Faded text on dark sections -----------------------------------
+   The muted tokens mix --default-color with transparency. On dark sections
+   --default-color is light, so the same tokens produce washed-out text
+   against the brown. Re-derived from the section's own text colour. */
+
+.dark-background .section-title p,
+.footer .footer-about p,
+.footer .footer-contact p {
+  color: rgba(245, 240, 228, 0.82);
+}
+
+.footer .copyright,
+.footer .credits {
+  /* 0.66 measured 4.28 on the new footer brown, under the 4.5 minimum.
+     0.78 clears it at 5.19 while still reading as secondary. */
+  color: rgba(245, 240, 228, 0.78);
+}
+
+/* --- 5. Headings that never scale down ---------------------------------
+   .call-to-action h3 and .pricing h4 are hardcoded 48px in main.css with no
+   responsive override, so on a 360px phone a CTA headline is 48px against a
+   ~320px measure and breaks badly. Section titles were already fluid; these
+   two were missed. Same clamp shape, so they scale with everything else. */
+
+.call-to-action .content h3 {
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.16;
+}
+
+.pricing h4 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.1;
+}
