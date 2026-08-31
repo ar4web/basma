@@ -1,0 +1,243 @@
+/**
+ * refinements.css — typography scale, colour normalisation and UI polish
+ *
+ * WHY THIS FILE EXISTS
+ * The custom stylesheets had grown 29 different font sizes (including
+ * half-pixel values like 12.5px and 13.5px), 11 different muted-grey text
+ * colours, and both #fff and #ffffff. That is what reads as "multiple
+ * colours and inconsistent text sizes" on screen.
+ *
+ * This file defines one scale and snaps the offenders onto it. It is loaded
+ * LAST so it wins on cascade order without needing !important everywhere,
+ * and main.css is left untouched.
+ */
+
+:root {
+  /* ---- Type scale (1.200 minor third, 16px base) ---- */
+  --fs-2xs: 0.75rem;     /* 12px  — micro labels, legal */
+  --fs-xs:  0.8125rem;   /* 13px  — captions, help text */
+  --fs-sm:  0.875rem;    /* 14px  — secondary body */
+  --fs-base:0.9375rem;   /* 15px  — UI default */
+  --fs-md:  1rem;        /* 16px  — body */
+  --fs-lg:  1.125rem;    /* 18px  — lead */
+  --fs-xl:  1.375rem;    /* 22px  — card titles */
+  --fs-2xl: 1.75rem;     /* 28px  — section sub-heads */
+  --fs-3xl: 2.25rem;     /* 36px  — section titles */
+
+  /* ---- Muted text: three steps, not eleven ---- */
+  --text-muted:   color-mix(in srgb, var(--default-color), transparent 32%);
+  --text-subtle:  color-mix(in srgb, var(--default-color), transparent 48%);
+  --text-faint:   color-mix(in srgb, var(--default-color), transparent 64%);
+
+  /* ---- Semantic status colours (were raw hex in three files) ---- */
+  --color-danger:  #b23b2e;
+  --color-success: #2f7a44;
+
+  /* ---- Elevation ---- */
+  --shadow-sm: 0 2px 10px rgba(36, 28, 15, 0.06);
+  --shadow-md: 0 8px 26px rgba(36, 28, 15, 0.10);
+  --shadow-lg: 0 16px 44px rgba(36, 28, 15, 0.14);
+
+  --radius: 8px;
+}
+
+/* =========================================================
+   1. TYPOGRAPHY — snap stray sizes onto the scale
+   ========================================================= */
+
+body {
+  font-size: var(--fs-md);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+  letter-spacing: -0.011em;
+  line-height: 1.22;
+}
+
+h1 { font-weight: 600; }
+h2 { font-weight: 600; }
+h3, h4 { font-weight: 600; }
+h5, h6 { font-weight: 600; }
+
+p { line-height: 1.68; }
+
+/* Section titles were 36/40/42/44px across different sections */
+.section-title h2 {
+  font-size: clamp(1.875rem, 3.2vw, var(--fs-3xl));
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  margin-bottom: 12px;
+}
+
+.section-title p {
+  font-size: var(--fs-md);
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 62ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Card and item headings: were 17/18/19/20/21/22px */
+.service-item h3,
+.service-item h4,
+.features-item h4,
+.faq-item h3,
+.info-item h3,
+.team-member .member-info h4,
+.post-item .post-title,
+.portfolio-item h4 {
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Body copy inside cards: was 14 / 14.5 / 15 / 15.5px */
+.service-item p,
+.features-item p,
+.faq-content p,
+.info-item p,
+.post-item .post-meta,
+.team-member .member-info span {
+  font-size: var(--fs-base);
+  line-height: 1.66;
+  color: var(--text-muted);
+}
+
+/* Small print: was 11 / 11.5 / 12 / 12.5 / 13 / 13.5px */
+.field-help,
+.panel-hint,
+.cert-issuer,
+.marquee-heading p,
+.credits,
+.copyright {
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--text-subtle);
+}
+
+/* =========================================================
+   2. COLOUR — collapse the eleven greys
+   ========================================================= */
+
+.cert-issuer,
+.marquee-heading p { color: var(--text-subtle); }
+
+.field-error { color: var(--color-danger); }
+.field-ok,
+.text-success { color: var(--color-success); }
+
+/* =========================================================
+   3. BUTTONS — were four different paddings and three radii
+   ========================================================= */
+
+.btn-brand,
+.btn-brand-outline,
+.btn-getstarted,
+.php-email-form button[type="submit"] {
+  font-family: var(--nav-font);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 4px;
+  padding: 12px 30px;
+  transition: background 0.28s ease, color 0.28s ease,
+              border-color 0.28s ease, transform 0.28s ease,
+              box-shadow 0.28s ease;
+}
+
+.btn-brand:hover,
+.btn-getstarted:hover,
+.php-email-form button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-brand-outline:hover {
+  transform: translateY(-2px);
+}
+
+/* Header CTA sat slightly large next to the nav */
+.header .btn-getstarted {
+  padding: 9px 24px;
+  font-size: var(--fs-sm);
+}
+
+/* =========================================================
+   4. CARDS — unify radius, border and hover
+   ========================================================= */
+
+.service-item,
+.features-item,
+.info-item,
+.post-item,
+.team-member,
+.faq-item,
+.pricing-item {
+  border-radius: var(--radius);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.service-item:hover,
+.post-item:hover,
+.team-member:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* =========================================================
+   5. FOCUS — visible keyboard focus everywhere (was missing)
+   ========================================================= */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 84%);
+}
+
+/* =========================================================
+   6. RHYTHM — section padding was 60/70/80/100px
+   ========================================================= */
+
+.section {
+  padding: clamp(56px, 7vw, 88px) 0;
+}
+
+.section-title {
+  padding-bottom: clamp(28px, 3.5vw, 44px);
+}
+
+/* =========================================================
+   7. SMALL FIXES
+   ========================================================= */
+
+/* Selection colour was browser-default blue against a gold site */
+::selection {
+  background: color-mix(in srgb, var(--accent-color), transparent 72%);
+  color: var(--default-color);
+}
+
+/* Images should never overflow their column */
+img { max-width: 100%; }
+
+/* Consistent link transition */
+a { transition: color 0.25s ease; }
+
+/* Footer legal line was cramped against the copyright row */
+.footer .credits { margin-top: 4px; }

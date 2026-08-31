@@ -25,10 +25,10 @@
 
 .client-marquee .marquee-heading p {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--default-color), transparent 45%);
+  color: var(--text-subtle);
 }
 
 /* Fade the edges so logos enter and leave softly instead of clipping */
@@ -144,7 +144,7 @@
 
 .certificates .cert-name {
   margin: 14px 4px 3px;
-  font-size: 15px;
+  font-size: var(--fs-base);
   font-weight: 600;
   color: var(--heading-color);
   line-height: 1.35;
@@ -152,8 +152,8 @@
 
 .certificates .cert-issuer {
   margin: 0 4px;
-  font-size: 13px;
-  color: color-mix(in srgb, var(--default-color), transparent 42%);
+  font-size: var(--fs-xs);
+  color: var(--text-subtle);
   line-height: 1.4;
 }
 
@@ -165,7 +165,7 @@
   border-radius: 6px;
   background: color-mix(in srgb, #b58e4a, transparent 90%);
   border: 1px dashed color-mix(in srgb, #b58e4a, transparent 55%);
-  font-size: 13.5px;
+  font-size: var(--fs-xs);
   text-align: center;
-  color: color-mix(in srgb, var(--default-color), transparent 22%);
+  color: var(--text-muted);
 }

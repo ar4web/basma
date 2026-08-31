@@ -66,7 +66,7 @@
 }
 
 .bam-cc-text p {
-  font-size: 14px;
+  font-size: var(--fs-sm);
   line-height: 1.65;
   margin: 0;
   color: #55503f;
@@ -89,7 +89,7 @@
   border: 0;
   border-radius: 6px;
   padding: 12px 24px;
-  font-size: 14.5px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   cursor: pointer;
   transition: 0.25s;
@@ -206,7 +206,7 @@
 }
 
 .bam-cc-modal-head p {
-  font-size: 13.5px;
+  font-size: var(--fs-xs);
   color: #6b6553;
   margin: 0;
   line-height: 1.6;
@@ -247,23 +247,23 @@
 }
 
 .bam-cc-group h5 {
-  font-size: 15.5px;
+  font-size: var(--fs-base);
   font-weight: 700;
   margin: 0;
   color: #27200c;
 }
 
 .bam-cc-group p {
-  font-size: 13.5px;
+  font-size: var(--fs-xs);
   line-height: 1.65;
   color: #625c4a;
   margin: 0;
 }
 
 .bam-cc-always {
-  font-size: 12.5px;
+  font-size: var(--fs-2xs);
   font-weight: 700;
-  color: #2e7d32;
+  color: var(--color-success);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
@@ -365,7 +365,7 @@
 
 .bam-cc-blocked p {
   color: #f2ede0;
-  font-size: 14.5px;
+  font-size: var(--fs-sm);
   max-width: 380px;
   line-height: 1.6;
   margin: 0 0 16px;
@@ -377,7 +377,7 @@
   border: 0;
   border-radius: 6px;
   padding: 10px 22px;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
@@ -399,7 +399,7 @@
 .cookie-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   min-width: 620px;
 }
 
@@ -407,7 +407,7 @@
   background: color-mix(in srgb, var(--color-brand, #8b6c38), transparent 92%);
   color: #27200c;
   font-weight: 700;
-  font-size: 13px;
+  font-size: var(--fs-xs);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 12px 14px;
@@ -430,7 +430,7 @@
   background: #f2efe7;
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 12.5px;
+  font-size: var(--fs-2xs);
   color: #6b5426;
   word-break: break-all;
 }
@@ -461,7 +461,7 @@
 
 .policy-body p,
 .policy-body li {
-  font-size: 15px;
+  font-size: var(--fs-base);
   line-height: 1.8;
   color: color-mix(in srgb, var(--default-color, #27200c), transparent 12%);
 }
@@ -476,7 +476,7 @@
 }
 
 .policy-meta {
-  font-size: 13.5px;
+  font-size: var(--fs-xs);
   color: color-mix(in srgb, var(--default-color, #27200c), transparent 40%);
   padding-bottom: 18px;
   margin-bottom: 8px;

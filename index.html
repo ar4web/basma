@@ -44,6 +44,7 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css?v=19" rel="stylesheet">
 
+  <link href="assets/css/hero-slider.css?v=19" rel="stylesheet">
   <link href="assets/css/clients.css?v=19" rel="stylesheet">
   <link href="assets/css/cookie.css?v=19" rel="stylesheet">
 
@@ -79,6 +80,8 @@
     "knowsLanguage": ["ar", "en"]
   }
   </script>
+
+<link href="assets/css/refinements.css?v=19" rel="stylesheet">
 
 </head>
 
@@ -134,14 +137,69 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section">
 
-      <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">
-        <img src="assets/img/hero-img.svg" class="img-fluid animated" alt="Basmat Al Mawared workforce deployment illustration">
-        <h1>Welcome to <span>Basmat Al Mawared</span></h1>
-        <p>100% MLSD Compliant manpower supply and workforce management for Saudi Arabia's leading enterprises.</p>
-        <div class="d-flex">
-          <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
-          <a href="#services" class="btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Explore Services</span></a>
+      <div class="hero-slider swiper" data-aos="fade" data-aos-duration="900">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="assets/img/hero/hero-1.jpg" alt="Uniformed Basmat Al Mawared team in a Riyadh corporate lobby at sunrise" width="1920" height="1080" fetchpriority="high" decoding="async">
+            <div class="hero-slide-content">
+              <div class="container">
+                <p class="hero-kicker">Workforce, Delivered</p>
+                <h1>Basmat Al Mawared</h1>
+                <p class="hero-lead">Licensed manpower supply and full workforce management for the Kingdom&rsquo;s leading enterprises.</p>
+                <div class="hero-actions">
+                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
+                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/hero/hero-2.jpg" alt="Logistics and warehouse personnel at a Saudi distribution centre" width="1920" height="1080" loading="lazy" decoding="async">
+            <div class="hero-slide-content">
+              <div class="container">
+                <p class="hero-kicker">Logistics &amp; Warehousing</p>
+                <h1>Teams That Keep You Moving</h1>
+                <p class="hero-lead">Trained, background-checked crews deployed to your site &mdash; ready for peak season and beyond.</p>
+                <div class="hero-actions">
+                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
+                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/hero/hero-3.jpg" alt="Maintenance technician servicing building equipment" width="1920" height="1080" loading="lazy" decoding="async">
+            <div class="hero-slide-content">
+              <div class="container">
+                <p class="hero-kicker">Technical &amp; Maintenance</p>
+                <h1>Skilled Hands, On Site</h1>
+                <p class="hero-lead">Certified technicians and facility crews, fully compliant through Qiwa, Muqeem and WPS.</p>
+                <div class="hero-actions">
+                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
+                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/hero/hero-4.jpg" alt="Operations manager reviewing deployment plans with uniformed staff" width="1920" height="1080" loading="lazy" decoding="async">
+            <div class="hero-slide-content">
+              <div class="container">
+                <p class="hero-kicker">Since 2017</p>
+                <h1>Trusted by 30+ Organisations</h1>
+                <p class="hero-lead">Nine years placing the right people, with a replacement guarantee behind every deployment.</p>
+                <div class="hero-actions">
+                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
+                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="hero-pagination"></div>
+        <button class="hero-nav hero-prev" type="button" aria-label="Previous slide"><i class="bi bi-chevron-left"></i></button>
+        <button class="hero-nav hero-next" type="button" aria-label="Next slide"><i class="bi bi-chevron-right"></i></button>
       </div>
 
     </section><!-- /Hero Section -->
@@ -1682,6 +1740,24 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <!-- Main JS File -->
+  <script>
+    // Hero slider. Swiper is already loaded for testimonials, so this adds
+    // no new dependency.
+    window.addEventListener('load', function () {
+      if (typeof Swiper === 'undefined') return;
+      new Swiper('.hero-slider', {
+        loop: true,
+        speed: 900,
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+        autoplay: { delay: 6000, disableOnInteraction: false, pauseOnMouseEnter: true },
+        pagination: { el: '.hero-pagination', clickable: true },
+        navigation: { nextEl: '.hero-next', prevEl: '.hero-prev' },
+        keyboard: { enabled: true }
+      });
+    });
+  </script>
+
   <script src="assets/js/main.js"></script>
   <script src="assets/js/cookie-consent.js"></script>
 
