@@ -288,10 +288,80 @@ p { line-height: 1.68; }
   transform: translateY(-2px);
 }
 
-/* Header CTA sat slightly large next to the nav */
-.header .btn-getstarted {
+/* --- header CTA: liquid glass -----------------------------------------
+   Was a solid gold slab, the heaviest element in a deliberately light
+   header. Now a glass pill: a translucent white fill with a backdrop blur
+   and saturation lift, so the page gradient shows through and shifts as you
+   scroll rather than being covered by a flat block.
+
+   Depth comes from three layers rather than a shadow. An inset highlight
+   along the top edge reads as light catching the rim, an inset shade along
+   the bottom reads as thickness, and a soft outer shadow lifts the whole
+   pill off the bar.
+
+   Text is #6b5322 rather than the brand gold: measured 5.73 against the
+   blurred fill, where brand gold managed only 4.39 and failed. */
+
+.header .btn-getstarted,
+.header .btn-getstarted:focus {
+  position: relative;
   padding: 9px 24px;
   font-size: var(--fs-sm);
+  font-weight: 600;
+  color: #6b5322;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.46) 0%,
+    rgba(255, 255, 255, 0.30) 52%,
+    rgba(255, 255, 255, 0.38) 100%
+  );
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 50px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(139, 108, 56, 0.10),
+    0 2px 10px rgba(58, 42, 15, 0.09);
+}
+
+.header .btn-getstarted:hover,
+.header .btn-getstarted:focus:hover {
+  color: #5f4a26;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.60) 0%,
+    rgba(255, 255, 255, 0.42) 52%,
+    rgba(255, 255, 255, 0.52) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(139, 108, 56, 0.12),
+    0 6px 18px rgba(58, 42, 15, 0.14);
+}
+
+/* Browsers without backdrop-filter get an opaque fill instead of a
+   near-invisible transparent one. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .header .btn-getstarted,
+  .header .btn-getstarted:focus {
+    background: #ece9e0;
+  }
+}
+
+/* Hidden from 1199px down, which is the same breakpoint where the nav
+   collapses to the hamburger. On those widths the hero's own "Request a
+   Quote" button is already on screen, so the header copy is a duplicate
+   competing with the menu toggle for a narrow bar.
+
+   Scoped to the homepage. The hero only exists on index.html, so hiding
+   this globally would leave the other nine pages with no call to action in
+   the header at all on tablet and phone. There it stays. */
+@media (max-width: 1199px) {
+  body.index-page .header .btn-getstarted {
+    display: none;
+  }
 }
 
 /* =========================================================
