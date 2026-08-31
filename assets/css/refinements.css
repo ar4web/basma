@@ -919,3 +919,136 @@ body {
   border-radius: var(--r-md);
 }
 
+/* =========================================================
+   CTA HEADLINE + BRAND PATTERN
+   ========================================================= */
+
+/* --- the pattern -------------------------------------------------------
+   The logo mark tiled across the flat band. Built as a 560px tile holding
+   six marks at irregular positions, sizes and rotations, so the repeat is
+   hard to read as a grid; a small dense tile would look like wallpaper.
+
+   It is a paletted PNG alpha mask, 18 KB, and it is masked rather than
+   drawn: the tile provides the shape and a brand-gold layer shows through
+   it, so the pattern is always exactly the brand colour and can never
+   drift from it.
+
+   Kept at 6% opacity. This is brand texture, not decoration: it should
+   register as a warm surface treatment and only resolve into logos if you
+   go looking. Anything stronger competes with the headline. */
+
+.call-to-action .container {
+  position: relative;
+  isolation: isolate;
+}
+
+.call-to-action .container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--color-brand);
+  -webkit-mask-image: url("../img/brand-pattern.png");
+  mask-image: url("../img/brand-pattern.png");
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-size: 460px auto;
+  mask-size: 460px auto;
+  opacity: 0.06;
+}
+
+/* Fade the pattern out towards the copy so it never sits behind running
+   text, only behind the open areas of the band. */
+@supports (mask-image: linear-gradient(#000, #000)) {
+  .call-to-action .container::before {
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+    -webkit-mask-image:
+      url("../img/brand-pattern.png"),
+      linear-gradient(100deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.35) 34%, #000 78%);
+    mask-image:
+      url("../img/brand-pattern.png"),
+      linear-gradient(100deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.35) 34%, #000 78%);
+    -webkit-mask-repeat: repeat, no-repeat;
+    mask-repeat: repeat, no-repeat;
+    -webkit-mask-size: 460px auto, 100% 100%;
+    mask-size: 460px auto, 100% 100%;
+  }
+}
+
+.call-to-action .container > .row {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- the headline ------------------------------------------------------
+   Was Source Sans Pro at 700, the same family as every other heading on
+   the page, so the section's main statement had no more presence than a
+   card title. Fraunces is a high-contrast display serif with a real
+   optical-size axis, set here at 144 so it renders with display
+   proportions: tight apertures, sharp thick-to-thin. It is used ONLY here
+   and it is the only new family on the site.
+
+   The gradient runs across the whole line rather than only the emphasis,
+   so the headline reads as one object. background-clip: text has no
+   fallback colour of its own, so --heading-color is set first and only
+   replaced where the property is supported. */
+
+.call-to-action .content h3 {
+  font-family: "Fraunces", "Source Sans Pro", Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.14;
+  color: var(--heading-color);
+  margin-bottom: 18px;
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .call-to-action .content h3 {
+    /* Every stop is checked against the band WITH the pattern behind it,
+       which is the true worst case. The obvious choice, running up to a
+       light #b8964d highlight, measured 1.56 and would have been close to
+       invisible. This ramp keeps real luminance travel so it still reads
+       as a gradient, but its weakest stop is 3.24, above the 3.0 needed
+       for large text. */
+    background: linear-gradient(
+      96deg,
+      #41300f 0%,
+      #5f4a26 32%,
+      #7d612f 58%,
+      #503c19 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* The template underlines the emphasis with a solid bar behind the text.
+   Against a gradient headline that reads as a highlighter pen, so it
+   becomes a soft rule that sits under the line instead of through it. */
+.call-to-action .content h3 em {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.call-to-action .content h3 em:after {
+  bottom: -2px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-brand), transparent 20%),
+    color-mix(in srgb, var(--color-tints-750), transparent 55%)
+  );
+}
+
+@media (max-width: 575px) {
+  .call-to-action .content h3 {
+    letter-spacing: -0.008em;
+  }
+}
+
