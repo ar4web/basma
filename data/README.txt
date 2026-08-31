@@ -23,3 +23,24 @@ If the panel still cannot save, use 775 on the directory.
 
 To reset a forgotten admin password: delete admin.json and reopen /admin/,
 which will show the account-creation screen again.
+
+
+APPLICATION REFERENCE FORMAT
+============================
+Every application and enquiry is given a reference in this form:
+
+    BMC + DD + MM + HH + MM        (Riyadh time)
+
+    BMC31080306   = 31 August, 03:06
+
+If more than one application arrives in the SAME minute, a sequence letter is
+added so no two candidates ever share a reference:
+
+    BMC31080306    first
+    BMC31080306B   second
+    BMC31080306C   third
+
+The first keeps the clean form. Allocation uses an exclusive file lock, so two
+simultaneous submissions cannot be given the same code. The ledger that tracks
+this is .refs.json inside the application storage directory; it keeps only the
+last 500 minutes and needs no maintenance.

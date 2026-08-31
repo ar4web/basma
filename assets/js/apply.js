@@ -298,6 +298,19 @@
           document.querySelector('#apply-intro').style.display = 'none';
           document.querySelector('#form-steps').style.display = 'none';
           document.querySelector('#success-ref').textContent = data.reference || '—';
+
+          // Let the candidate copy their reference in one tap.
+          const copyBtn = document.querySelector('#copy-ref');
+          if (copyBtn && navigator.clipboard) {
+            copyBtn.addEventListener('click', () => {
+              navigator.clipboard.writeText(data.reference || '').then(() => {
+                copyBtn.innerHTML = '<i class="bi bi-check-lg"></i>';
+                setTimeout(() => { copyBtn.innerHTML = '<i class="bi bi-clipboard"></i>'; }, 1800);
+              }).catch(() => {});
+            });
+          } else if (copyBtn) {
+            copyBtn.style.display = 'none';
+          }
           document.querySelector('#apply-success').style.display = 'block';
           window.scrollTo({
             top: document.querySelector('.form-wrap').offsetTop - 110,

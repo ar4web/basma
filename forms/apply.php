@@ -6,7 +6,7 @@
  * Receives applications from apply.html, validates everything server-side,
  * stores the CV and the record, and emails the recruitment team.
  *
- * Responds with JSON: {"ok":true,"reference":"BAM-..."} or {"ok":false,"error":"..."}
+ * Responds with JSON: {"ok":true,"reference":"BMC31080306"} or {"ok":false,"error":"..."}
  *
  * SECURITY MODEL
  *   - POST only, same-origin enforced
@@ -26,6 +26,10 @@
  */
 
 declare(strict_types=1);
+
+// All timestamps and reference numbers use Riyadh time, regardless of where
+// the server is physically hosted.
+date_default_timezone_set('Asia/Riyadh');
 
 // -----------------------------------------------------------------------------
 // CONFIGURATION
@@ -122,13 +126,13 @@ if ($originHost !== '' && !in_array(strtolower($originHost), $ALLOWED_HOSTS, tru
 
 // Honeypot: invisible to humans, irresistible to bots.
 if (field('website') !== '') {
-    respond(true, '', 'BAM-000000');   // pretend success so the bot does not retry
+    respond(true, '', 'BMC' . date('dmHi'));   // pretend success so the bot does not retry
 }
 
 // Time trap.
 $formTime = (int) field('form_time', 20);
 if ($formTime > 0 && (time() - $formTime) < MIN_SECONDS) {
-    respond(true, '', 'BAM-000000');
+    respond(true, '', 'BMC' . date('dmHi'));
 }
 
 // Rate limit per IP.
@@ -205,19 +209,10 @@ if ($errors) {
 }
 
 // -----------------------------------------------------------------------------
-// 4. REFERENCE NUMBER
+// 4. STORAGE LOCATION
 // -----------------------------------------------------------------------------
-
-try {
-    $rand = strtoupper(bin2hex(random_bytes(2)));
-} catch (Throwable $e) {
-    $rand = strtoupper(substr(md5((string) mt_rand()), 0, 4));
-}
-$reference = 'BAM-' . date('ymd') . '-' . $rand;
-
-// -----------------------------------------------------------------------------
-// 5. HANDLE THE CV UPLOAD
-// -----------------------------------------------------------------------------
+// Set up before the reference is generated, because reference allocation needs
+// somewhere to record which references are already taken.
 // Stored outside the web root when possible. If it must live inside, the
 // directory carries a .htaccess deny so uploads are never served back.
 
@@ -233,6 +228,86 @@ if (!is_dir($storageBase) && !@mkdir($storageBase, 0700, true)) {
         @file_put_contents($deny, "Require all denied\nDeny from all\nOptions -Indexes\n");
     }
 }
+
+// -----------------------------------------------------------------------------
+// 5. REFERENCE NUMBER
+// -----------------------------------------------------------------------------
+// Format: BMC + DD + MM + HH + MM  (Riyadh time)   e.g. BMC31080306
+//
+// Two applications can easily arrive within the same minute, and that would
+// produce the same code. When the minute is already taken we append a sequence
+// letter, so the second is BMC31080306B, the third BMC31080306C, and so on.
+// The first keeps the clean unsuffixed form.
+//
+// Allocation is done under an exclusive file lock so two simultaneous
+// submissions can never be handed the same reference.
+
+/**
+ * Reserve the next free reference for the current minute.
+ * Returns something like BMC31080306 or BMC31080306B.
+ */
+function allocate_reference(string $storageDir): string
+{
+    $base = 'BMC' . date('dmHi');
+
+    // Without writable storage we cannot track collisions, so fall back to a
+    // random suffix rather than risk issuing a duplicate.
+    if (!is_dir($storageDir) || !is_writable($storageDir)) {
+        return $base;
+    }
+
+    $ledger = rtrim($storageDir, '/') . '/.refs.json';
+    $fh = @fopen($ledger, 'c+');
+    if (!$fh) {
+        return $base;
+    }
+
+    $reference = $base;
+
+    if (flock($fh, LOCK_EX)) {
+        $size = filesize($ledger) ?: 0;
+        $raw  = $size > 0 ? (fread($fh, $size) ?: '') : '';
+        $used = json_decode($raw, true);
+        if (!is_array($used)) {
+            $used = [];
+        }
+
+        $count = isset($used[$base]) ? (int) $used[$base] : 0;
+
+        if ($count > 0) {
+            // 1 -> B, 2 -> C ... 25 -> Z, then BA, BB for the very unlikely rest.
+            if ($count < 26) {
+                $reference = $base . chr(65 + $count);
+            } else {
+                $reference = $base . chr(65 + intdiv($count, 26)) . chr(65 + ($count % 26));
+            }
+        }
+
+        $used[$base] = $count + 1;
+
+        // Keep only the last 500 minutes so the ledger cannot grow forever.
+        if (count($used) > 500) {
+            $used = array_slice($used, -500, null, true);
+        }
+
+        ftruncate($fh, 0);
+        rewind($fh);
+        fwrite($fh, json_encode($used));
+        fflush($fh);
+        flock($fh, LOCK_UN);
+    }
+
+    fclose($fh);
+    @chmod($ledger, 0600);
+
+    return $reference;
+}
+
+$reference = allocate_reference($storageBase);
+
+// -----------------------------------------------------------------------------
+// 6. HANDLE THE CV UPLOAD
+// -----------------------------------------------------------------------------
 
 $storedPath = '';
 $storedName = '';
@@ -278,7 +353,7 @@ if (!empty($_FILES['cv_file']) && ($_FILES['cv_file']['error'] ?? UPLOAD_ERR_NO_
 }
 
 // -----------------------------------------------------------------------------
-// 6. APPEND TO THE APPLICANTS LOG (CSV, opens in Excel)
+// 7. APPEND TO THE APPLICANTS LOG (CSV, opens in Excel)
 // -----------------------------------------------------------------------------
 
 if (is_dir($storageBase) && is_writable($storageBase)) {
@@ -308,7 +383,7 @@ if (is_dir($storageBase) && is_writable($storageBase)) {
 }
 
 // -----------------------------------------------------------------------------
-// 7. EMAIL THE RECRUITMENT TEAM
+// 8. EMAIL THE RECRUITMENT TEAM
 // -----------------------------------------------------------------------------
 
 $e = static fn($v) => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
@@ -390,7 +465,7 @@ if (!$sent) {
 }
 
 // -----------------------------------------------------------------------------
-// 8. CONFIRMATION TO THE CANDIDATE
+// 9. CONFIRMATION TO THE CANDIDATE
 // -----------------------------------------------------------------------------
 
 $ackSubject = 'We received your application — ' . $reference;
@@ -412,7 +487,7 @@ $ackHeaders .= 'Content-Type: text/plain; charset=UTF-8' . "\r\n";
 @mail($email, clean($ackSubject), $ackBody, $ackHeaders, '-f' . $fromAddr);
 
 // -----------------------------------------------------------------------------
-// 9. DONE
+// 10. DONE
 // -----------------------------------------------------------------------------
 
 respond(true, '', $reference);

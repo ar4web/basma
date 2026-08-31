@@ -15,6 +15,9 @@
 
 declare(strict_types=1);
 
+// All timestamps use Riyadh time, regardless of where the server is hosted.
+date_default_timezone_set('Asia/Riyadh');
+
 // ---------------------------------------------------------------------------
 // CONFIGURATION — edit these values
 // ---------------------------------------------------------------------------
@@ -157,6 +160,7 @@ $rows = [
     'Email'       => $email,
     'Phone'       => $phone !== '' ? $phone : '—',
     'Requirement' => $subject,
+    'Reference'   => 'BMC' . date('dmHi'),
     'Received'    => date('Y-m-d H:i:s T'),
     'Source IP'   => $ip,
 ];
