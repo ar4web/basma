@@ -2,6 +2,9 @@
 
 How the site is built, how to run it day to day, and how to extend it safely.
 
+**New here? Read `START_HERE.md` first** — launch checklist and daily operations.
+For architecture and extension patterns, see `BLUEPRINT.md`.
+
 ---
 
 ## 1. What this site is
