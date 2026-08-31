@@ -57,28 +57,30 @@
 :root,
 .light-background {
   /* Cards, panels, dropdowns: was #ffffff */
-  --surface-color: #fbfaf6;
+  --surface-color: #f8f6f0;
 
   /* Page background: was #f5f4ef, dropped very slightly so cards still
      separate cleanly from the page behind them. */
-  --background-color: #f2f0e9;
+  --background-color: #eeebe1;
 }
 
-/* Text on dark/accent backgrounds. Pure white on the gold brand colour is
-   harsh; a warm near-white keeps the contrast ratio while softening it. */
+/* Text on dark/accent backgrounds. This one is held slightly brighter than
+   the page surfaces on purpose: it is the label colour on gold buttons, and
+   anything dimmer than #f9f7f2 drops the ratio below the 4.5 AA threshold.
+   Measured 4.56 against the brand gold. */
 :root {
-  --contrast-color: #faf8f3;
+  --contrast-color: #f9f7f2;
 }
 
 /* The header sits on the page background and was reading as a bright band */
 .header {
-  background-color: color-mix(in srgb, var(--background-color), #fff 35%);
+  background-color: color-mix(in srgb, var(--background-color), #fff 22%);
   border-bottom: 1px solid color-mix(in srgb, var(--color-brand), transparent 92%);
 }
 
 .header.sticked,
 .header.scrolled {
-  background-color: color-mix(in srgb, var(--background-color), #fff 55%);
+  background-color: color-mix(in srgb, var(--background-color), #fff 38%);
   box-shadow: 0 2px 18px rgba(36, 28, 15, 0.07);
 }
 
@@ -86,17 +88,17 @@
 .form-control,
 .form-select,
 textarea.form-control {
-  background-color: #fbfaf6;
+  background-color: #f8f6f0;
 }
 
 .form-control:focus,
 .form-select:focus {
-  background-color: #fdfcfa;
+  background-color: #fbf9f4;
 }
 
 /* Alternating sections: keep the contrast gentle rather than white vs cream */
 .light-background {
-  background-color: #f7f5ef;
+  background-color: #f3f1e8;
 }
 
 /* =========================================================

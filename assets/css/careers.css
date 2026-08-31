@@ -763,7 +763,7 @@
   border-radius: 6px;
   margin-bottom: 12px;
   overflow: hidden;
-  background: #fbfaf6;
+  background: #f8f6f0;
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
   display: flex;
   align-items: flex-start;
@@ -880,7 +880,7 @@
   width: 210mm;
   min-height: 297mm;
   margin: 0 auto;
-  background: #fbfaf6;
+  background: #f8f6f0;
   color: #222;
   box-shadow: 0 4px 26px rgba(0, 0, 0, 0.16);
   transform-origin: top center;
