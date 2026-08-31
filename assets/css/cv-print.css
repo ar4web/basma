@@ -185,11 +185,6 @@
 /*--------------------------------------------------------------
 # PRINT — only the CV sheet reaches the paper
 --------------------------------------------------------------*/
-/* Watermark: never visible in the on-screen preview, only in the export. */
-#cv-watermark {
-  display: none;
-}
-
 @page {
   size: A4;
   margin: 0;
@@ -236,18 +231,31 @@
     background: #fff !important;
   }
 
-  /* Bottom-right credit on the exported PDF. Real selectable text, not an
-     image and not a background, so any PDF reader can select and delete it. */
-  #cv-watermark {
+  /* Bottom-right credit, LAST PAGE ONLY.
+
+     Rendered as generated content on the sheet itself rather than as a
+     positioned element. Two reasons:
+       1. It sits in the sheet's normal flow, so it follows the final line
+          of content and therefore prints once, on the last page. A fixed
+          element would repeat on every page.
+       2. #cv-sheet is position:absolute in print, which collapses the
+          shell to zero height, so anchoring to the shell would not work.
+
+     Kept faint on purpose: 6.5pt at 45% opacity in a pale warm grey. It
+     reads as a discreet credit, not a claim over the document. Still real
+     selectable text, so any PDF reader can highlight and delete it. */
+  #cv-sheet::after {
+    content: "Created with basmat-almawared.com";
     display: block !important;
-    position: fixed !important;
-    right: 12mm !important;
-    bottom: 8mm !important;
-    margin: 0 !important;
-    font-size: 7.5pt !important;
-    letter-spacing: 0.3pt !important;
-    color: #b0a48c !important;
-    background: none !important;
+    margin-top: 10mm !important;
+    padding-top: 2mm !important;
+    font-size: 6.5pt !important;
+    letter-spacing: 0.2pt !important;
+    color: #cfc7b8 !important;
+    opacity: 0.45 !important;
+    text-align: right !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }

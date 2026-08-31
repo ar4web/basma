@@ -134,7 +134,7 @@ account again. No email recovery exists by design — one less attack surface.
 | Careers page empty | `jobs.json` unreadable or invalid | Check the file exists and is valid JSON |
 | Forms do nothing | Domain missing from `$ALLOWED_HOSTS` | Add it in both PHP files |
 | No email arrives | Host blocks `mail()` | Applications still save to CSV; switch to SMTP |
-| CSS changes invisible | Browser cached the old file | Bump `?v=18` to `?v=19` in every page |
+| CSS changes invisible | Browser cached the old file | Bump `?v=19` to `?v=20` in every page |
 
 ---
 

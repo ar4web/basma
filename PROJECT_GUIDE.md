@@ -193,6 +193,6 @@ or JS file**, otherwise returning visitors keep the old cached copy.
 | Careers page empty | `data/jobs.json` unreadable. Check it exists and is valid JSON |
 | Forms do nothing | PHP not running, or the domain is missing from `$ALLOWED_HOSTS` |
 | No email arrives | Host blocks `mail()`. Applications are still saved to CSV — switch to SMTP |
-| CSS changes not showing | Bump `?v=17` to `?v=18` in every page |
+| CSS changes not showing | Bump `?v=19` to `?v=20` in every page |
 | Forgot admin password | Delete `data/admin.json` and reopen `/admin/` |
 | Video will not play | Confirm `assets/video/ads.mov.mp4` uploaded fully (25.5 MB) |

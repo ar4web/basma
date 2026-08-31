@@ -244,8 +244,8 @@ Four rules keep it there:
 3. **Heavy media is click-to-play.** The 25 MB video is an `<a>` that opens
    in a lightbox — never a `<video>` tag with `preload`.
 4. **Bump `?v=` when you edit CSS or JS.** Assets are cached for a year, so
-   without a bump returning visitors keep the stale copy. All 27 references
-   currently read `?v=18`.
+   without a bump returning visitors keep the stale copy. All 28 references
+   currently read `?v=19`.
 
 Before adding anything heavy, check the budget:
 ```bash
