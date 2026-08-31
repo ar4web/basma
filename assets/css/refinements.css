@@ -1194,3 +1194,84 @@ body {
 .features .nav-link {
   color: var(--text-muted);
 }
+
+/* =========================================================
+   PRICING HEADERS — logo watermark
+   ---------------------------------------------------------
+   The three plan headers used a stock photograph, pricing-bg.jpg, behind a
+   black gradient. A generic photo carries no brand meaning at 40px of
+   visible height, and it was the same picture three times in a row.
+
+   Replaced with one large logo mark per header, cropped so it bleeds off
+   the edges. Same reasoning as the call-to-action band: one big mark reads
+   as brand furniture, small repeated marks read as wallpaper.
+
+   Drawn from logo.svg as a CSS mask rather than a background image, so the
+   mark is always exactly the colour set here and cannot drift from the
+   palette. The header already loads that file on every page, so this costs
+   no new request and lets pricing-bg.jpg drop out of the page entirely.
+   ========================================================= */
+
+.pricing .pricing-header {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Same dark gradient as the CTA band, so the two dark surfaces on the
+     page match instead of being two different browns. */
+  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #4a3615 100%);
+}
+
+.pricing .pricing-header::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  /* Large and off-centre: anchored past the right edge and taller than the
+     header, so only a crop of the mark shows. */
+  right: -14%;
+  top: -46%;
+  width: 210px;
+  height: 246px;
+  transform: rotate(-9deg);
+  background-color: #a88342;
+  opacity: 0.11;
+  -webkit-mask-image: url("../img/logo.svg");
+  mask-image: url("../img/logo.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/* The featured card keeps its gold header. A gold mark would vanish on
+   gold, so the watermark inverts to the dark brown instead. */
+.pricing .featured .pricing-header {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--accent-color), #000 6%) 0%,
+    var(--accent-color) 55%,
+    color-mix(in srgb, var(--accent-color), #fff 8%) 100%
+  );
+}
+
+.pricing .featured .pricing-header::before {
+  background-color: #3a2a0f;
+  opacity: 0.13;
+}
+
+/* Text above the watermark. */
+.pricing .pricing-header h3,
+.pricing .pricing-header h4 {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 991px) {
+  .pricing .pricing-header::before {
+    width: 170px;
+    height: 199px;
+    right: -10%;
+    top: -38%;
+  }
+}
+
