@@ -93,8 +93,11 @@
   border-bottom: 1px solid color-mix(in srgb, var(--color-brand), transparent 92%);
 }
 
-.header.sticked,
-.header.scrolled {
+/* main.js adds .scrolled to <body>, not to .header, and never adds
+   .sticked at all - that class belongs to a different template. Both
+   selectors here matched nothing, so the header has never actually
+   compacted on scroll. Corrected to body.scrolled. */
+body.scrolled .header {
   padding: 7px 0;
   background-color: color-mix(in srgb, var(--background-color), #fff 20%);
   box-shadow: 0 2px 18px rgba(36, 28, 15, 0.07);
@@ -133,8 +136,7 @@
   color: var(--color-brand);
 }
 
-.header.sticked .logo,
-.header.scrolled .logo {
+body.scrolled .header .logo {
   --logo-h: 34px;
 }
 
@@ -591,15 +593,12 @@ body {
    ========================================================= */
 
 /* --- 1. Remaining pure-white surfaces --------------------------------
-   main.css still declares --surface-color: #ffffff twice, once in :root
-   and once inside .light-background. The :root one is already overridden
-   above, but the .light-background copy re-introduced pure white for any
-   card inside an alternating section. Pinned to the same warm surface so
-   a card does not change colour depending on which section it sits in. */
-
-.light-background {
-  --surface-color: #f1ede3;
-}
+   main.css declares --surface-color: #ffffff twice, once in :root and once
+   inside .light-background, so overriding only :root left white cards in
+   alternating sections. Both are covered by the token block at the top of
+   this file, which targets ":root, .light-background" together. No rule is
+   needed here; this note stays because the duplicate declaration in
+   main.css is easy to miss. */
 
 /* The scroll-top button and preloader inherited white from the template
    rather than from the token.
@@ -698,11 +697,8 @@ body {
    ~320px measure and breaks badly. Section titles were already fluid; these
    two were missed. Same clamp shape, so they scale with everything else. */
 
-.call-to-action .content h3 {
-  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
-  line-height: 1.16;
-}
-
+/* The CTA headline's clamp lives with the rest of its typography in the
+   CALL TO ACTION block below, so it is not repeated here. */
 .pricing h4 {
   font-size: clamp(2rem, 3.6vw, 3rem);
   line-height: 1.1;
@@ -947,26 +943,35 @@ body {
    ========================================================= */
 
 .call-to-action .container {
+  /* Full bleed */
   max-width: none;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+  padding: 76px 32px;
   /* No radius at full bleed: rounded corners against the viewport edge
      leave slivers of page colour showing in each corner. */
   border-radius: 0;
-  /* Slightly deeper than the template's 4% tint so the band separates from
-     the gradient page now that it has no edges to define it. */
-  background: color-mix(in srgb, var(--color-brand), transparent 92%);
-  border-top: 1px solid color-mix(in srgb, var(--color-brand), transparent 86%);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-brand), transparent 86%);
-  padding: 76px 32px;
+  /* Dark band. Deep brown, warmer and lighter towards the lower right so
+     the panel has a light direction rather than being a flat fill. This is
+     what allows the headline gold to be saturated; see the headline note
+     below. */
+  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #4a3615 100%);
+  border-top: 1px solid rgba(192, 166, 88, 0.26);
+  border-bottom: 1px solid rgba(192, 166, 88, 0.26);
+  /* Containing block for the two watermarks. */
+  position: relative;
+  isolation: isolate;
 }
 
 /* Content keeps the page measure so it stays aligned with the sections
-   above and below; only the band runs edge to edge. */
+   above and below; only the band runs edge to edge. z-index lifts it above
+   the watermarks. */
 .call-to-action .container > .row {
   max-width: 1320px;
   margin-inline: auto;
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 992px) {
@@ -1029,16 +1034,6 @@ body {
    ramp is 0.55 against 0.24 before.
    ========================================================= */
 
-.call-to-action .container {
-  position: relative;
-  isolation: isolate;
-  /* Deep brown, warmer and lighter towards the lower right so the panel has
-     a light direction rather than being a flat fill. */
-  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #4a3615 100%);
-  border-top: 1px solid rgba(192, 166, 88, 0.26);
-  border-bottom: 1px solid rgba(192, 166, 88, 0.26);
-}
-
 /* --- two large watermarks ---------------------------------------------
    Two marks, not many. Each is a large crop bleeding off an edge, which is
    what makes them read as brand furniture rather than as clip art dropped
@@ -1097,11 +1092,6 @@ body {
   .call-to-action .container::before { width: 270px; height: 316px; opacity: 0.07; }
 }
 
-.call-to-action .container > .row {
-  position: relative;
-  z-index: 1;
-}
-
 /* --- headline ----------------------------------------------------------
    Fraunces was too mannered for this brand: quirky, wobbling curves that
    fought the calligraphic logo. Playfair Display instead. It is a
@@ -1115,6 +1105,9 @@ body {
 
 .call-to-action .content h3 {
   font-family: "Playfair Display", "Source Sans Pro", Georgia, serif;
+  /* main.css hardcodes 48px with no responsive override, which breaks on a
+     360px phone. Same clamp shape as the section titles. */
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
   font-weight: 600;
   letter-spacing: -0.005em;
   line-height: 1.16;
