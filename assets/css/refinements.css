@@ -78,16 +78,79 @@
   --contrast-color: #f9f7f2;
 }
 
-/* The header sits on the page background and was reading as a bright band */
+/* =========================================================
+   HEADER
+   ---------------------------------------------------------
+   Was 20px padding top and bottom around a 36px mark and a 32px wordmark:
+   roughly 112px of chrome following you down every page. Tightened to 11px,
+   and the wordmark is now sized from the mark rather than set independently
+   so the two always scale together.
+   ========================================================= */
+
 .header {
+  padding: 11px 0;
   background-color: color-mix(in srgb, var(--background-color), #fff 12%);
   border-bottom: 1px solid color-mix(in srgb, var(--color-brand), transparent 92%);
 }
 
 .header.sticked,
 .header.scrolled {
+  padding: 7px 0;
   background-color: color-mix(in srgb, var(--background-color), #fff 20%);
   box-shadow: 0 2px 18px rgba(36, 28, 15, 0.07);
+}
+
+/* --- logo lockup -----------------------------------------------------
+   One custom property drives both parts. The mark is set to --logo-h, the
+   wordmark to a fixed ratio of it, so changing one number rescales the
+   lockup as a unit and they can never drift apart again. */
+
+.header .logo {
+  --logo-h: 38px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1;
+}
+
+.header .logo img {
+  height: var(--logo-h);
+  width: auto;
+  max-height: none;
+  margin-right: 0;
+  flex: none;
+}
+
+.header .logo .sitename {
+  /* 0.58 of the mark height: optically matched so the cap-height of the
+     wordmark aligns with the body of the mark. */
+  font-size: calc(var(--logo-h) * 0.58);
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  line-height: 1;
+  margin: 0;
+  white-space: nowrap;
+  color: var(--color-brand);
+}
+
+.header.sticked .logo,
+.header.scrolled .logo {
+  --logo-h: 34px;
+}
+
+@media (max-width: 1199px) {
+  .header .logo { --logo-h: 34px; }
+}
+
+@media (max-width: 575px) {
+  .header .logo { --logo-h: 30px; }
+  .header .logo .sitename { font-size: calc(var(--logo-h) * 0.52); }
+}
+
+/* Nav sits on the same optical line as the lockup */
+.header .navmenu > ul > li > a {
+  padding: 8px 15px;
+  font-size: var(--fs-sm);
 }
 
 /* Form fields were pure white boxes on cream */
@@ -100,11 +163,6 @@ textarea.form-control {
 .form-control:focus,
 .form-select:focus {
   background-color: #f6f2e8;
-}
-
-/* Alternating sections: keep the contrast gentle rather than white vs cream */
-.light-background {
-  background-color: #e8e3d5;
 }
 
 /* =========================================================
@@ -445,5 +503,61 @@ textarea.form-control,
    Clipping at the root prevents it without affecting anything else. */
 html {
   overflow-x: hidden;
+}
+
+/* =========================================================
+   PAGE BACKGROUND — a warm gradient instead of one flat cream
+   ---------------------------------------------------------
+   The page was a single flat fill top to bottom. A very low-saturation
+   wash in the brand gold gives it depth without becoming a coloured page:
+   the strongest tint is about 5% brand over the base, which reads as warmth
+   rather than as colour.
+
+   Applied to body as a fixed attachment so it stays put while the page
+   scrolls, rather than repeating per section. --background-color is left
+   untouched so every component that reads the token still gets a solid
+   colour to sit on.
+   ========================================================= */
+
+body {
+  background-color: var(--background-color);
+  background-image:
+    radial-gradient(
+      120% 80% at 12% 0%,
+      color-mix(in srgb, var(--color-brand), transparent 93%) 0%,
+      transparent 58%
+    ),
+    radial-gradient(
+      100% 70% at 92% 22%,
+      color-mix(in srgb, var(--color-tints-750), transparent 94%) 0%,
+      transparent 62%
+    ),
+    linear-gradient(
+      178deg,
+      color-mix(in srgb, var(--color-brand), transparent 96%) 0%,
+      transparent 34%,
+      transparent 68%,
+      color-mix(in srgb, var(--color-brand), transparent 95%) 100%
+    );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Alternating sections keep their own fill, but it is now translucent so
+   the gradient underneath shows through instead of flattening it back out. */
+.light-background {
+  background-color: color-mix(in srgb, #ffffff, transparent 62%);
+}
+
+/* Cards stay opaque. They should read as sitting ON the gradient, not as
+   tinted panels floating in it. */
+.service-item,
+.cert-card,
+.post-item,
+.team-member,
+.pricing-item,
+.faq-item,
+.portfolio-content {
+  background-color: var(--surface-color);
 }
 
