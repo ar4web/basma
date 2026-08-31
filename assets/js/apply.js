@@ -3,11 +3,14 @@
  * Client-side validation only improves the experience — forms/apply.php
  * revalidates everything on the server, which is the real gate.
  */
-(function () {
+(async function () {
   "use strict";
 
   const form = document.querySelector('#apply-form');
   if (!form) return;
+
+  // Wait for data/jobs.json (written by the admin panel) before building the list.
+  if (window.BAM_JOBS_READY) { try { await window.BAM_JOBS_READY; } catch (e) {} }
 
   const jobs = (window.BAM_JOBS || []).filter(j => j.active !== false);
   const panels = Array.from(form.querySelectorAll('.form-panel'));

@@ -1,0 +1,10 @@
+# The data directory holds the job store, admin credentials and login logs.
+# Nothing here is public except the job feed itself.
+
+Require all denied
+
+<Files "jobs.json">
+    Require all granted
+</Files>
+
+Options -Indexes

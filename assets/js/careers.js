@@ -2,12 +2,16 @@
  * Careers page: renders vacancies from assets/js/jobs-data.js,
  * with category filtering and keyword search.
  */
-(function () {
+(async function () {
   "use strict";
 
-  const jobs = (window.BAM_JOBS || []).filter(j => j.active !== false);
   const list = document.querySelector('#job-list');
   if (!list) return;
+
+  // Wait for data/jobs.json (written by the admin panel) before rendering.
+  if (window.BAM_JOBS_READY) { try { await window.BAM_JOBS_READY; } catch (e) {} }
+
+  const jobs = (window.BAM_JOBS || []).filter(j => j.active !== false);
 
   const filterBar = document.querySelector('#job-filters');
   const searchBox = document.querySelector('#job-search');

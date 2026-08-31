@@ -2,7 +2,9 @@ User-agent: *
 Allow: /
 
 # Do not index internal or template scaffolding
+Disallow: /admin/
 Disallow: /forms/
+Disallow: /data/
 Disallow: /bam_applications/
 Disallow: /starter-page.html
 Disallow: /assets/vendor/
