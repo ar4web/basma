@@ -57,11 +57,11 @@
 :root,
 .light-background {
   /* Cards, panels, dropdowns: was #ffffff */
-  --surface-color: #f8f6f0;
+  --surface-color: #f5f2ea;
 
   /* Page background: was #f5f4ef, dropped very slightly so cards still
      separate cleanly from the page behind them. */
-  --background-color: #eeebe1;
+  --background-color: #e9e5da;
 }
 
 /* Text on dark/accent backgrounds. This one is held slightly brighter than
@@ -74,13 +74,13 @@
 
 /* The header sits on the page background and was reading as a bright band */
 .header {
-  background-color: color-mix(in srgb, var(--background-color), #fff 22%);
+  background-color: color-mix(in srgb, var(--background-color), #fff 16%);
   border-bottom: 1px solid color-mix(in srgb, var(--color-brand), transparent 92%);
 }
 
 .header.sticked,
 .header.scrolled {
-  background-color: color-mix(in srgb, var(--background-color), #fff 38%);
+  background-color: color-mix(in srgb, var(--background-color), #fff 28%);
   box-shadow: 0 2px 18px rgba(36, 28, 15, 0.07);
 }
 
@@ -88,17 +88,17 @@
 .form-control,
 .form-select,
 textarea.form-control {
-  background-color: #f8f6f0;
+  background-color: #f5f2ea;
 }
 
 .form-control:focus,
 .form-select:focus {
-  background-color: #fbf9f4;
+  background-color: #f9f6ef;
 }
 
 /* Alternating sections: keep the contrast gentle rather than white vs cream */
 .light-background {
-  background-color: #f3f1e8;
+  background-color: #eeeade;
 }
 
 /* =========================================================
