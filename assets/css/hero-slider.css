@@ -33,7 +33,16 @@
 }
 
 .hero-slider .swiper-slide::after {
-  display: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(20, 15, 7, 0.28) 0%,
+      rgba(20, 15, 7, 0.52) 45%,
+      rgba(20, 15, 7, 0.70) 100%
+    );
 }
 
 /* Slow zoom on the active slide — the single biggest "premium" cue */
@@ -74,7 +83,7 @@
    Rendered slightly larger because Arabic script reads small at the same
    nominal size as Latin. */
 .hero-kicker-ar {
-  font-family: "Segoe UI", Tahoma, "Noto Naskh Arabic", "Traditional Arabic", serif;
+  font-family: "Poppins", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
   font-size: 1.15em;
   letter-spacing: 0;
   color: var(--color-tints-750);
@@ -250,7 +259,12 @@
 @media (max-width: 575px) {
   .hero-slider { height: 480px; }
   .hero-slider .swiper-slide::after {
-    display: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(20, 15, 7, 0.42) 0%,
+      rgba(20, 15, 7, 0.58) 55%,
+      rgba(20, 15, 7, 0.74) 100%
+    );
   }
   .hero-slide-content { align-items: flex-end; padding-bottom: 74px; }
   .hero-slide-content h1 { max-width: none; }
