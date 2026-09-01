@@ -1692,7 +1692,7 @@
     // no new dependency.
     window.addEventListener('load', function () {
       if (typeof Swiper === 'undefined') return;
-      new Swiper('.hero-slider', {
+      var heroSwiper = new Swiper('.hero-slider', {
         loop: true,
         speed: 900,
         effect: 'fade',
@@ -1701,9 +1701,10 @@
         pagination: { el: '.hero-pagination', clickable: true },
         navigation: { nextEl: '.hero-next', prevEl: '.hero-prev' },
         keyboard: { enabled: true }
-      }).then(function (swiper) {
-        // Hide text on every inactive slide at the DOM level so no CSS
-        // cascade can resurrect it. Runs on init and after every slide change.
+      });
+      // Hide text on every inactive slide at the DOM level so no CSS
+      // cascade can resurrect it. Runs on init and after every slide change.
+      (function (swiper) {
         function hideInactiveSlideText() {
           const slides = swiper.el.querySelectorAll('.swiper-slide');
           slides.forEach(function (slide) {
@@ -1715,9 +1716,8 @@
         hideInactiveSlideText();
         swiper.on('slideChange', hideInactiveSlideText);
         swiper.on('setTransition', hideInactiveSlideText);
-        // Also hide on first paint in case Swiper lazy-initializes
         requestAnimationFrame(hideInactiveSlideText);
-      });
+      })(heroSwiper);
     });
   </script>
 
