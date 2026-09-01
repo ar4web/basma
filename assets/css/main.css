@@ -584,8 +584,9 @@ h6 {
 }
 
 .footer .footer-about .logo img {
-  max-height: 40px;
-  margin-right: 6px;
+  max-height: 80px;
+  margin-right: 10px;
+  filter: brightness(0) invert(1);
 }
 
 .footer .footer-about .logo span {
@@ -1608,6 +1609,13 @@ section,
   }
 }
 
+.testimonials .testimonials-cta-text {
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
 /*--------------------------------------------------------------
 # Pricing Section
 --------------------------------------------------------------*/
@@ -2121,6 +2129,10 @@ section,
 
 .contact .php-email-form {
   width: 100%;
+  padding: 40px;
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.05);
 }
 
 .contact .php-email-form .form-group {
@@ -2133,7 +2145,7 @@ section,
   border-radius: 0px;
   box-shadow: none;
   font-size: 14px;
-  background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+  background-color: var(--background-color);
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
