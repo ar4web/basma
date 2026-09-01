@@ -1702,17 +1702,22 @@
         navigation: { nextEl: '.hero-next', prevEl: '.hero-prev' },
         keyboard: { enabled: true }
       });
-      // Hide text on every inactive slide at the DOM level so no CSS
-      // cascade can resurrect it. Runs on init and after every slide change.
+      // Hide text on every inactive slide at the DOM level. Uses Swiper's
+      // activeIndex (reliable) instead of CSS class matching (unreliable at
+      // init/rAF time — that's what was hiding the active slide's text too).
       (function (swiper) {
         function hideInactiveSlideText() {
-          const slides = swiper.el.querySelectorAll('.swiper-slide');
-          slides.forEach(function (slide) {
-            if (slide.classList.contains('swiper-slide-active')) return;
-            const content = slide.querySelector('.hero-slide-content');
+          var slides = Array.prototype.slice.call(swiper.el.querySelectorAll('.swiper-slide'));
+          var activeIndex = swiper.activeIndex;
+          slides.forEach(function (slide, i) {
+            if (i === activeIndex) return;
+            var content = slide.querySelector('.hero-slide-content');
             if (content) content.style.display = 'none';
           });
         }
+        // Swiper sets activeIndex synchronously on construction, but the
+        // class may not be applied yet at IIFE/rAF time — re-run on init.
+        swiper.on('init', hideInactiveSlideText);
         hideInactiveSlideText();
         swiper.on('slideChange', hideInactiveSlideText);
         swiper.on('setTransition', hideInactiveSlideText);
