@@ -31,6 +31,12 @@
   z-index: 2;
 }
 
+/* Kill text on every inactive slide at the content level — stronger than
+   opacity alone when a browser or a parent rule fights the fade. */
+.hero-slider .swiper-slide:not(.swiper-slide-active) .hero-slide-content {
+  display: none;
+}
+
 .hero-slider .swiper-slide img {
   position: absolute;
   inset: 0;
