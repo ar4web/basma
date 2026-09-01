@@ -114,12 +114,7 @@
 }
 
 .hero-lead {
-  margin: 0 0 32px;
-  max-width: 46ch;
-  font-size: clamp(1rem, 1.35vw, 1.1875rem);  /* 16 -> 19px */
-  font-weight: 400;
-  line-height: 1.62;
-  color: color-mix(in srgb, var(--color-tints-0), transparent 22%);
+  display: none;
 }
 
 /* ---- Actions ---- */
