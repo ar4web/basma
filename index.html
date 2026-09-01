@@ -1704,24 +1704,30 @@
       });
       // Hide text on every inactive slide at the DOM level. Uses Swiper's
       // activeIndex and slides array (reliable after init) — never the CSS
-      // class (unreliable at init/rAF time). The immediate call is removed:
-      // with loop:true, activeIndex is not yet correct at construction time.
+      // class (unreliable at init/rAF time). Always resets all content first
+      // so the newly-active slide's text is never stuck hidden.
       (function (swiper) {
-        function hideInactiveSlideText() {
+        function syncSlideText() {
           var slides = swiper.slides;
           var activeIndex = swiper.activeIndex;
+          // Reset ALL slides' content to visible first
           for (var i = 0; i < slides.length; i++) {
-            if (i === activeIndex) continue;
             var content = slides[i].querySelector('.hero-slide-content');
+            if (content) content.style.display = '';
+          }
+          // Then hide only the inactive ones
+          for (var j = 0; j < slides.length; j++) {
+            if (j === activeIndex) continue;
+            var content = slides[j].querySelector('.hero-slide-content');
             if (content) content.style.display = 'none';
           }
         }
-        // Only keep event-driven calls — never call immediately after
-        // construction, because activeIndex is not reliable until init completes.
-        swiper.on('init', hideInactiveSlideText);
-        swiper.on('slideChange', hideInactiveSlideText);
-        swiper.on('setTransition', hideInactiveSlideText);
-        requestAnimationFrame(hideInactiveSlideText);
+        // Event-driven only — never call immediately after construction,
+        // because activeIndex is not reliable at construction time with loop:true.
+        swiper.on('init', syncSlideText);
+        swiper.on('slideChange', syncSlideText);
+        swiper.on('setTransition', syncSlideText);
+        requestAnimationFrame(syncSlideText);
       })(heroSwiper);
     });
   </script>
