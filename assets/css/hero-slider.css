@@ -37,6 +37,24 @@
   display: none;
 }
 
+/* Nuclear fallback: hide every text element on inactive slides with
+   !important in case main.css or another rule overrides display:none
+   above. This is the definitive fix — if you still see text, something
+   is very broken in the CSS cascade. */
+.hero-slider .swiper-slide:not(.swiper-slide-active) .hero-kicker,
+.hero-slider .swiper-slide:not(.swiper-slide-active) h1,
+.hero-slider .swiper-slide:not(.swiper-slide-active) .hero-lead,
+.hero-slider .swiper-slide:not(.swiper-slide-active) .hero-actions {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+}
+
 .hero-slider .swiper-slide img {
   position: absolute;
   inset: 0;
