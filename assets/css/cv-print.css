@@ -1,0 +1,280 @@
+/**
+* CV sheet styling and print rules.
+*
+* ATS NOTE — this is the important part:
+* The PDF is produced by the browser's own print engine, NOT by a canvas
+* library. Canvas-based exporters (html2canvas + jsPDF and similar) rasterise
+* the CV into a picture of text, which applicant tracking software cannot read
+* at all. Printing keeps the text as real, selectable, machine-readable text.
+*
+* Everything below therefore stays single-column, table-free and icon-free.
+*/
+
+/*--------------------------------------------------------------
+# Shared sheet rules
+--------------------------------------------------------------*/
+#cv-sheet {
+  padding: 18mm 16mm;
+  font-size: 10.5pt;
+  line-height: 1.5;
+  color: #222;
+  box-sizing: border-box;
+}
+
+#cv-sheet * {
+  box-sizing: border-box;
+}
+
+#cv-sheet .cv-name {
+  font-size: 20pt;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  margin: 0 0 2mm 0;
+  color: #111;
+}
+
+#cv-sheet .cv-role {
+  font-size: 11.5pt;
+  margin: 0 0 3mm 0;
+  color: #8b6c38;
+  font-weight: bold;
+}
+
+#cv-sheet .cv-contact {
+  font-size: 9.5pt;
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+}
+
+#cv-sheet h2.cv-h {
+  font-size: 11pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 6mm 0 2.5mm 0;
+  padding: 0 0 1mm 0;
+  color: #8b6c38;
+  border-bottom: 0.6pt solid #c8bda6;
+}
+
+#cv-sheet p.cv-body {
+  margin: 0 0 2mm 0;
+  text-align: left;
+}
+
+#cv-sheet .cv-entry {
+  margin-bottom: 4mm;
+}
+
+#cv-sheet .cv-entry-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 6mm;
+  align-items: baseline;
+}
+
+#cv-sheet .cv-entry-title {
+  font-weight: bold;
+  font-size: 10.5pt;
+  color: #111;
+}
+
+#cv-sheet .cv-entry-date {
+  font-size: 9.5pt;
+  color: #666;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#cv-sheet .cv-entry-org {
+  font-size: 10pt;
+  color: #555;
+  margin-bottom: 1mm;
+}
+
+#cv-sheet .cv-entry ul {
+  margin: 1mm 0 0 0;
+  padding-left: 5mm;
+}
+
+#cv-sheet .cv-entry li {
+  margin-bottom: 0.8mm;
+  font-size: 10pt;
+}
+
+#cv-sheet .cv-inline {
+  font-size: 10pt;
+  margin: 0 0 1.5mm 0;
+}
+
+#cv-sheet .cv-inline strong {
+  color: #111;
+}
+
+#cv-sheet .cv-placeholder {
+  color: #b9b9b9;
+  font-style: italic;
+}
+
+/*--------------------------------------------------------------
+# Template: Classic — centred header
+--------------------------------------------------------------*/
+#cv-sheet.tpl-classic .cv-head {
+  text-align: center;
+  border-bottom: 1.2pt solid #333;
+  padding-bottom: 4mm;
+  margin-bottom: 2mm;
+}
+
+#cv-sheet.tpl-classic .cv-role {
+  color: #444;
+  font-weight: normal;
+  font-style: italic;
+}
+
+#cv-sheet.tpl-classic h2.cv-h {
+  text-align: center;
+  border-bottom: 0.6pt solid #ccc;
+  color: #222;
+}
+
+/*--------------------------------------------------------------
+# Template: Modern — left aligned, gold rule
+--------------------------------------------------------------*/
+#cv-sheet.tpl-modern .cv-head {
+  border-bottom: 2pt solid #8b6c38;
+  padding-bottom: 4mm;
+  margin-bottom: 2mm;
+}
+
+#cv-sheet.tpl-modern h2.cv-h {
+  color: #222;
+  border-bottom: 0.6pt solid #c8bda6;
+}
+
+/*--------------------------------------------------------------
+# Template: Compact — banner header, tighter spacing
+--------------------------------------------------------------*/
+#cv-sheet.tpl-compact {
+  padding: 14mm 14mm;
+  font-size: 10pt;
+  line-height: 1.42;
+}
+
+#cv-sheet.tpl-compact .cv-head {
+  background: #f4f1ea;
+  padding: 5mm 6mm;
+  margin: -14mm -14mm 4mm -14mm;
+  border-bottom: 1.5pt solid #8b6c38;
+}
+
+#cv-sheet.tpl-compact .cv-name {
+  font-size: 18pt;
+}
+
+#cv-sheet.tpl-compact h2.cv-h {
+  margin: 4mm 0 1.8mm 0;
+  font-size: 10.5pt;
+}
+
+#cv-sheet.tpl-compact .cv-entry {
+  margin-bottom: 3mm;
+}
+
+/*--------------------------------------------------------------
+# PRINT — only the CV sheet reaches the paper
+--------------------------------------------------------------*/
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+
+  /* Hide the entire site chrome */
+  body > *:not(#cv-print-root),
+  #header,
+  #footer,
+  .page-title,
+  #why-ats,
+  .col-lg-5,
+  .ats-meter,
+  #scroll-top,
+  #preloader,
+  .section-title,
+  .cv-preview-shell > *:not(#cv-sheet) {
+    display: none !important;
+  }
+
+  html, body {
+    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Lift the sheet out of the layout so nothing offsets it */
+  .cv-preview-shell {
+    all: unset !important;
+  }
+
+  #cv-sheet {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    margin: 0 !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    transform: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  /* Bottom-right credit, LAST PAGE ONLY.
+
+     Rendered as generated content on the sheet itself rather than as a
+     positioned element. Two reasons:
+       1. It sits in the sheet's normal flow, so it follows the final line
+          of content and therefore prints once, on the last page. A fixed
+          element would repeat on every page.
+       2. #cv-sheet is position:absolute in print, which collapses the
+          shell to zero height, so anchoring to the shell would not work.
+
+     Kept faint on purpose: 6.5pt at 45% opacity in a pale warm grey. It
+     reads as a discreet credit, not a claim over the document. Still real
+     selectable text, so any PDF reader can highlight and delete it. */
+  #cv-sheet::after {
+    content: "Created with basmat-almawared.com";
+    display: block !important;
+    margin-top: 10mm !important;
+    padding-top: 2mm !important;
+    font-size: 6.5pt !important;
+    letter-spacing: 0.2pt !important;
+    color: #cfc7b8 !important;
+    opacity: 0.45 !important;
+    text-align: right !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Keep entries from splitting across pages */
+  #cv-sheet .cv-entry,
+  #cv-sheet .cv-head {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  #cv-sheet h2.cv-h {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Force backgrounds to print (Compact banner) */
+  #cv-sheet.tpl-compact .cv-head {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

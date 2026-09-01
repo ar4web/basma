@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Vacancy Manager - Basmat Al Mawared</title>
+
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="admin.css?v=45" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ==================== LOGIN / SETUP ==================== -->
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-logo">
+        <img src="../assets/img/logo.svg" alt="Basmat Al Mawared">
+      </div>
+
+      <!-- Sign in -->
+      <form id="login-form" class="gate-form" autocomplete="on">
+        <h1>Vacancy Manager</h1>
+        <p class="gate-sub">Sign in to manage job postings.</p>
+        <div class="mb-3">
+          <label class="lbl" for="li-user">Username</label>
+          <input type="text" id="li-user" class="form-control" autocomplete="username" required>
+        </div>
+        <div class="mb-3">
+          <label class="lbl" for="li-pass">Password</label>
+          <input type="password" id="li-pass" class="form-control" autocomplete="current-password" required>
+        </div>
+        <div id="li-error" class="gate-error"></div>
+        <button type="submit" class="btn-gold w-100" id="li-btn">Sign In</button>
+      </form>
+
+      <!-- First run -->
+      <form id="setup-form" class="gate-form" style="display:none;" autocomplete="on">
+        <h1>Create Your Account</h1>
+        <p class="gate-sub">This is the first time the manager has been opened. Choose the credentials
+          you will use from now on. This screen will not appear again.</p>
+        <div class="mb-3">
+          <label class="lbl" for="su-user">Username</label>
+          <input type="text" id="su-user" class="form-control" autocomplete="username" required minlength="3">
+        </div>
+        <div class="mb-3">
+          <label class="lbl" for="su-pass">Password</label>
+          <input type="password" id="su-pass" class="form-control" autocomplete="new-password" required minlength="10">
+          <div class="hint">At least 10 characters, with letters and numbers.</div>
+        </div>
+        <div class="mb-3">
+          <label class="lbl" for="su-pass2">Confirm Password</label>
+          <input type="password" id="su-pass2" class="form-control" autocomplete="new-password" required>
+        </div>
+        <div id="su-error" class="gate-error"></div>
+        <button type="submit" class="btn-gold w-100" id="su-btn">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== APP ==================== -->
+  <div id="app" style="display:none;">
+
+    <header class="topbar">
+      <div class="topbar-in">
+        <div class="brand">
+          <img src="../assets/img/logo.svg" alt="">
+          <div>
+            <strong>Vacancy Manager</strong>
+            <span id="saved-at">&nbsp;</span>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <a href="../careers.html" target="_blank" rel="noopener" class="btn-ghost">
+            <i class="bi bi-box-arrow-up-right"></i> View Careers Page
+          </a>
+          <button type="button" class="btn-ghost" id="btn-password">
+            <i class="bi bi-key"></i> Password
+          </button>
+          <button type="button" class="btn-ghost" id="btn-logout">
+            <i class="bi bi-box-arrow-right"></i> Sign Out
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+
+      <!-- Stats + primary action -->
+      <div class="statbar">
+        <div class="stat"><b id="s-total">0</b><span>Vacancies</span></div>
+        <div class="stat"><b id="s-live">0</b><span>Live</span></div>
+        <div class="stat"><b id="s-paused">0</b><span>Paused</span></div>
+        <div class="stat"><b id="s-positions">0</b><span>Positions</span></div>
+        <div class="statbar-actions">
+          <button type="button" class="btn-gold" id="btn-new">
+            <i class="bi bi-plus-lg"></i> Add Vacancy
+          </button>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="listbar">
+        <div class="search">
+          <i class="bi bi-search"></i>
+          <input type="text" id="q" placeholder="Filter by title, reference or location...">
+        </div>
+        <div class="seg" id="seg">
+          <button type="button" data-f="all" class="on">All</button>
+          <button type="button" data-f="live">Live</button>
+          <button type="button" data-f="paused">Paused</button>
+        </div>
+      </div>
+
+      <!-- Job rows -->
+      <div id="rows"></div>
+
+      <div id="blank" class="blank" style="display:none;">
+        <i class="bi bi-briefcase"></i>
+        <h3>No vacancies yet</h3>
+        <p>Add your first opening and it appears on the careers page immediately.</p>
+        <button type="button" class="btn-gold" id="btn-new2"><i class="bi bi-plus-lg"></i> Add Vacancy</button>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ==================== EDITOR DRAWER ==================== -->
+  <div class="drawer-bg" id="drawer-bg"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2 id="dr-title">Add Vacancy</h2>
+      <button type="button" class="x" id="dr-close" aria-label="Close">&times;</button>
+    </div>
+
+    <form id="job-form" class="drawer-body">
+
+      <div class="grid2">
+        <div>
+          <label class="lbl" for="f-title">Job Title <b>*</b></label>
+          <input type="text" id="f-title" class="form-control" placeholder="Warehouse Operative" required>
+        </div>
+        <div>
+          <label class="lbl" for="f-id">Reference <b>*</b></label>
+          <div class="input-btn">
+            <input type="text" id="f-id" class="form-control" placeholder="WH-104" required>
+            <button type="button" id="f-gen" title="Generate a reference">
+              <i class="bi bi-magic"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <label class="lbl" for="f-category">Category <b>*</b></label>
+          <input type="text" id="f-category" class="form-control" list="cats" placeholder="Logistics" required>
+          <datalist id="cats"></datalist>
+          <div class="hint">Creates a filter button on the careers page.</div>
+        </div>
+        <div>
+          <label class="lbl" for="f-location">Location</label>
+          <input type="text" id="f-location" class="form-control" list="locs" placeholder="Riyadh">
+          <datalist id="locs"></datalist>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div>
+          <label class="lbl" for="f-type">Contract Type</label>
+          <select id="f-type" class="form-select">
+            <option>Full-time</option>
+            <option>Contract</option>
+            <option>Seasonal</option>
+            <option>Part-time</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl" for="f-experience">Experience</label>
+          <input type="text" id="f-experience" class="form-control" list="exps" placeholder="2+ years">
+          <datalist id="exps">
+            <option>Entry level</option>
+            <option>1+ years</option>
+            <option>2+ years</option>
+            <option>3+ years</option>
+            <option>5+ years</option>
+          </datalist>
+        </div>
+        <div>
+          <label class="lbl" for="f-vacancies">Positions</label>
+          <input type="number" id="f-vacancies" class="form-control" value="1" min="1" max="9999">
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <label class="lbl" for="f-salary">Salary</label>
+          <input type="text" id="f-salary" class="form-control" placeholder="SAR 2,000 - 2,600 + accommodation">
+          <div class="hint">Write "Competitive" if you prefer not to publish it.</div>
+        </div>
+        <div>
+          <label class="lbl" for="f-posted">Date Posted</label>
+          <input type="date" id="f-posted" class="form-control">
+        </div>
+      </div>
+
+      <div>
+        <label class="lbl" for="f-summary">Short Description</label>
+        <textarea id="f-summary" class="form-control" rows="3"
+          placeholder="One or two sentences shown on the job card."></textarea>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <label class="lbl" for="f-requirements">Requirements</label>
+          <textarea id="f-requirements" class="form-control mono" rows="6"
+            placeholder="One per line:&#10;Transferable Iqama&#10;Able to lift 25 kg&#10;Basic English or Arabic"></textarea>
+          <div class="hint">One per line. Shown as a bullet list.</div>
+        </div>
+        <div>
+          <label class="lbl" for="f-benefits">What We Offer</label>
+          <textarea id="f-benefits" class="form-control mono" rows="6"
+            placeholder="One per line:&#10;Accommodation provided&#10;Medical insurance and GOSI&#10;Annual leave with air ticket"></textarea>
+          <div class="hint">One per line.</div>
+        </div>
+      </div>
+
+      <div class="switches">
+        <label class="sw">
+          <input type="checkbox" id="f-active" checked>
+          <span class="track"></span>
+          <span class="txt"><b>Live on the website</b><em>Turn off to hide it without deleting.</em></span>
+        </label>
+        <label class="sw">
+          <input type="checkbox" id="f-urgent">
+          <span class="track"></span>
+          <span class="txt"><b>Mark as urgent</b><em>Shows a red flag and sorts to the top.</em></span>
+        </label>
+      </div>
+
+      <div id="dr-error" class="gate-error"></div>
+    </form>
+
+    <div class="drawer-foot">
+      <button type="button" class="btn-ghost" id="dr-cancel">Cancel</button>
+      <button type="button" class="btn-gold" id="dr-save"><i class="bi bi-check-lg"></i> Save Vacancy</button>
+    </div>
+  </aside>
+
+  <!-- ==================== PASSWORD MODAL ==================== -->
+  <div class="modal-bg" id="pw-bg">
+    <div class="modal-card">
+      <h3>Change Password</h3>
+      <form id="pw-form">
+        <div class="mb-3">
+          <label class="lbl" for="pw-cur">Current Password</label>
+          <input type="password" id="pw-cur" class="form-control" autocomplete="current-password" required>
+        </div>
+        <div class="mb-3">
+          <label class="lbl" for="pw-new">New Password</label>
+          <input type="password" id="pw-new" class="form-control" autocomplete="new-password" required minlength="10">
+          <div class="hint">At least 10 characters, with letters and numbers.</div>
+        </div>
+        <div id="pw-error" class="gate-error"></div>
+        <div class="modal-foot">
+          <button type="button" class="btn-ghost" id="pw-cancel">Cancel</button>
+          <button type="submit" class="btn-gold">Update Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast-bam"></div>
+
+  <script src="admin.js?v=45"></script>
+</body>
+
+</html>

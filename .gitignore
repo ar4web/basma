@@ -1,0 +1,46 @@
+# =============================================================================
+# Basmat Al Mawared — files that must never enter version control
+# =============================================================================
+
+# ---- Admin credentials -------------------------------------------------------
+# Created on first login. Contains the bcrypt password hash.
+data/admin.json
+
+# ---- Runtime data ------------------------------------------------------------
+# Audit log of logins and changes
+data/admin-log.txt
+# Automatic backups of the vacancy list
+data/backups/
+# Temporary files from atomic writes
+data/*.tmp
+data/*.tmp*
+
+# ---- Candidate data (personal information — never commit) --------------------
+# Uploaded CVs and the applicants spreadsheet
+forms/uploads/*
+!forms/uploads/.htaccess
+!forms/uploads/README.txt
+bam_applications/
+applicants.csv
+.refs.json
+
+# ---- Server / environment ----------------------------------------------------
+.env
+.env.*
+.htpasswd
+*.pem
+*.key
+
+# ---- OS and editor noise -----------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/
+
+# ---- Dependencies and build output -------------------------------------------
+node_modules/
+vendor/composer/
+*.log

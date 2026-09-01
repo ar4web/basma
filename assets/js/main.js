@@ -94,8 +94,15 @@
    */
   function aosInit() {
     AOS.init({
-      duration: 600,
-      easing: 'ease-in-out',
+      // Shorter, and eased out rather than in-out. 'ease-in-out' starts slow,
+      // which is what made the old motion feel sluggish and draggy; content
+      // should arrive quickly and settle, not creep in.
+      duration: 450,
+      easing: 'ease-out-cubic',
+      // Start the animation slightly before the element reaches the viewport
+      // so it has finished by the time it is properly in view, instead of
+      // animating in front of the reader.
+      offset: 40,
       once: true,
       mirror: false
     });
@@ -209,5 +216,15 @@
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
+
+  /**
+   * Stamp the contact form with its render time.
+   * The server rejects submissions completed faster than a human could type,
+   * which blocks the bulk of automated spam without a CAPTCHA.
+   */
+  const formTimeField = document.querySelector('#form-time');
+  if (formTimeField) {
+    formTimeField.value = Math.floor(Date.now() / 1000);
+  }
 
 })();
