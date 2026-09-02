@@ -1038,7 +1038,10 @@ body {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  padding: 76px 32px;
+  /* Was 76px. The band carries a headline, a paragraph and a button, and at
+     76px they sat tight against the edges. More air is what separates a
+     deliberate band from a cramped one. */
+  padding: 108px 32px;
   /* No radius at full bleed: rounded corners against the viewport edge
      leave slivers of page colour showing in each corner. */
   border-radius: 0;
@@ -1046,9 +1049,17 @@ body {
      the panel has a light direction rather than being a flat fill. This is
      what allows the headline gold to be saturated; see the headline note
      below. */
-  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #4a3615 100%);
+  /* Ends on #5b4726 rather than #4a3615. #onfocus directly below is
+     #5f4a26, and the old end colour sat at ratio 1.36 against it: near
+     enough to look accidental, different enough to draw a hard seam across
+     the middle of the dark zone. Landing on #5b4726 puts that step at 1.05,
+     which is imperceptible, so the CTA and the video panel read as one
+     continuous dark field. Kept a shade off exact so the headline gold
+     holds 3.32 instead of 3.16. */
+  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #5b4726 100%);
   border-top: 1px solid rgba(192, 166, 88, 0.26);
-  border-bottom: 1px solid rgba(192, 166, 88, 0.26);
+  /* No bottom hairline: it would draw the very seam this gradient removes. */
+  border-bottom: 0;
   /* Containing block for the .bam-pattern layers. */
   position: relative;
   isolation: isolate;
@@ -1066,13 +1077,13 @@ body {
 
 @media (max-width: 992px) {
   .call-to-action .container {
-    padding: 58px 28px;
+    padding: 84px 28px;
   }
 }
 
 @media (max-width: 575px) {
   .call-to-action .container {
-    padding: 46px 20px;
+    padding: 66px 20px;
   }
 }
 
@@ -1808,4 +1819,90 @@ html {
    section default rather than a happy accident. */
 .hero .hero-slide-content h1 {
   color: var(--color-tints-0);
+}
+
+/* =========================================================
+   DARK ZONE BLENDING — #call-to-action + #onfocus
+   ---------------------------------------------------------
+   These two full-bleed sections sit directly on top of each other and
+   together form one dark zone in the middle of a light page. Three edges
+   were doing the wrong thing.
+
+   1. Between them: the CTA gradient used to end on #4a3615 against
+      #onfocus's #5f4a26 — ratio 1.36, a visible step. The gradient now
+      lands on #5b4726 (1.05) and the CTA's bottom hairline is gone, so the
+      two sections read as one field. Handled above.
+
+   2. Entering the zone: the page is #d5cebb and the band starts at
+      #2e2109 — a 10:1 cut with nothing easing it. A short strip above the
+      CTA carries the page colour down into the dark.
+
+   3. Leaving it: same problem in reverse under #onfocus.
+
+   The strips are ::before/::after on the sections, so no markup changes
+   and nothing shifts in the layout flow.
+   ========================================================= */
+
+.call-to-action,
+.onfocus {
+  position: relative;
+}
+
+/* Fade in from the page colour above the CTA. */
+.call-to-action::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 100vw;
+  height: 90px;
+  background: linear-gradient(to bottom,
+              #d5cebb 0%,
+              rgba(133, 121, 88, 0.55) 55%,
+              rgba(46, 33, 9, 0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* And back out to the page colour below the video panel. */
+.onfocus::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 100vw;
+  height: 90px;
+  background: linear-gradient(to top,
+              #d5cebb 0%,
+              rgba(133, 121, 88, 0.55) 55%,
+              rgba(95, 74, 38, 0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* The blend strips are decorative and must never sit over the content. */
+.call-to-action > .container,
+.onfocus > .container-fluid {
+  position: relative;
+  z-index: 2;
+}
+
+/* The CTA band's own top padding already gives the headline clearance, but
+   the incoming blend eats into it visually. A little more at the top only. */
+.call-to-action .container {
+  padding-top: 132px;
+}
+
+@media (max-width: 992px) {
+  .call-to-action::before,
+  .onfocus::after { height: 64px; }
+  .call-to-action .container { padding-top: 104px; }
+}
+
+@media (max-width: 575px) {
+  .call-to-action::before,
+  .onfocus::after { height: 48px; }
+  .call-to-action .container { padding-top: 82px; }
 }
