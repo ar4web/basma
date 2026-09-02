@@ -1654,3 +1654,64 @@ body {
   height: 398px;
   opacity: 0.030;
 }
+
+/* =========================================================
+   SCROLL SMOOTHNESS
+   ---------------------------------------------------------
+   Three separate problems, all of which show up as jank rather than as
+   anything visible in a screenshot.
+
+   1. scroll-behavior lived on :root. Chrome and Safari honour it there,
+      but the property is only reliably picked up from the scrolling
+      element, so it is restated on html and body.
+
+   2. .header carries `transition: all 0.5s`. When body.scrolled toggles,
+      "all" includes layout-affecting properties, so the browser animates
+      padding and re-runs layout for half a second while you are still
+      scrolling. Narrowed to the three properties that actually change.
+
+   3. Fixed-header offset was handled with scroll-margin-top on sections
+      only. scroll-padding-top on the scroll container covers every anchor
+      target, including ones added later.
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+  /* Keeps an anchored section clear of the sticky header. 100px matches the
+     scroll-margin-top already set on sections in main.css. */
+  scroll-padding-top: 100px;
+}
+
+@media (max-width: 1199px) {
+  html { scroll-padding-top: 66px; }
+}
+
+/* Animating `all` on a sticky element means every scroll-triggered class
+   change re-runs layout. Only these three ever change. */
+.header {
+  transition: background-color 0.4s ease,
+              box-shadow 0.4s ease,
+              padding 0.4s ease;
+}
+
+/* The sticky header is repainted constantly while scrolling. Promoting it
+   to its own compositor layer keeps that repaint off the main thread. */
+.header {
+  will-change: background-color;
+  backface-visibility: hidden;
+}
+
+/* Large background images repaint on every scroll step when the browser has
+   to resample them. Telling it these layers are static lets it cache them. */
+.hero-slider .swiper-slide img,
+.testimonials .testimonials-bg {
+  transform: translateZ(0);
+}
+
+/* Anyone who has asked the OS to reduce motion gets instant jumps instead of
+   animated scrolling, which can trigger motion sickness. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
