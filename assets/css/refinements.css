@@ -350,19 +350,14 @@ p { line-height: 1.68; }
   }
 }
 
-/* Hidden from 1199px down, which is the same breakpoint where the nav
-   collapses to the hamburger. On those widths the hero's own "Request a
-   Quote" button is already on screen, so the header copy is a duplicate
-   competing with the menu toggle for a narrow bar.
+/* The header CTA used to be hidden from 1199px down on the homepage, on the
+   grounds that the hero repeats a "Request a Quote" button at those widths.
 
-   Scoped to the homepage. The hero only exists on index.html, so hiding
-   this globally would leave the other nine pages with no call to action in
-   the header at all on tablet and phone. There it stays. */
-@media (max-width: 1199px) {
-  body.index-page .header .btn-getstarted {
-    display: none;
-  }
-}
+   That no longer holds. The Contact nav item has been removed as a
+   duplicate of this button, so hiding the button on mobile would leave the
+   homepage header with no route to the contact form at all — only the
+   footer. The button now stays at every width, like it does on the other
+   nine pages. */
 
 /* =========================================================
    4. CARDS — unify radius, border and hover
