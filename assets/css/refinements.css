@@ -2320,3 +2320,132 @@ html {
 .contact .info a:focus-visible {
   text-decoration-color: currentColor;
 }
+
+/* =========================================================
+   ENQUIRY FORM — built in the "Get in touch" idiom
+   ---------------------------------------------------------
+   The old form was a generic Bootstrap grid: two-up rows of bare inputs
+   that looked nothing like the panel beside it. This one borrows the
+   info panel's exact language — same surface, same 40px padding, same
+   shadow, same gold icon in the gutter, same label-above-content rhythm
+   and the same hairline divider between rows — so the two columns read
+   as one object.
+
+   Deliberately one field per row. The old two-up layout put Name beside
+   Email and Phone beside Company, which on a 992px breakpoint collapsed
+   to a single column anyway; the stacked rhythm matches the three
+   info-items opposite and keeps the eye on one line.
+   ========================================================= */
+
+.contact .enquiry {
+  background-color: var(--surface-color);
+  padding: 40px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  height: 100%;
+}
+
+.contact .enquiry > h3 {
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.contact .enquiry > p {
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  margin-bottom: 26px;
+}
+
+/* Mirrors .contact .info-item: icon in a fixed gutter, content beside it,
+   hairline rule between consecutive rows. */
+.contact .enquiry-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.contact .enquiry-row + .enquiry-row {
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.contact .enquiry-row > i {
+  font-size: 24px;
+  color: var(--accent-color);
+  margin-right: 20px;
+  line-height: 1.4;
+}
+
+.contact .enquiry-field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.contact .enquiry-field label {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--heading-color);
+}
+
+.contact .enquiry-field .req {
+  color: #a4442f;
+  font-weight: 600;
+}
+
+.contact .enquiry-field .opt {
+  font-weight: 400;
+  font-size: var(--fs-xs);
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+}
+
+.contact .enquiry-field input,
+.contact .enquiry-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: var(--fs-base);
+  font-family: inherit;
+  color: var(--default-color);
+  background-color: var(--background-color);
+  /* 82% transparent gave a 1.43 edge against the card — below the 3.0
+     WCAG 1.4.11 needs for a UI boundary, so the field outline was barely
+     visible. 48% lands at 3.25. */
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 48%);
+  border-radius: 5px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact .enquiry-field input { height: 50px; }
+
+.contact .enquiry-field textarea {
+  min-height: 130px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.contact .enquiry-field input::placeholder,
+.contact .enquiry-field textarea::placeholder {
+  color: color-mix(in srgb, var(--default-color), transparent 55%);
+}
+
+.contact .enquiry-field input:focus,
+.contact .enquiry-field textarea:focus {
+  outline: 0;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(139, 108, 56, 0.13);
+}
+
+.contact .enquiry form > button[type=submit] {
+  margin-top: 26px;
+  width: 100%;
+  padding: 14px 28px;
+  font-size: var(--fs-base);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 575px) {
+  .contact .enquiry { padding: 28px 22px; }
+  .contact .enquiry-row > i { display: none; }
+}

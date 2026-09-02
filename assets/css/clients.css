@@ -37,9 +37,9 @@
   overflow: hidden;
   width: 100%;
   height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* No flex centring here. The track is deliberately wider than this box,
+     so centring a child that overflows pushes it off BOTH edges and the
+     animation starts mid-sequence with logos already clipped. */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
@@ -47,8 +47,13 @@
 .client-marquee .marquee-track {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content is intentionally absent. width:max-content means the
+     track has NEGATIVE free space, and justify-content:center distributes
+     negative space by overflowing equally on both sides — the track began
+     shifted left by half its overhang, which is what broke the loop and
+     clipped logos at the left edge. It must start at x=0. */
   width: max-content;
+  height: 100%;
   animation: bam-marquee 42s linear infinite;
 }
 
@@ -59,6 +64,9 @@
      edges. 130 is the largest size that stays pixel-exact. */
   height: 130px;
   width: auto;
+  /* Flex items shrink by default. Without this the browser squeezes the
+     logos to try to fit the track into the viewport, distorting them. */
+  flex-shrink: 0;
   margin: 0 34px;
   opacity: 0.55;
   filter: grayscale(100%);
@@ -85,11 +93,22 @@
   .client-marquee .marquee-track {
     animation: none;
     flex-wrap: wrap;
+    /* Safe to centre here: the track is width:100% and wraps, so free
+       space is positive. This is the one case centring is correct. */
     justify-content: center;
     width: 100%;
   }
   .client-marquee .marquee-track img {
+    flex-shrink: 1;
     margin: 14px 22px;
+  }
+  /* The second set exists only to make the scroll seamless. With the
+     animation off it would just print every client twice. */
+  .client-marquee .marquee-track img[aria-hidden="true"] {
+    display: none;
+  }
+  .client-marquee .marquee-viewport {
+    height: auto;
   }
 }
 
