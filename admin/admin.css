@@ -42,7 +42,7 @@ body {
 
 .form-control, .form-select {
   border: 1px solid #d9d4c7;
-  border-radius: 7px;
+  border-radius: 5px;
   padding: 9px 12px;
   font-size: var(--fs-sm);
   width: 100%;
@@ -65,7 +65,7 @@ textarea.mono {
 
 /* ---------- buttons ---------- */
 .btn-gold, .btn-ghost {
-  border-radius: 7px;
+  border-radius: 5px;
   font-weight: 600;
   font-size: var(--fs-sm);
   padding: 10px 20px;
@@ -100,7 +100,7 @@ textarea.mono {
 
 .gate-card {
   background: #f1ede3;
-  border-radius: 14px;
+  border-radius: 5px;
   padding: 40px;
   width: 100%;
   max-width: 420px;
@@ -120,7 +120,7 @@ textarea.mono {
   background: #fdecea;
   border: 1px solid #f3c6c2;
   color: #8a1c1c;
-  border-radius: 7px;
+  border-radius: 5px;
   padding: 10px 13px;
   font-size: var(--fs-xs);
   margin-bottom: 14px;
@@ -189,14 +189,14 @@ textarea.mono {
   width: 100%;
   padding: 10px 14px 10px 38px;
   border: 1px solid #ddd8cb;
-  border-radius: 8px;
+  border-radius: 5px;
   font-size: var(--fs-sm);
   background: #f1ede3;
   font-family: inherit;
 }
 .search input:focus { outline: 0; border-color: var(--gold); }
 
-.seg { display: flex; background: #f1ede3; border: 1px solid #ddd8cb; border-radius: 8px; overflow: hidden; }
+.seg { display: flex; background: #f1ede3; border: 1px solid #ddd8cb; border-radius: 5px; overflow: hidden; }
 .seg button {
   border: 0;
   background: transparent;
@@ -213,7 +213,7 @@ textarea.mono {
 .row-job {
   background: #f1ede3;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 16px 18px;
   margin-bottom: 10px;
   display: flex;
@@ -243,7 +243,7 @@ textarea.mono {
   text-transform: uppercase;
   letter-spacing: .5px;
   padding: 3px 8px;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 .pill-urgent { background: #fdecea; color: var(--warn); }
@@ -258,7 +258,7 @@ textarea.mono {
 .icon-btn {
   width: 36px;
   height: 36px;
-  border-radius: 7px;
+  border-radius: 5px;
   border: 1px solid #ddd8cb;
   background: #f1ede3;
   cursor: pointer;
@@ -276,7 +276,7 @@ textarea.mono {
 .blank {
   background: #f1ede3;
   border: 1px dashed #d5cfbf;
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 64px 24px;
   text-align: center;
 }
@@ -344,7 +344,7 @@ textarea.mono {
 .input-btn button {
   width: 42px;
   border: 1px solid #d9d4c7;
-  border-radius: 7px;
+  border-radius: 5px;
   background: var(--gold-lt);
   color: var(--gold);
   cursor: pointer;
@@ -412,7 +412,7 @@ textarea.mono {
 
 .modal-card {
   background: #f1ede3;
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 28px;
   width: 100%;
   max-width: 420px;
@@ -431,7 +431,7 @@ textarea.mono {
   background: #2b2410;
   color: #fff;
   padding: 13px 24px;
-  border-radius: 8px;
+  border-radius: 5px;
   font-size: var(--fs-sm);
   font-weight: 500;
   z-index: 90;

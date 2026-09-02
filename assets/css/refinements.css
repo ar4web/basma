@@ -328,7 +328,7 @@ p { line-height: 1.68; }
   -webkit-backdrop-filter: blur(14px) saturate(1.5);
   backdrop-filter: blur(14px) saturate(1.5);
   border: 1px solid rgba(255, 255, 255, 0.58);
-  border-radius: 50px;
+  border-radius: 5px;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.72),
     inset 0 -1px 0 rgba(139, 108, 56, 0.10),
@@ -409,7 +409,12 @@ textarea:focus-visible,
 [tabindex]:focus-visible {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
-  border-radius: 3px;
+  /* No border-radius here on purpose. It used to set 3px, which quietly
+     re-cornered every focused control: a:focus-visible (0,1,1) outranks
+     .btn-brand (0,1,0), so buttons snapped from 5px to 3px the moment they
+     took keyboard focus. `inherit` is not the fix either -- that takes the
+     PARENT's radius, not the element's own. Simply omitting the property
+     leaves each control on its own 5px, and the outline follows it. */
 }
 
 .form-control:focus,
@@ -515,18 +520,16 @@ a,
    original template's inconsistency rather than a decision, and it is very
    visible when two differently-rounded cards sit next to each other.
 
-   Collapsed to three, plus the two that are genuinely shape-defining:
-     --r-sm   inputs, small controls, thumbnails, tags
-     --r-md   cards, panels, images, dropdowns
-     --r-lg   large feature panels (coverage, CTA, modals)
-     50%      avatars and icon circles, unchanged
-     50px     pill buttons, unchanged
+   All three now resolve to the single 5px corner used site-wide. They are
+   kept as separate names so existing rules keep reading, but they are no
+   longer a scale -- there is one radius. Genuinely shape-defining values
+   are untouched: 50% for avatars and icon circles, and the toggle capsules.
    ========================================================= */
 
 :root {
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
+  --r-sm: 5px;
+  --r-md: 5px;
+  --r-lg: 5px;
   /* Kept in step with the scale; --radius predates it and is still
      referenced by the focus-ring rule above. */
   --radius: var(--r-md);
@@ -908,7 +911,7 @@ body {
 }
 
 .contact .php-email-form button[type=submit] {
-  border-radius: 50px;
+  border-radius: 5px;
   padding: 13px 38px;
   font-family: var(--nav-font, "Poppins", sans-serif);
   font-size: var(--fs-sm);
@@ -2194,3 +2197,82 @@ html {
   .testimonials::after,
   .footer::before { height: 52px; }
 }
+
+/* =========================================================
+   ONE RADIUS LANGUAGE — 5px
+   ---------------------------------------------------------
+   The site had 17 different rectangular radii (4, 6, 7, 8, 10, 11, 12,
+   14, 15, 25, 26, 30, 50px and three tokens). Buttons and fields were
+   already moved to 5px; this finishes the job so every panel, card,
+   widget and control agrees.
+
+   The other sheets were edited in place because each loads last on its
+   own page. main.css cannot be edited, so its rules are overridden here.
+   Selectors are matched or exceeded in specificity — load order alone
+   does not win.
+
+   Deliberately NOT changed:
+     - border-radius: 50% — real circles (avatars, icon bubbles, the play
+       button, spinners). 5px would turn them into lozenges.
+     - Toggle capsules (.sw .track, .bam-cc-slider) — the pill shape is
+       the switch metaphor.
+     - Bars and rules under ~8px tall (.ats-bar, swiper bullets, the h3
+       underline) — a 5px radius on a 3-8px element is a blob.
+     - border-radius: 0 on full-bleed panels — those span the viewport,
+       so a radius leaves slivers of page colour at the screen edge.
+     - Underline-style tabs (.about/.features .nav-link).
+   ========================================================= */
+
+.header .btn-getstarted,
+.header .btn-getstarted:focus,
+.navmenu .dropdown ul,
+.navmenu ul,
+.footer .social-links a,
+.scroll-top,
+.hero .btn-get-started,
+.call-to-action .content .cta-btn,
+.call-to-action .img:before,
+.call-to-action .img:after,
+.call-to-action .img img,
+.onfocus .content .read-more,
+.services .img,
+.services .details,
+.pricing .pricing-item,
+.pricing .buy-btn,
+.team .team-member .member-img,
+.team .team-member .member-info,
+.recent-posts article,
+.blog-posts article,
+.contact .php-email-form,
+.contact .php-email-form button[type=submit],
+.portfolio-details .portfolio-info .btn-visit,
+.comment-form form input,
+.comment-form form textarea,
+.comment-form form .btn-primary {
+  border-radius: 5px;
+}
+
+/* Welded to the right edge of its input: only the outer corners round. */
+.search-widget form button {
+  border-radius: 0 5px 5px 0;
+}
+
+/* main.css sets these to 15px inside a media query, so match the context. */
+@media (min-width: 1200px) {
+  .call-to-action .container,
+  .call-to-action .img:before,
+  .call-to-action .img:after,
+  .call-to-action .img img {
+    border-radius: 5px;
+  }
+  .navmenu .dropdown ul { border-radius: 5px; }
+}
+
+@media (max-width: 1199px) {
+  .navmenu ul { border-radius: 5px; }
+}
+
+/* The radius tokens are collapsed to 5px at their original definition
+   further up this file, so every rule still referencing --r-sm/md/lg
+   lands on the same corner. The certificate corners were pinned at 5px
+   independently and are unaffected. */
