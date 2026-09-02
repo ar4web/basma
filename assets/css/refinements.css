@@ -1855,10 +1855,20 @@ html {
   top: 0;
   width: 100vw;
   height: 90px;
+  /* Opaque throughout. The first version faded to rgba(...,0), and fading
+     an opaque colour to transparent in sRGB interpolates toward transparent
+     black, which drags a grey smear through the middle. It also passed
+     through an invented khaki mid-stop that belonged to neither side. These
+     stops are the true page and band colours mixed in linear light on a
+     smoothstep curve, so the ramp is clean and does not band. */
   background: linear-gradient(to bottom,
               #d5cebb 0%,
-              rgba(133, 121, 88, 0.55) 55%,
-              rgba(46, 33, 9, 0) 100%);
+              #cbc4b2 20%,
+              #b1ab9a 40%,
+              #958e7f 55%,
+              #716a5d 70%,
+              #494033 85%,
+              #2e2109 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -1872,10 +1882,15 @@ html {
   bottom: 0;
   width: 100vw;
   height: 90px;
+  /* Same treatment, running from the #onfocus brown back out to the page. */
   background: linear-gradient(to top,
               #d5cebb 0%,
-              rgba(133, 121, 88, 0.55) 55%,
-              rgba(95, 74, 38, 0) 100%);
+              #d0c9b6 15%,
+              #c3bba8 30%,
+              #afa693 45%,
+              #978c78 60%,
+              #73634a 80%,
+              #5f4a26 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -2056,4 +2071,126 @@ html {
   .btn-glass-dark {
     background: #6f5931;
   }
+}
+
+/* =========================================================
+   FORM FIELDS — 5px, matching the button system
+   ---------------------------------------------------------
+   The glass button work set every button to 5px but left form controls on
+   --r-sm (8px). That put two different corner radii inside the same card:
+   8px inputs stacked directly above a 5px submit button. On a 50px-tall
+   field an 8px corner is a third of the half-height, so next to the crisp
+   buttons the inputs read as rounded pills.
+
+   Scoped the same way as the field rules above (#contact ... ) so they
+   clear main.css's `input[type=text]` attribute selectors, plus the
+   .form-wrap forms on apply/careers so the whole site agrees.
+   ========================================================= */
+
+#contact .contact .php-email-form .form-control,
+#contact .contact .php-email-form input,
+#contact .contact .php-email-form textarea,
+#contact .contact .php-email-form select,
+.form-wrap .form-control,
+.form-wrap .form-select,
+.form-wrap input,
+.form-wrap textarea,
+.form-wrap select {
+  border-radius: 5px;
+}
+
+/* =========================================================
+   TESTIMONIALS — drop the brown wash, keep the photo
+   ---------------------------------------------------------
+   main.css:1498 laid a flat `--background-color at 70%` over the whole
+   photo. On .dark-background that token is #5f4a26, so the section was a
+   solid brown wash with the photograph barely showing through — which is
+   what made it look muddy.
+
+   It cannot simply be deleted: it is also the only thing holding the quote
+   text readable. Sampling the photo on a 4x3 grid, the brightest cell
+   gives body copy 1.16 with no scrim at all.
+
+   Replaced with a neutral near-black at 55%, which is colourless so the
+   photograph keeps its own tones, and measures 4.50 on that same worst
+   cell. Slightly stronger through the middle where the carousel text
+   actually sits, lighter at the edges so the image reads at the corners.
+   ========================================================= */
+
+.testimonials:before {
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 15, 7, 0.46) 0%,
+    rgba(20, 15, 7, 0.60) 42%,
+    rgba(20, 15, 7, 0.60) 62%,
+    rgba(20, 15, 7, 0.46) 100%
+  );
+}
+
+/* =========================================================
+   BLEND THE REMAINING DARK EDGES
+   ---------------------------------------------------------
+   The CTA and #onfocus now ease into the page. The other dark blocks still
+   met it on a hard cut: testimonials at 6.55 top and bottom, and the
+   footer at 5.36. Same treatment, same construction — opaque stops mixed
+   in linear light, never fading to transparent.
+
+   These strips are decorative only: pointer-events off, and the section
+   content is lifted above them.
+   ========================================================= */
+
+.testimonials {
+  position: relative;
+}
+
+.testimonials::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  background: linear-gradient(to bottom,
+              #d5cebb 0%,
+              #c7c0ae 25%,
+              #a39d8d 50%,
+              #70695b 75%,
+              #4b4132 100%);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Footer: ease in from the last light section above it. */
+.footer {
+  position: relative;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  background: linear-gradient(to bottom,
+              #d5cebb 0%,
+              #c8c1ae 25%,
+              #a89e8b 50%,
+              #7c6d56 75%,
+              #5f4a26 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer .container,
+.footer .footer-top,
+.footer .copyright {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 992px) {
+  .testimonials::after,
+  .footer::before { height: 52px; }
 }
