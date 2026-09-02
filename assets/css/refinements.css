@@ -2276,3 +2276,47 @@ html {
    further up this file, so every rule still referencing --r-sm/md/lg
    lands on the same corner. The certificate corners were pinned at 5px
    independently and are unaffected. */
+
+/* =========================================================
+   FOOTER + CONTACT: MAKE THE DETAILS ACTUALLY CONTACTABLE
+   ---------------------------------------------------------
+   The phone number and email address were plain text on all ten pages —
+   no tel: or mailto:. On a phone the number could not be dialled, which
+   matters more now that the contact form has been removed and these are
+   the only remaining route to the company.
+
+   Linking them exposed a second problem: a bare <a> takes --accent-color
+   (#8b6c38), which on the footer brown (#5f4a26) is 1.72 — invisible. The
+   footer links therefore inherit the footer's own text colour and are
+   marked with an underline so they still read as links without relying on
+   colour alone.
+   ========================================================= */
+
+.footer .footer-contact a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(242, 237, 225, 0.4);
+  transition: text-decoration-color 0.25s ease, color 0.25s ease;
+}
+
+.footer .footer-contact a:hover,
+.footer .footer-contact a:focus-visible {
+  color: #f7d99a;
+  text-decoration-color: #f7d99a;
+}
+
+/* Contact panel sits on the light card, where the brand gold is legible,
+   but underline it for the same colour-independence reason. */
+.contact .info a {
+  color: var(--heading-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(125, 97, 47, 0.35);
+  transition: text-decoration-color 0.25s ease, color 0.25s ease;
+}
+
+.contact .info a:hover,
+.contact .info a:focus-visible {
+  text-decoration-color: currentColor;
+}
