@@ -584,8 +584,9 @@ h6 {
 }
 
 .footer .footer-about .logo img {
-  max-height: 40px;
-  margin-right: 6px;
+  max-height: 80px;
+  margin-right: 10px;
+  filter: brightness(0) invert(1);
 }
 
 .footer .footer-about .logo span {
@@ -1606,6 +1607,13 @@ section,
   .testimonials .testimonial-item p {
     width: 80%;
   }
+}
+
+.testimonials .testimonials-cta-text {
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 30px;
 }
 
 /*--------------------------------------------------------------
