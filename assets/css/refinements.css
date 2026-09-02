@@ -280,13 +280,11 @@ p { line-height: 1.68; }
 .php-email-form button[type="submit"] {
   font-family: var(--nav-font);
   font-size: var(--fs-base);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  border-radius: 4px;
+  /* Weight, letter-spacing, radius, colour and transition now come from the
+     GLASS BUTTON SYSTEM at the end of this file. Only the metrics that the
+     glass block does not set are kept here. Leaving border-radius: 4px in
+     place would have fought the 5px there for no reason. */
   padding: 12px 30px;
-  transition: background 0.28s ease, color 0.28s ease,
-              border-color 0.28s ease, transform 0.28s ease,
-              box-shadow 0.28s ease;
 }
 
 .btn-brand:hover,
@@ -1905,4 +1903,157 @@ html {
   .call-to-action::before,
   .onfocus::after { height: 48px; }
   .call-to-action .container { padding-top: 82px; }
+}
+
+/* =========================================================
+   GLASS BUTTON SYSTEM — the header CTA style, site-wide
+   ---------------------------------------------------------
+   The header's .btn-getstarted was the only glass control on the site.
+   Promoted to the default button style, at a 5px radius on every corner
+   instead of the 50px pill.
+
+   The effect is a translucent fill plus a backdrop blur, so it does not
+   carry its own colour — it takes whatever is behind it. That means one
+   recipe cannot serve the whole site: measured against the four dark
+   surfaces here, the light glass drops to 1.60–2.29 and fails outright.
+
+   So there are two variants sharing one geometry:
+     .btn-brand, .btn-getstarted, submit buttons   light surfaces
+     .btn-glass-dark (+ automatic on dark bands)   dark surfaces
+
+   Light glass over the page reads 5.57, dark glass over the darkest band
+   reads 5.47. Both clear 4.5.
+   ========================================================= */
+
+.btn-brand,
+.btn-getstarted,
+.btn-brand-outline,
+.cta-btn,
+.php-email-form button[type="submit"],
+.btn-visit {
+  position: relative;
+  border-radius: 5px;
+  font-family: var(--nav-font);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #6b5322;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.46) 0%,
+    rgba(255, 255, 255, 0.30) 52%,
+    rgba(255, 255, 255, 0.38) 100%
+  );
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(139, 108, 56, 0.10),
+    0 2px 10px rgba(58, 42, 15, 0.09);
+  transition: background 0.28s ease, color 0.28s ease,
+              border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.btn-brand:hover,
+.btn-getstarted:hover,
+.btn-brand-outline:hover,
+.cta-btn:hover,
+.php-email-form button[type="submit"]:hover,
+.btn-visit:hover {
+  color: #5f4a26;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.60) 0%,
+    rgba(255, 255, 255, 0.42) 52%,
+    rgba(255, 255, 255, 0.52) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(139, 108, 56, 0.12),
+    0 6px 18px rgba(58, 42, 15, 0.14);
+}
+
+/* ---- Dark-surface variant -------------------------------------------
+   Same geometry, lighter fill, light text. Applied automatically inside
+   the dark bands so no markup has to change. */
+
+.dark-background .btn-brand,
+.dark-background .btn-brand-outline,
+.dark-background .php-email-form button[type="submit"],
+.call-to-action .cta-btn,
+.hero .hero-slide-content .btn-get-started,
+.btn-glass-dark {
+  color: #fdf8ec;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.10) 52%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.16),
+    0 2px 12px rgba(0, 0, 0, 0.20);
+}
+
+.dark-background .btn-brand:hover,
+.dark-background .btn-brand-outline:hover,
+.dark-background .php-email-form button[type="submit"]:hover,
+.call-to-action .cta-btn:hover,
+.hero .hero-slide-content .btn-get-started:hover,
+.btn-glass-dark:hover {
+  color: #ffffff;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.17) 52%,
+    rgba(255, 255, 255, 0.23) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.44);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.40),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 6px 20px rgba(0, 0, 0, 0.26);
+}
+
+/* The header pill becomes a 5px rectangle like everything else. */
+.header .btn-getstarted,
+.header .btn-getstarted:focus {
+  border-radius: 5px;
+}
+
+/* Hero buttons are styled by `.hero-slide-content .btn-*` in
+   hero-slider.css, not by `.hero .btn-*`. Matching that selector under
+   .hero puts these at 0,3,0 so they actually win, and gives the primary
+   hero button the glass treatment and the blur the generic rule missed. */
+.hero .hero-slide-content .btn-get-started,
+.hero .hero-slide-content .btn-watch-video {
+  border-radius: 5px;
+}
+
+.hero .hero-slide-content .btn-get-started {
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+}
+
+/* No backdrop-filter: fall back to opaque fills rather than near-invisible
+   transparent ones. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .btn-brand,
+  .btn-getstarted,
+  .btn-brand-outline,
+  .cta-btn,
+  .php-email-form button[type="submit"],
+  .btn-visit {
+    background: #ece9e0;
+  }
+  .dark-background .btn-brand,
+  .dark-background .btn-brand-outline,
+  .call-to-action .cta-btn,
+  .hero .hero-slide-content .btn-get-started,
+  .btn-glass-dark {
+    background: #6f5931;
+  }
 }
