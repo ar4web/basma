@@ -1617,8 +1617,9 @@ body {
   );
 }
 
-/* Content must clear all three layers. */
-.bam-pattern > *:not(.bam-weave):not(.bam-glass):not(.testimonials-bg) {
+/* Content must clear all three layers. The .testimonials-bg exception that
+   used to live here went with the testimonials section. */
+.bam-pattern > *:not(.bam-weave):not(.bam-glass) {
   position: relative;
   z-index: 2;
 }
