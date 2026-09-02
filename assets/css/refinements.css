@@ -2370,3 +2370,26 @@ html {
   .contact .enquiry-row > i { display: none; }
 }
 
+
+/* =========================================================
+   SERVICE CARD ANCHORS
+   ---------------------------------------------------------
+   The footer used to point eleven different labels at #services, so every
+   link landed in the same place. Each service card now carries its own id
+   and the footer targets them individually.
+
+   main.css sets scroll-margin-top on section/.section only, which is what
+   keeps the fixed header from covering a jump target. These anchors are on
+   .service-item divs inside a section, so they inherit nothing and would
+   land underneath the header. Same offsets, same breakpoint.
+   ========================================================= */
+
+.services .service-item[id] {
+  scroll-margin-top: 100px;
+}
+
+@media (max-width: 1199px) {
+  .services .service-item[id] {
+    scroll-margin-top: 66px;
+  }
+}
