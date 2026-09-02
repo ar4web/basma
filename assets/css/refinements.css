@@ -223,6 +223,19 @@ p { line-height: 1.68; }
   line-height: 1.3;
 }
 
+/* From master: service headings run 27-41 characters, so some wrap to two
+   lines and some to one, which left the cards' body copy on ragged
+   baselines. min-height reserves two lines for every card so the rows line
+   up, and the break rules stop a long compound word overflowing the card. */
+.services .details h3 {
+  font-size: var(--fs-lg);
+  line-height: 1.35;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  min-height: 2.7em;
+}
+
 /* Body copy inside cards: was 14 / 14.5 / 15 / 15.5px */
 .service-item p,
 .features-item p,
@@ -730,6 +743,11 @@ body {
   max-height: none;
   margin-right: 0;
   flex: none;
+  /* From master: the footer is dark (#5f4a26) and the mark's own gold sits
+     too close to it. Knocking the artwork to solid white separates it and
+     matches the wordmark beside it. The 80px/10px in that same master rule
+     are inert here -- height and margin-right above already override them. */
+  filter: brightness(0) invert(1);
 }
 
 .footer .footer-about .logo .sitename {
@@ -1768,7 +1786,12 @@ html {
    ========================================================= */
 
 .hero .hero-kicker {
-  color: var(--color-tints-750);
+  /* Not --color-tints-750 (#c0a658). Master's scrim is lighter than the one
+     I had, which drops that gold to 3.75 on hero-5 -- under the 4.5 this
+     13px uppercase text needs. #d9b76a is already in the palette (it paints
+     the brand marks) and measures 4.63 on the same slide. Raising the gold
+     rather than darkening the scrim, so the photography stays as intended. */
+  color: #d9b76a;
 }
 
 .hero .hero-lead {

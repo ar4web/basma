@@ -38,13 +38,19 @@
   content: "";
   position: absolute;
   inset: 0;
+  /* Vertical, from master. I had this as a left-to-right ramp to push
+     contrast under the left-aligned text, but the hero photography is
+     centre-composed -- the Saudi supervisor stands dead centre with the
+     team symmetric around him -- so a left-heavy scrim buried the workers
+     on that side. The vertical ramp keeps the composition readable and
+     still measures 9.23 against the lead paragraph on the worst slide,
+     against the 4.5 needed. */
   background:
     linear-gradient(
-      to right,
-      rgba(20, 15, 7, 0.90) 0%,
-      rgba(20, 15, 7, 0.74) 38%,
-      rgba(20, 15, 7, 0.38) 66%,
-      rgba(20, 15, 7, 0.22) 100%
+      to bottom,
+      rgba(20, 15, 7, 0.28) 0%,
+      rgba(20, 15, 7, 0.52) 45%,
+      rgba(20, 15, 7, 0.70) 100%
     );
 }
 
@@ -244,9 +250,9 @@
   .hero-slider .swiper-slide::after {
     background: linear-gradient(
       to bottom,
-      rgba(20, 15, 7, 0.72) 0%,
-      rgba(20, 15, 7, 0.80) 55%,
-      rgba(20, 15, 7, 0.90) 100%
+      rgba(20, 15, 7, 0.42) 0%,
+      rgba(20, 15, 7, 0.58) 55%,
+      rgba(20, 15, 7, 0.74) 100%
     );
   }
   .hero-slide-content { align-items: flex-end; padding-bottom: 74px; }

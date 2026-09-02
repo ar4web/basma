@@ -35,6 +35,11 @@
 .client-marquee .marquee-viewport {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
@@ -42,12 +47,17 @@
 .client-marquee .marquee-track {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: max-content;
   animation: bam-marquee 42s linear infinite;
 }
 
 .client-marquee .marquee-track img {
-  height: 62px;
+  /* Master raised this from 62px because the logos read too small, which was
+     right. Capped at the artwork's native 130px instead of master's 150px:
+     the PNGs are 320x130, so 150 would upscale them 15% and soften the
+     edges. 130 is the largest size that stays pixel-exact. */
+  height: 130px;
   width: auto;
   margin: 0 34px;
   opacity: 0.55;
@@ -85,7 +95,9 @@
 
 @media (max-width: 640px) {
   .client-marquee { padding: 38px 0; }
-  .client-marquee .marquee-track img { height: 48px; margin: 0 22px; }
+  /* Held smaller on phones: at 130px each logo is 320px wide, which is most
+     of a 375px viewport, so only one would ever be on screen. */
+  .client-marquee .marquee-track img { height: 74px; margin: 0 22px; }
 }
 
 /* ============================================================
@@ -120,7 +132,13 @@
 .certificates .cert-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* `contain`, not `cover`. The thumbs are exactly A4 (440x622) and the box
+     is exactly A4, so nothing is cropped either way today -- but `cover`
+     silently crops if a real scan is ever a slightly different ratio, and
+     the first thing lost is the bottom of the document. `contain` letterboxes
+     against the white card instead, which is the safe failure for a legal
+     document. */
+  object-fit: contain;
   object-position: top center;
   display: block;
 }
