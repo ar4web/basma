@@ -209,6 +209,23 @@ p { line-height: 1.68; }
   margin-right: auto;
 }
 
+/* About lead: bold the core claim and pick the key phrase out in the brand
+   colour so the opening line has real contrast against the body copy. */
+.heading-emphasis {
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.heading-emphasis strong {
+  font-weight: 800;
+  color: var(--heading-color);
+}
+
+.heading-emphasis .accent {
+  color: var(--color-brand);
+  font-weight: 800;
+}
+
 /* Card and item headings: were 17/18/19/20/21/22px */
 .service-item h3,
 .service-item h4,
@@ -1019,6 +1036,20 @@ body {
   color: var(--color-brand);
 }
 
+/* Info panel field labels: small gold captions above the contact detail.
+   Kept genuinely accessible (a real <h4> element) but styled as a subtle
+   eyebrow so the icon + caption + value rows read as one clean object. */
+.contact .info-item h4 {
+  margin: 0 0 6px 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+
 /* =========================================================
    CALL TO ACTION — full bleed
    ---------------------------------------------------------
@@ -1240,6 +1271,13 @@ body {
   color: var(--text-muted);
 }
 
+/* The workforce-category tabs were sharp-cornered (border-radius: 0 in
+   main.css:1343). Round them to the site's 5px corner so they read as
+   cards, matching the service, info and pricing cards. */
+.features .nav-link {
+  border-radius: var(--r-md);
+}
+
 /* The tab icons were carrying an inline style="color: var(--color-brand)"
    six times over, once per tab. Identical value each time, and an inline
    attribute outranks every stylesheet, so the icons could not be themed
@@ -1320,6 +1358,117 @@ body {
 .pricing .pricing-header h4 {
   position: relative;
   z-index: 1;
+}
+
+/* =========================================================
+   PRICING TYPOGRAPHY — hierarchy and alignment
+   ---------------------------------------------------------
+   The plan cards are <h3> name + <h4> tagline + <ul> + button. The h4 here
+   is NOT a dollar price (these are service tiers), but the template styled
+   it as a huge 48px price numeral, which made "Flexible / monthly terms"
+   render enormous and broken. Rescope the h4 to a clean subtitle and give
+   the whole card a consistent, readable ladder:
+   - h3  plan name: strong, mid-large
+   - h4  tagline:   small neutral "eyebrow" (first word a little stronger)
+   - ul  features:  tight rows with small brand check/x marks, left aligned
+   - button          bottom-aligned so all three cards' CTAs line up
+   ========================================================= */
+
+.pricing .pricing-header {
+  padding: 30px 24px 26px;
+}
+
+.pricing .pricing-header h3 {
+  margin: 0 0 6px 0;
+  font-size: clamp(1.35rem, 2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  color: var(--contrast-color);
+}
+
+.pricing .pricing-header h4 {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--contrast-color), transparent 18%);
+}
+
+.pricing .pricing-header h4 span {
+  color: color-mix(in srgb, var(--contrast-color), transparent 35%);
+}
+
+.pricing ul {
+  padding: 24px 0 28px;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.pricing ul li {
+  padding: 9px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--default-color);
+}
+
+.pricing ul li + li {
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+.pricing ul i {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  font-size: 15px;
+  line-height: 1;
+  text-align: center;
+  color: var(--color-brand);
+}
+
+.pricing ul .na {
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+}
+
+.pricing ul .na i {
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+}
+
+.pricing ul .na span {
+  text-decoration: none;
+}
+
+.pricing .buy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 13px 24px;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--default-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 55%);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+              box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.pricing .buy-btn:hover {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.pricing .featured .pricing-header h3,
+.pricing .featured .pricing-header h4 {
+  color: var(--contrast-color);
 }
 
 @media (max-width: 991px) {
@@ -2276,11 +2425,12 @@ html {
   margin-bottom: 26px;
 }
 
-/* Mirrors .contact .info-item: icon in a fixed gutter, content beside it,
-   hairline rule between consecutive rows. */
+/* Mirrors .contact .info-item: content in a clean stack, hairline rule
+   between consecutive rows. Icons were removed from the enquiry form, so
+   there is no icon gutter here. */
 .contact .enquiry-row {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .contact .enquiry-row + .enquiry-row {
@@ -2289,48 +2439,19 @@ html {
   border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.contact .enquiry-row > i {
-  font-size: 24px;
-  color: var(--accent-color);
-  margin-right: 20px;
-  line-height: 1.4;
-}
-
 .contact .enquiry-field {
   flex: 1 1 auto;
   min-width: 0;
 }
 
-.contact .enquiry-field label {
-  display: block;
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--heading-color);
-}
-
-.contact .enquiry-field .req {
-  color: #a4442f;
-  font-weight: 600;
-}
-
-.contact .enquiry-field .opt {
-  font-weight: 400;
-  font-size: var(--fs-xs);
-  color: color-mix(in srgb, var(--default-color), transparent 45%);
-}
-
 .contact .enquiry-field input,
 .contact .enquiry-field textarea {
   width: 100%;
-  padding: 12px 16px;
+  padding: 14px 16px;
   font-size: var(--fs-base);
   font-family: inherit;
   color: var(--default-color);
   background-color: var(--background-color);
-  /* 82% transparent gave a 1.43 edge against the card — below the 3.0
-     WCAG 1.4.11 needs for a UI boundary, so the field outline was barely
-     visible. 48% lands at 3.25. */
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 48%);
   border-radius: 5px;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
@@ -2346,7 +2467,7 @@ html {
 
 .contact .enquiry-field input::placeholder,
 .contact .enquiry-field textarea::placeholder {
-  color: color-mix(in srgb, var(--default-color), transparent 55%);
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
 }
 
 .contact .enquiry-field input:focus,
@@ -2357,17 +2478,29 @@ html {
 }
 
 .contact .enquiry form > button[type=submit] {
-  margin-top: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 26px 0 0 0;
   width: 100%;
   padding: 14px 28px;
   font-size: var(--fs-base);
   font-weight: 600;
+  line-height: 1;
   cursor: pointer;
+}
+
+.contact .enquiry form > button[type=submit]:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.contact .enquiry form > button[type=submit]:active {
+  transform: translateY(0);
 }
 
 @media (max-width: 575px) {
   .contact .enquiry { padding: 28px 22px; }
-  .contact .enquiry-row > i { display: none; }
 }
 
 
