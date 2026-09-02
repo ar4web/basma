@@ -1634,33 +1634,6 @@ body {
   .bam-pattern > .bam-weave::before { opacity: 0.06; }
 }
 
-/* --- testimonials sits on a photo ------------------------------------
-   This section is the one place the shared treatment does not belong, and
-   it took two real defects to work that out.
-
-   It already has its own depth: a full-bleed photo and a dark scrim over
-   it. Adding the lattice and the glass on top of both muted the photo,
-   which is the entire point of the section.
-
-   The worse problem was the glass. .bam-glass paints a backdrop-filter
-   across the full section, carousel included, and .swiper-slide ships with
-   transform: translateZ(0) and backface-visibility: hidden. A composited,
-   moving element inside a backdrop-filtered region is re-rasterised
-   against the filtered backdrop every frame, so the prev/next slides
-   flickered and dimmed mid-transition. backdrop-filter over a moving
-   carousel is the wrong tool, so the glass is dropped here outright.
-
-   The lattice stays but is demoted beneath the scrim, so the scrim tints
-   it along with the photo and it reads as part of the image rather than as
-   a film laid over it. The carousel is then left completely alone. */
-.bam-pattern--photo > .bam-weave { z-index: 1; }
-.bam-pattern--photo > .bam-weave::before { opacity: 0.09; }
-
-/* No glass and no big marks on this section. */
-.bam-pattern--photo > .bam-glass { display: none; }
-
-/* Photo below the lattice; the scrim in main.css stays above both. */
-.testimonials.bam-pattern--photo > .testimonials-bg { z-index: 0; }
 
 /* The CTA's own ::before/::after watermark pair was deleted when the shared
    .bam-pattern treatment took over; four marks on one panel was too many. */
@@ -1739,9 +1712,6 @@ html {
 /* Large background images repaint on every scroll step when the browser has
    to resample them. Telling it these layers are static lets it cache them. */
 .hero-slider .swiper-slide img,
-.testimonials .testimonials-bg {
-  transform: translateZ(0);
-}
 
 /* Anyone who has asked the OS to reduce motion gets instant jumps instead of
    animated scrolling, which can trigger motion sickness. */
@@ -2102,69 +2072,19 @@ html {
   border-radius: 5px;
 }
 
-/* =========================================================
-   TESTIMONIALS — drop the brown wash, keep the photo
-   ---------------------------------------------------------
-   main.css:1498 laid a flat `--background-color at 70%` over the whole
-   photo. On .dark-background that token is #5f4a26, so the section was a
-   solid brown wash with the photograph barely showing through — which is
-   what made it look muddy.
-
-   It cannot simply be deleted: it is also the only thing holding the quote
-   text readable. Sampling the photo on a 4x3 grid, the brightest cell
-   gives body copy 1.16 with no scrim at all.
-
-   Replaced with a neutral near-black at 55%, which is colourless so the
-   photograph keeps its own tones, and measures 4.50 on that same worst
-   cell. Slightly stronger through the middle where the carousel text
-   actually sits, lighter at the edges so the image reads at the corners.
-   ========================================================= */
-
-.testimonials:before {
-  background: linear-gradient(
-    to bottom,
-    rgba(20, 15, 7, 0.46) 0%,
-    rgba(20, 15, 7, 0.60) 42%,
-    rgba(20, 15, 7, 0.60) 62%,
-    rgba(20, 15, 7, 0.46) 100%
-  );
-}
 
 /* =========================================================
    BLEND THE REMAINING DARK EDGES
    ---------------------------------------------------------
-   The CTA and #onfocus now ease into the page. The other dark blocks still
-   met it on a hard cut: testimonials at 6.55 top and bottom, and the
-   footer at 5.36. Same treatment, same construction — opaque stops mixed
-   in linear light, never fading to transparent.
+   The CTA and #onfocus already ease into the page. The footer still met it
+   on a hard cut at 5.36, so it gets the same treatment — opaque stops
+   mixed in linear light, never fading to transparent.
 
-   These strips are decorative only: pointer-events off, and the section
-   content is lifted above them.
+   The strip is decorative only: pointer-events off, with the footer
+   content lifted above it.
    ========================================================= */
 
-.testimonials {
-  position: relative;
-}
-
-.testimonials::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 70px;
-  background: linear-gradient(to bottom,
-              #d5cebb 0%,
-              #c7c0ae 25%,
-              #a39d8d 50%,
-              #70695b 75%,
-              #4b4132 100%);
-  opacity: 0.85;
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* Footer: ease in from the last light section above it. */
+/* The ::before is absolutely positioned against this. */
 .footer {
   position: relative;
 }
@@ -2194,7 +2114,6 @@ html {
 }
 
 @media (max-width: 992px) {
-  .testimonials::after,
   .footer::before { height: 52px; }
 }
 
@@ -2450,27 +2369,3 @@ html {
   .contact .enquiry-row > i { display: none; }
 }
 
-/* =========================================================
-   TESTIMONIALS — photo and quote only
-   ---------------------------------------------------------
-   The name, role and star row were removed from the slides. Those
-   elements were also carrying the vertical rhythm: h3 (10px top, 5px
-   bottom), h4 (15px bottom) and .stars (15px bottom) added up to 45px of
-   space between the avatar and the quote. With them gone the quote
-   collided with the photo, so the gap moves onto the image itself.
-
-   The five-star rows were identical and hardcoded on every slide, so
-   they read as decoration rather than evidence — no loss in dropping them.
-   ========================================================= */
-
-/* Slightly larger, too, without the caption block competing with it. */
-.testimonials .testimonial-item .testimonial-img {
-  width: 112px;
-  margin: 0 auto 26px auto;
-}
-
-.testimonials .testimonial-item p {
-  max-width: 760px;
-  font-size: 1.0625rem;
-  line-height: 1.75;
-}
