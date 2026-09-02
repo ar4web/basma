@@ -251,8 +251,8 @@ p { line-height: 1.68; }
    2. COLOUR — collapse the eleven greys
    ========================================================= */
 
-.cert-issuer,
-.marquee-heading p { color: var(--text-subtle); }
+/* .cert-issuer and .marquee-heading p already take --text-subtle from the
+   small-print group above; repeating them here set the same value twice. */
 
 .field-error { color: var(--color-danger); }
 .field-ok,
@@ -368,6 +368,13 @@ p { line-height: 1.68; }
    4. CARDS — unify radius, border and hover
    ========================================================= */
 
+/* Radius for these lives in the RADIUS SCALE block below, which supersedes
+   this one. .features-item is the exception: it is not in that group, so it
+   keeps its own declaration here. */
+.features-item {
+  border-radius: var(--r-md);
+}
+
 .service-item,
 .features-item,
 .info-item,
@@ -375,7 +382,6 @@ p { line-height: 1.68; }
 .team-member,
 .faq-item,
 .pricing-item {
-  border-radius: var(--radius);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -1061,9 +1067,10 @@ body {
    first resolved to #d3cec5, a near-white slab sitting behind the photo,
    and the second to #392a0f, invisible against the band. Warm gold at low
    alpha instead, so the stack reads as two lit edges behind the photo. */
+/* The <img> already takes --r-md from the radius scale; only the two
+   pseudo-element layers behind it need matching here. */
 .call-to-action .img:before,
-.call-to-action .img:after,
-.call-to-action .img img {
+.call-to-action .img:after {
   border-radius: var(--r-md);
 }
 
