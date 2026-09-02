@@ -42,12 +42,12 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="assets/css/main.css?v=55" rel="stylesheet">
+  <link href="assets/css/main.css?v=56" rel="stylesheet">
 
-  <link href="assets/css/hero-slider.css?v=55" rel="stylesheet">
-  <link href="assets/css/clients.css?v=55" rel="stylesheet">
-  <link href="assets/css/cookie.css?v=55" rel="stylesheet">
-  <link href="assets/css/coverage.css?v=55" rel="stylesheet">
+  <link href="assets/css/hero-slider.css?v=56" rel="stylesheet">
+  <link href="assets/css/clients.css?v=56" rel="stylesheet">
+  <link href="assets/css/cookie.css?v=56" rel="stylesheet">
+  <link href="assets/css/coverage.css?v=56" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: HeroBiz
@@ -82,7 +82,7 @@
   }
   </script>
 
-<link href="assets/css/refinements.css?v=55" rel="stylesheet">
+<link href="assets/css/refinements.css?v=56" rel="stylesheet">
 
 </head>
 
@@ -660,7 +660,7 @@
                 </p>
               </div>
               <div class="col-lg-4 order-1 order-lg-2 text-center">
-                <img src="assets/img/features/features-1.jpg?v=55" alt="Logistics and warehousing workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
+                <img src="assets/img/features/features-1.jpg?v=56" alt="Logistics and warehousing workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
               </div>
             </div>
           </div><!-- End Tab Content 1 -->
@@ -682,7 +682,7 @@
                 </p>
               </div>
               <div class="col-lg-4 order-1 order-lg-2 text-center">
-                <img src="assets/img/features/features-2.jpg?v=55" alt="Industrial and manufacturing workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
+                <img src="assets/img/features/features-2.jpg?v=56" alt="Industrial and manufacturing workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
               </div>
             </div>
           </div><!-- End Tab Content 2 -->
@@ -704,7 +704,7 @@
                 </p>
               </div>
               <div class="col-lg-4 order-1 order-lg-2 text-center">
-                <img src="assets/img/features/features-3.jpg?v=55" alt="Facilities management workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
+                <img src="assets/img/features/features-3.jpg?v=56" alt="Facilities management workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
               </div>
             </div>
           </div><!-- End Tab Content 3 -->
@@ -726,7 +726,7 @@
                 </p>
               </div>
               <div class="col-lg-4 order-1 order-lg-2 text-center">
-                <img src="assets/img/features/features-4.jpg?v=55" alt="Administrative support workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
+                <img src="assets/img/features/features-4.jpg?v=56" alt="Administrative support workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
               </div>
             </div>
           </div><!-- End Tab Content 4 -->
@@ -748,7 +748,7 @@
                 </p>
               </div>
               <div class="col-lg-4 order-1 order-lg-2 text-center">
-                <img src="assets/img/features/features-5.jpg?v=55" alt="Skilled technical and maintenance workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
+                <img src="assets/img/features/features-5.jpg?v=56" alt="Skilled technical and maintenance workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
               </div>
             </div>
           </div><!-- End Tab Content 5 -->
@@ -770,7 +770,7 @@
                 </p>
               </div>
               <div class="col-lg-4 order-1 order-lg-2 text-center">
-                <img src="assets/img/features/features-6.jpg?v=55" alt="General support and helper workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
+                <img src="assets/img/features/features-6.jpg?v=56" alt="General support and helper workforce" class="img-fluid rounded" width="1000" height="625" loading="lazy" decoding="async">
               </div>
             </div>
           </div><!-- End Tab Content 6 -->
@@ -1333,7 +1333,7 @@
 
         <div class="coverage-inner">
 
-          <img src="assets/img/coverage-bg.jpg?v=55" alt="" aria-hidden="true"
+          <img src="assets/img/coverage-bg.jpg?v=56" alt="" aria-hidden="true"
                class="coverage-bg" width="1600" height="679"
                loading="lazy" decoding="async">
           <div class="coverage-scrim" aria-hidden="true"></div>
@@ -1358,7 +1358,7 @@
             </div>
 
             <div class="coverage-visual">
-              <img src="assets/img/coverage-map.svg?v=55"
+              <img src="assets/img/coverage-map.svg?v=56"
                    alt="Map of Saudi Arabia showing Basmat Al Mawared head office in Riyadh and deployment coverage across twelve cities including Jeddah, Dammam, Makkah, Madinah, NEOM, Jubail, Yanbu, Tabuk, Abha, Hail and Buraydah"
                    class="coverage-map" width="600" height="520"
                    loading="lazy" decoding="async">
@@ -1798,7 +1798,7 @@
     // no new dependency.
     window.addEventListener('load', function () {
       if (typeof Swiper === 'undefined') return;
-      new Swiper('.hero-slider', {
+      var heroSwiper = new Swiper('.hero-slider', {
         loop: true,
         speed: 900,
         effect: 'fade',
@@ -1808,6 +1808,35 @@
         navigation: { nextEl: '.hero-next', prevEl: '.hero-prev' },
         keyboard: { enabled: true }
       });
+
+      // With effect:'fade' every slide stays stacked and visible, so the text
+      // of inactive slides bleeds through the crossfade. Drive visibility from
+      // activeIndex and the slides array (reliable after init) — never the CSS
+      // class (unreliable at init/rAF time). Always resets all content first
+      // so the newly-active slide's text is never stuck hidden.
+      (function (swiper) {
+        function syncSlideText() {
+          var slides = swiper.slides;
+          var activeIndex = swiper.activeIndex;
+          // Reset ALL slides' content to visible first
+          for (var i = 0; i < slides.length; i++) {
+            var content = slides[i].querySelector('.hero-slide-content');
+            if (content) content.style.display = '';
+          }
+          // Then hide only the inactive ones
+          for (var j = 0; j < slides.length; j++) {
+            if (j === activeIndex) continue;
+            var content = slides[j].querySelector('.hero-slide-content');
+            if (content) content.style.display = 'none';
+          }
+        }
+        // Event-driven only — never call immediately after construction,
+        // because activeIndex is not reliable at construction time with loop:true.
+        swiper.on('init', syncSlideText);
+        swiper.on('slideChange', syncSlideText);
+        swiper.on('setTransition', syncSlideText);
+        requestAnimationFrame(syncSlideText);
+      })(heroSwiper);
     });
   </script>
 

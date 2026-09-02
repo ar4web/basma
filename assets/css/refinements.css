@@ -1749,3 +1749,35 @@ html {
 .scroll-top i {
   color: #f9f7f2;
 }
+
+/* =========================================================
+   HERO TEXT COLOUR — specificity fix
+   ---------------------------------------------------------
+   main.css:884 sets `.hero p { color: <near-black> }` at specificity
+   0,2,0. The slide paragraphs are <p class="hero-kicker"> and
+   <p class="hero-lead">, both inside .hero, so that rule matches them and
+   outranks the 0,1,0 class rules in hero-slider.css. Loading later does
+   not help — specificity beats source order.
+
+   Result: both paragraphs rendered near-black (#27200c at 70%) over a dark
+   photo, contrast 1.42. The h1 escaped only because .hero h1 sets no
+   colour of its own.
+
+   These selectors are 0,2,0 and 0,3,0, so they win on specificity rather
+   than relying on load order or !important.
+   ========================================================= */
+
+.hero .hero-kicker {
+  color: var(--color-tints-750);
+}
+
+.hero .hero-lead {
+  color: color-mix(in srgb, var(--color-tints-0), transparent 22%);
+}
+
+/* The heading is correct today, but .hero h1 in main.css sets no colour, so
+   it inherits from the section. Pinning it makes that independent of the
+   section default rather than a happy accident. */
+.hero .hero-slide-content h1 {
+  color: var(--color-tints-0);
+}
