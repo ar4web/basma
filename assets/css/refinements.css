@@ -810,10 +810,16 @@ body {
    scale so the form matches every other card on the page.
    ========================================================= */
 
-.contact .php-email-form .form-control,
-.contact .php-email-form input,
-.contact .php-email-form textarea,
-.contact .php-email-form select {
+/* Scoped to #contact so these reach 0,4,1 and outrank main.css's
+   `.contact .php-email-form input[type=text]` at 0,3,1. Without the id the
+   attribute selector wins and text/email keep main.css's 48px height,
+   0px corners and darker background, while the tel field — which matches
+   no attribute selector — takes these instead. That 2px height and 8px
+   radius difference is the mismatch between the two rows. */
+#contact .contact .php-email-form .form-control,
+#contact .contact .php-email-form input,
+#contact .contact .php-email-form textarea,
+#contact .contact .php-email-form select {
   border-radius: var(--r-sm);
   box-shadow: none;
   font-size: var(--fs-base);
@@ -827,12 +833,12 @@ body {
 }
 
 /* Every single-line control gets the same height, whatever its type. */
-.contact .php-email-form input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]) {
+#contact .contact .php-email-form input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]) {
   height: 50px;
   padding: 12px 16px;
 }
 
-.contact .php-email-form textarea {
+#contact .contact .php-email-form textarea {
   padding: 14px 16px;
   height: auto;
   min-height: 190px;
@@ -845,13 +851,13 @@ body {
   opacity: 1;
 }
 
-.contact .php-email-form .form-control:hover {
+#contact .contact .php-email-form .form-control:hover {
   border-color: color-mix(in srgb, var(--color-brand), transparent 66%);
 }
 
-.contact .php-email-form .form-control:focus,
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
+#contact .contact .php-email-form .form-control:focus,
+#contact .contact .php-email-form input:focus,
+#contact .contact .php-email-form textarea:focus {
   outline: none;
   border-color: var(--accent-color);
   background-color: var(--surface-color);
