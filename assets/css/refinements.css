@@ -1206,17 +1206,12 @@ body {
 /* The tab icons were carrying an inline style="color: var(--color-brand)"
    six times over, once per tab. Identical value each time, and an inline
    attribute outranks every stylesheet, so the icons could not be themed
-   without editing markup. Same result, one rule. */
+   without editing markup. Same result, one rule.
+
+   The active and hover states are already handled in main.css:1380 with
+   !important, so they are deliberately not repeated here. */
 .features .nav-link i {
   color: var(--color-brand);
-}
-
-/* The active tab fills with brand gold, so a gold icon on it scored 1.00 —
-   literally invisible. The inline styles had the same defect; it only
-   surfaced once the rule was written out. The label already flips to
-   --contrast-color here, so the icon follows it. */
-.features .nav-link.active i {
-  color: var(--contrast-color);
 }
 
 /* =========================================================
