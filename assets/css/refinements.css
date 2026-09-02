@@ -2449,3 +2449,28 @@ html {
   .contact .enquiry { padding: 28px 22px; }
   .contact .enquiry-row > i { display: none; }
 }
+
+/* =========================================================
+   TESTIMONIALS — photo and quote only
+   ---------------------------------------------------------
+   The name, role and star row were removed from the slides. Those
+   elements were also carrying the vertical rhythm: h3 (10px top, 5px
+   bottom), h4 (15px bottom) and .stars (15px bottom) added up to 45px of
+   space between the avatar and the quote. With them gone the quote
+   collided with the photo, so the gap moves onto the image itself.
+
+   The five-star rows were identical and hardcoded on every slide, so
+   they read as decoration rather than evidence — no loss in dropping them.
+   ========================================================= */
+
+/* Slightly larger, too, without the caption block competing with it. */
+.testimonials .testimonial-item .testimonial-img {
+  width: 112px;
+  margin: 0 auto 26px auto;
+}
+
+.testimonials .testimonial-item p {
+  max-width: 760px;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
