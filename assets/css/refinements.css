@@ -251,7 +251,6 @@ p { line-height: 1.68; }
 /* Small print: was 11 / 11.5 / 12 / 12.5 / 13 / 13.5px */
 .field-help,
 .panel-hint,
-.cert-issuer,
 .marquee-heading p,
 .credits,
 .copyright {
@@ -264,8 +263,8 @@ p { line-height: 1.68; }
    2. COLOUR — collapse the eleven greys
    ========================================================= */
 
-/* .cert-issuer and .marquee-heading p already take --text-subtle from the
-   small-print group above; repeating them here set the same value twice. */
+/* .marquee-heading p already takes --text-subtle from the small-print group
+   above; repeating it here set the same value twice. */
 
 .field-error { color: var(--color-danger); }
 .field-ok,

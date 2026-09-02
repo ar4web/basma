@@ -168,13 +168,6 @@
   line-height: 1.35;
 }
 
-.certificates .cert-issuer {
-  margin: 0 4px;
-  font-size: var(--fs-xs);
-  color: var(--text-subtle);
-  line-height: 1.4;
-}
-
 /* Amber notice marking these as placeholders. Delete this block together with
    the matching markup once the scanned originals are in place. */
 .certificates .cert-placeholder-note {

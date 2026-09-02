@@ -287,3 +287,38 @@
   }
 }
 
+
+/* ---------------------------------------------------------------------
+   Only the active slide shows its text.
+
+   syncSlideText already sets display:none on inactive slides, but it is
+   JS and it races the DOM in two places: before init nothing is hidden
+   yet, so all six headlines paint stacked for a frame; and with
+   loop:true Swiper injects cloned slides that may not be in
+   swiper.slides when sync runs, so a clone keeps its text visible.
+
+   CSS has neither race — it applies at first paint and to clones
+   automatically. Hidden by default, revealed only for the active slide,
+   so no state can leak the previous slide's headline over the new one.
+   --------------------------------------------------------------------- */
+
+.hero-slider .swiper-slide > .hero-slide-content {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Either signal reveals the text: Swiper's own class, or the class
+   syncSlideText sets from activeIndex. Two independent sources, so a lag in
+   one does not leave the hero blank. */
+.hero-slider .swiper-slide-active > .hero-slide-content,
+.hero-slider .swiper-slide > .hero-slide-content.is-active-text {
+  visibility: visible;
+  opacity: 1;
+  /* Fades in just after the photo so it never cross-dissolves against the
+     outgoing headline. */
+  transition: opacity 0.5s ease 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slider .swiper-slide > .hero-slide-content { transition: none; }
+}
