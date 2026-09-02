@@ -1715,3 +1715,37 @@ html {
     scroll-behavior: auto;
   }
 }
+
+/* =========================================================
+   SCROLL-TOP BUTTON
+   ---------------------------------------------------------
+   Was --accent-color (#8b6c38), the mid gold. Retuned to the darker
+   footer-top brown so the button reads as part of the same family as the
+   footer it sits above, rather than as a stray gold chip.
+
+   Contrast improves in both directions: the arrow goes from 4.56 to 7.86
+   against the button, and the button goes from 3.11 to 5.36 against the
+   page background, so it stays clearly visible over light sections.
+
+   Hover lifts to the footer's surface tone (#6f5931) instead of the
+   template's transparency mix, which washed out over a light page.
+   ========================================================= */
+
+.scroll-top {
+  background-color: #5f4a26;
+  /* The button is position:fixed, so at the bottom of a page it floats over
+     the footer -- which is this same #5f4a26. Without an edge it would
+     disappear completely there (contrast 1.00). The gold hairline is the
+     same device the dark-band components use, and gives it a 3.54 edge
+     against the footer while staying invisible against light sections. */
+  border: 1px solid rgba(192, 166, 88, 0.55);
+}
+
+.scroll-top:hover {
+  background-color: #6f5931;
+  border-color: rgba(192, 166, 88, 0.85);
+}
+
+.scroll-top i {
+  color: #f9f7f2;
+}
