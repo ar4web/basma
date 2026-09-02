@@ -529,8 +529,7 @@ textarea.form-control,
 .tag,
 .badge,
 .job-tag,
-.filter-chip,
-.hero-kicker-sep {
+.filter-chip {
   border-radius: var(--r-sm);
 }
 
