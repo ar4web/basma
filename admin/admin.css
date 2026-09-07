@@ -11,16 +11,42 @@
   --bg: #d5cebb;
   --ok: var(--color-success);
   --warn: var(--color-danger);
+
+  --default-font: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --heading-font: "DM Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --nav-font: "Poppins", sans-serif;
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+
+  --fs-2xs: 0.75rem;
+  --fs-xs:  0.8125rem;
+  --fs-sm:  0.875rem;
+  --fs-base: 0.9375rem;
+  --fs-md:  1rem;
+  --fs-lg:  1.125rem;
+  --fs-xl:  1.375rem;
+  --fs-2xl: 1.75rem;
+  --fs-3xl: 2.25rem;
+
+  --lh-body: 1.68;
+  --lh-heading: 1.22;
+
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-medium: 500;
+  --weight-regular: 400;
+  --weight-light: 300;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: Roboto, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--default-font);
   background: var(--bg);
   color: var(--ink);
   font-size: var(--fs-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-body);
 }
 
 .lbl {

@@ -13,16 +13,36 @@
  */
 
 :root {
+  /* ---- Font stacks ---- */
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --default-font: var(--font-sans);
+  --heading-font: "DM Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --nav-font: "Poppins", sans-serif;
+
   /* ---- Type scale (1.200 minor third, 16px base) ---- */
   --fs-2xs: 0.75rem;     /* 12px  — micro labels, legal */
   --fs-xs:  0.8125rem;   /* 13px  — captions, help text */
   --fs-sm:  0.875rem;    /* 14px  — secondary body */
-  --fs-base:0.9375rem;   /* 15px  — UI default */
+  --fs-base: 0.9375rem;  /* 15px  — UI default */
   --fs-md:  1rem;        /* 16px  — body */
   --fs-lg:  1.125rem;    /* 18px  — lead */
   --fs-xl:  1.375rem;    /* 22px  — card titles */
   --fs-2xl: 1.75rem;     /* 28px  — section sub-heads */
   --fs-3xl: 2.25rem;     /* 36px  — section titles */
+
+  /* ---- Line-heights ---- */
+  --lh-tight: 1.15;
+  --lh-heading: 1.22;
+  --lh-body: 1.68;
+  --lh-relaxed: 1.75;
+  --lh-snug: 1.35;
+
+  /* ---- Heading weights ---- */
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-medium: 500;
+  --weight-regular: 400;
+  --weight-light: 300;
 
   /* ---- Muted text: three steps, not eleven ---- */
   /* Secondary text. These were 32/48/64% transparent, which washed body copy
@@ -168,12 +188,14 @@ textarea.form-control {
 }
 
 /* =========================================================
-   1. TYPOGRAPHY — snap stray sizes onto the scale
-   ========================================================= */
+    1. TYPOGRAPHY — snap stray sizes onto the scale
+    ========================================================= */
 
 body {
+  font-family: var(--default-font);
   font-size: var(--fs-md);
-  line-height: 1.65;
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -181,16 +203,19 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font);
+  font-weight: var(--weight-semibold);
   letter-spacing: -0.011em;
-  line-height: 1.22;
+  line-height: var(--lh-heading);
 }
 
-h1 { font-weight: 600; }
-h2 { font-weight: 600; }
-h3, h4 { font-weight: 600; }
-h5, h6 { font-weight: 600; }
+h1 { font-size: clamp(2rem, 3.5vw, var(--fs-3xl)); font-weight: var(--weight-bold); }
+h2 { font-size: clamp(1.5rem, 3vw, var(--fs-2xl)); }
+h3 { font-size: clamp(1.25rem, 2.5vw, var(--fs-xl)); }
+h4 { font-size: var(--fs-xl); }
+h5 { font-size: var(--fs-lg); }
+h6 { font-size: var(--fs-md); }
 
-p { line-height: 1.68; }
+p { line-height: var(--lh-body); }
 
 /* Section titles were 36/40/42/44px across different sections */
 .section-title h2 {
@@ -472,27 +497,61 @@ a { transition: color 0.25s ease; }
 .footer .credits { margin-top: 4px; }
 
 /* =========================================================
-   MOTION — smoother, and less of it
-   ========================================================= */
+    SAUDI CORPORATE ANIMATIONS
+    Crisp 150ms ease-in-out transitions for enterprise-grade feel
+    ========================================================= */
 
-/* .features .tab-pane.active in main.css calls `animation: fadeIn 0.5s`,
-   but no @keyframes fadeIn is defined anywhere in the project or in the
-   AOS vendor stylesheet. The declaration has therefore been doing nothing
-   since the template shipped, so switching tabs snapped with no transition
-   at all. Defining it here as a small fade-and-rise, which is what the
-   original template clearly intended. */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: none; }
+/* Dashboard hovers, login buttons, and form inputs */
+.btn-brand,
+.btn-brand-outline,
+.btn-getstarted,
+.btn-get-started,
+.btn-watch-video,
+.btn-visit,
+.php-email-form button[type="submit"],
+.cta-btn,
+.input-btn button,
+.icon-btn,
+.nav-link,
+.form-control,
+.form-select,
+textarea.form-control,
+.form-wrap .form-control,
+.form-wrap .form-select,
+.upload-zone,
+.job-card,
+.pill,
+.job-filters button,
+.grid2,
+.grid3,
+.drawer,
+.modal-bg,
+.toast-bam,
+.label {
+  transition: all 150ms ease-in-out;
 }
 
-.features .tab-pane.active {
-  animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+/* Hover lift — 150ms */
+.btn-brand:hover,
+.btn-getstarted:hover,
+.btn-get-started:hover,
+.btn-visit:hover,
+.php-email-form button[type="submit"]:hover,
+.icon-btn:hover,
+.job-card:hover,
+.upload-zone:hover {
+  transition: all 150ms ease-in-out;
 }
 
-/* The template's default 0.3s linear-ish transitions read as mechanical.
-   A gentle ease-out curve costs nothing and makes hover states feel
-   settled rather than abrupt. */
+/* Form focus — 150ms */
+.form-control:focus,
+.form-select:focus,
+.form-wrap .form-control:focus,
+.form-wrap .form-select:focus {
+  transition: all 150ms ease-in-out;
+}
+
+/* Existing cubic-bezier transitions — keep for lift effects on service/cert cards */
 a,
 .btn,
 .btn-get-started,
@@ -515,6 +574,17 @@ a,
 .post-item:hover,
 .team-member:hover {
   will-change: transform;
+}
+
+/* Fallback animation for tab panes — re-defined since the original
+   @keyframes fadeIn was removed during the transition refactor. */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.features .tab-pane.active {
+  animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Respect the OS setting. AOS is told to stop moving things, the hero stops

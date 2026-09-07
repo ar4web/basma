@@ -1,0 +1,400 @@
+{
+  "site": {
+    "name": "Basmat Al Mawared",
+    "tagline": "Saudi Manpower Supply & Workforce Management"
+  },
+  "nav": {
+    "about": "About",
+    "services": "Services",
+    "industries": "Industries",
+    "careers": "Careers",
+    "insights": "Insights",
+    "requestQuote": "Request a Quote"
+  },
+  "hero": {
+    "kicker": "Since 2017 · Riyadh",
+    "title1": "One Workforce.<br>Every Sector.",
+    "title2": "Teams That<br>Keep You Moving",
+    "title3": "Skilled Hands,<br>Certified Trades",
+    "title4": "Trusted by 30+<br>Organisations",
+    "title5": "Spotless,<br>Every Shift",
+    "title6": "Production Lines,<br>Fully Manned",
+    "lead1": "From cleaning and security to logistics and technical trades — licensed, Qiwa-registered teams deployed across the Kingdom.",
+    "lead2": "Forklift operators, loaders and stock controllers — background-checked, uniformed and ready for your peak season.",
+    "lead3": "Electricians, HVAC technicians, plumbers and carpenters. Every deployment covered by our replacement guarantee.",
+    "lead4": "Housekeeping, grounds, laundry and portering — managed end to end, with WPS payroll handled in-house.",
+    "lead5": "Day and night cleaning crews for offices, malls and hospitals — trained, supervised and audited to an agreed scope.",
+    "lead6": "Machine operators, QC inspectors and line assistants supplied at volume — GOSI-registered and insured from day one.",
+    "btnExplore": "Explore Services",
+    "btnRequestQuote": "Request a Quote"
+  },
+  "featuredServices": {
+    "execRecruitment": {
+      "title": "Executive Recruitment",
+      "desc": "Management, engineering and IT professionals screened and placed under fully compliant contracts."
+    },
+    "blueCollar": {
+      "title": "Blue-Collar Supply",
+      "desc": "Warehouse, hospitality, cleaning and factory personnel supplied on demand across the Kingdom."
+    },
+    "contractStaffing": {
+      "title": "Contract Staffing",
+      "desc": "Flexible short-term project labor with complete payroll management and insurance coverage."
+    },
+    "compliance": {
+      "title": "Compliance Guarantee",
+      "desc": "Qiwa and Muqeem transfers handled end-to-end, aligned with Nitaqat green-tier standards."
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "desc": "Operating since 2017. Trusted by more than 30 organisations for legal, compliant and rapid workforce deployment across the Kingdom.",
+    "heading": "We supply <strong>uniformed, background-checked</strong> personnel to <span class=\"accent\">every sector</span> of the Saudi economy.",
+    "tabs": {
+      "qiwa": "Qiwa Compliance",
+      "muqeem": "Muqeem Transfers",
+      "nitaqat": "Nitaqat Alignment",
+      "tab1.title": "Full Qiwa system registration for all deployed personnel",
+      "tab1b.title": "Wage Protection System (WPS) payroll handled in-house",
+      "tab1c.title": "Dedicated compliance officers for every contract",
+      "tab2.title": "End-to-end Muqeem transfer processing on your behalf",
+      "tab2b.title": "Transparent timelines with zero hidden fees",
+      "tab2c.title": "Contract renewal and Iqama expiry management",
+      "tab3.title": "Green-tier Nitaqat alignment strategies",
+      "tab3b.title": "Saudi national talent sourcing and placement",
+      "tab3c.title": "Vision 2030 workforce readiness consulting"
+    }
+  },
+  "credentials": {
+    "operatingSince": "Operating Since 2017",
+    "mhrsdLicensed": "MHRSD Licensed",
+    "commercialRegistration": "Commercial Registration",
+    "qiwaVerified": "Qiwa & Muqeem Verified",
+    "wpsCompliant": "WPS Compliant Payroll"
+  },
+  "certificates": {
+    "title": "Licences & Certifications",
+    "desc": "Fully licensed and registered to supply manpower across Saudi Arabia.",
+    "commercialRegistration": "Commercial Registration",
+    "recruitmentLicence": "Recruitment Licence",
+    "chamberCommerce": "Chamber of Commerce",
+    "gosi": "GOSI Certificate",
+    "vat": "VAT Registration",
+    "saudization": "Saudization Certificate"
+  },
+  "cta": {
+    "title": "Need Workforce at Scale? <em>Deploy in Days</em>, Not Months",
+    "desc": "Warehouse crews, baristas, cleaners, machine operators and general helpers — uniformed, vetted and fully insured, delivered anywhere in the Kingdom with 100% MLSD compliance.",
+    "btn": "Submit Manpower Demand"
+  },
+  "onfocus": {
+    "title": "Fully Compliant, Fully Transparent Workforce Management",
+    "desc": "Every worker is recruited, transferred and insured in full compliance with Saudi labour law — no shortcuts, no risk."
+  },
+  "features": {
+    "title": "Workforce Categories",
+    "desc": "The specialist manpower we recruit, mobilise and manage — and this is not exhaustive. If your requirement sits outside these categories, we will source it.",
+    "tabs": {
+      "logistics": {
+        "title": "Logistics",
+        "desc": "Trained warehouse operatives, pickers, packers, and forklift operators."
+      },
+      "industrial": {
+        "title": "Industrial & Manufacturing",
+        "desc": "Heavy-industry technicians, factory-floor workers, and machine operators."
+      },
+      "facilities": {
+        "title": "Facilities Management",
+        "desc": "Cleaning, housekeeping, and hospitality staff."
+      },
+      "administrative": {
+        "title": "Administrative Support",
+        "desc": "Office coordinators, data-entry clerks, and management assistants."
+      },
+      "technical": {
+        "title": "Skilled Technical & Maintenance",
+        "desc": "Electricians, plumbers, HVAC/AC technicians, and MEP specialists."
+      },
+      "helpers": {
+        "title": "General Helpers & Unskilled Labour",
+        "desc": "Reliable helpers and general labour supporting every kind of operation, from factories to retail."
+      }
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "desc": "Comprehensive manpower and workforce management solutions for every sector of the Saudi market."
+  },
+  "pricing": {
+    "title": "Enterprise Manpower Deployment Plans",
+    "desc": "Flexible annual and monthly workforce supply agreements tailored to your requirements."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "desc": "Everything you need to know about compliant manpower supply, worker transfers and deployment in Saudi Arabia.",
+    "q1": {
+      "title": "How do you ensure compliance with Saudi labour law?",
+      "q": "We ensure full compliance with Saudi labour law through Qiwa and Muqeem registration, WPS payroll administration, and adherence to Nitaqat standards. All workers are properly documented and insured."
+    },
+    "q2": {
+      "title": "What documents are required for application?",
+      "q": "Applicants need a transferable Iqama or eligible for sponsorship transfer, a valid passport or national ID, and relevant educational or professional certificates. Specific requirements vary by role."
+    },
+    "q3": {
+      "title": "How long does the recruitment process take?",
+      "q": "The process typically takes 2-6 weeks depending on the role, documentation speed, and government processing times for Iqama and Qiwa registration."
+    }
+  },
+  "portfolio": {
+    "title": "Workforce Deployment Case Study",
+    "desc": "Large-scale manpower supply delivered with full Qiwa, Muqeem and MLSD compliance across KSA",
+    "filters": {
+      "all": "All",
+      "logistics": "Logistics & Warehousing",
+      "hospitality": "Hospitality & Coffee Shops",
+      "cleaning": "Cleaning & Facilities",
+      "helpers": "General Helpers",
+      "industrial": "Manufacturing"
+    },
+    "portfolioInfo": {
+      "sector": "Sector",
+      "client": "Client",
+      "deploymentStart": "Deployment start",
+      "workforce": "Workforce",
+      "btn": "Request a Quote"
+    }
+  },
+  "coverage": {
+    "kicker": "Nationwide Deployment",
+    "title": "Every Region.<span>Ready to Deploy.</span>",
+    "desc": "From Riyadh to Jeddah, Dammam to NEOM — our uniformed teams mobilise wherever your operation runs.",
+    "stats": {
+      "regions": "Regions Covered",
+      "countries": "Source Countries",
+      "since": "Operating Since"
+    },
+    "btn": "Tell Us What You Need"
+  },
+  "howWeWork": {
+    "title": "How We Work",
+    "desc": "A transparent four-step model. You always know what happens next, who is accountable, and what it costs.",
+    "steps": {
+      "step1": {
+        "title": "1. Position",
+        "desc": "Tell us what role you need and we'll find the best candidates."
+      },
+      "step2": {
+        "title": "2. Interview",
+        "desc": "We conduct screening and interviews, both technical and cultural fit."
+      },
+      "step3": {
+        "title": "3. Deployment",
+        "desc": "We handle all paperwork, Qiwa/Muqeem processing, and logistics."
+      },
+      "step4": {
+        "title": "4. Management",
+        "desc": "Ongoing workforce management, performance monitoring, and support."
+      }
+    }
+  },
+  "team": {
+    "title": "Our Leadership",
+    "desc": "Experienced professionals who understand Saudi labour law and industry demands."
+  },
+  "blog": {
+    "title": "Manpower Insights",
+    "desc": "Latest updates on Saudi labour regulations, recruitment and workforce trends."
+  },
+  "blogDetails": {
+    "title": "Navigating KSA Qiwa & Muqeem Transfers",
+    "author": "Omar Al-Harbi",
+    "date": "Jul 14, 2026",
+    "categories": {
+      "compliance": "Compliance"
+    }
+  },
+  "cookiePolicy": {
+    "title": "Cookie Policy",
+    "meta": "Basmat Al Mawared Company Limited · Last updated 31 August 2026 · Applies to basmat-almawared.com"
+  },
+  "footer": {
+    "about": "Basmat Al Mawared",
+    "phone": "+966 56 999 0576",
+    "email": "info@basmat-almawared.com",
+    "links": {
+      "about": "About Us",
+      "credentials": "Credentials",
+      "certificates": "Certificates",
+      "clients": "Clients",
+      "coverage": "Coverage",
+      "contact": "Contact"
+    },
+    "careers": {
+      "openVacancies": "Open Vacancies",
+      "applyNow": "Apply Now",
+      "cvBuilder": "CV Builder"
+    },
+    "copyright": "© Copyright Basmat Al Mawared. All Rights Reserved",
+    "businessHours": "Business Hours: Sunday - Thursday: 9:00 AM - 6:00 PM | basmat-almawared.com",
+    "cr": "Basmat Al Mawared Company Limited · CR No. 1010XXXXXX · Riyadh, Saudi Arabia",
+    "cookiePolicy": "Cookie Policy",
+    "cookieSettings": "Cookie Settings",
+    "insights": {
+      "title": "Insights",
+      "blog": "Manpower Insights",
+      "details": "Insights Details"
+    }
+  },
+  "apply": {
+    "title": "Apply for a Position",
+    "subtitle": "Four short steps, about three minutes. Your details go straight to our recruitment team and every application receives a reference number.",
+    "steps": {
+      "step1": {
+        "label": "Position",
+        "job": "Which position are you applying for?",
+        "hint": "Choose a live vacancy. If nothing suits you right now, pick the last option and we will keep your details on file for future openings.",
+        "select": "Select a position...",
+        "availableFrom": "Available From",
+        "currentLocation": "Where are you now?",
+        "options": {
+          "insideTransferable": "Inside Saudi Arabia - transferable Iqama",
+          "insideNotTransferable": "Inside Saudi Arabia - not transferable",
+          "insideVisit": "Inside Saudi Arabia - visit visa",
+          "outside": "Outside Saudi Arabia - overseas hire"
+        }
+      },
+      "step2": {
+        "label": "Personal",
+        "hint": "These must match your official documents exactly.",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "As printed on your passport",
+        "nationality": "Nationality",
+        "nationalityPlaceholder": "e.g. Indian, Pakistani, Saudi",
+        "email": "Email Address",
+        "emailPlaceholder": "you@example.com",
+        "phone": "Mobile Number",
+        "phonePlaceholder": "+966 5X XXX XXXX",
+        "idType": "ID Type",
+        "idTypeOptions": {
+          "select": "Select...",
+          "iqama": "Iqama (Residency ID)",
+          "national": "Saudi National ID",
+          "passport": "Passport (overseas applicants)"
+        },
+        "idNumber": "ID Number",
+        "idHelp": "Optional, but a valid Iqama or National ID speeds up hiring considerably — employers in the Kingdom can only hire candidates who hold one.",
+        "dob": "Date of Birth",
+        "city": "City of Residence",
+        "cityPlaceholder": "e.g. Riyadh"
+      },
+      "step3": {
+        "label": "Experience and CV",
+        "hint": "Upload an existing CV, or build one free with our ATS-ready generator.",
+        "yearsExp": "Years of Experience",
+        "currentJob": "Current or Most Recent Job Title",
+        "skills": "Key Skills & Certificates",
+        "skillsPlaceholder": "e.g. Forklift licence, 6G welding certificate, food hygiene, Saudi driving licence",
+        "skillsHelp": "Separate with commas. Certificates and licences carry the most weight with employers.",
+        "cvUpload": "Upload Your CV",
+        "cvDrag": "Drag your CV here, or click to browse",
+        "cvSize": "PDF, DOC or DOCX · maximum 5 MB",
+        "noCv": "No CV yet?",
+        "noCvDesc": "Build a professional, ATS-ready CV in a few minutes. It is free and yours to keep.",
+        "openCvBuilder": "Open the CV Builder",
+        "coverNote": "Anything else we should know?",
+        "coverNotePlaceholder": "Optional. A short note about why you are a good fit."
+      },
+      "step4": {
+        "label": "Review",
+        "hint": "Please check your details. Errors in your name or contact details will delay processing.",
+        "consent": "I confirm the information above is accurate, and I consent to Basmat Al Mawared storing and processing my details for recruitment purposes.",
+        "talentPool": "Keep my details on file for future vacancies that match my profile.",
+        "btnBack": "Back",
+        "btnContinue": "Continue",
+        "btnSubmit": "Submit Application"
+      }
+    }
+  },
+  "success": {
+    "title": "Application Received",
+    "desc": "Thank you. Our recruitment team reviews every application within two working days.",
+    "ref": "Your Reference",
+    "copyRef": "Copy reference",
+    "quote": "Please quote this reference in any correspondence. A confirmation has been sent to your email.",
+    "needPdf": "Need a PDF copy of your CV?",
+    "needPdfDesc": "Build one now and download it to use anywhere — other employers, our office, or your own records. Free, and yours to keep.",
+    "browseVacancies": "Browse More Vacancies",
+    "openCvBuilder2": "Open the CV Builder"
+  },
+  "cvBuilder": {
+    "title": "ATS-Ready CV Builder",
+    "desc": "Most large employers in the Kingdom screen CVs with software before a person ever reads them.",
+    "step1": "1. Choose a template",
+    "step2": "2. Fill in your details",
+    "personal": "Personal Information",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Mohammed Al-Harbi",
+    "cvTitle": "Professional Title",
+    "cvTitlePlaceholder": "Warehouse Supervisor",
+    "email": "Email",
+    "cvPhone": "Phone",
+    "cvPhonePlaceholder": "+966 5X XXX XXXX",
+    "city": "City",
+    "cityPlaceholder": "Riyadh, Saudi Arabia",
+    "nationality": "Nationality",
+    "nationalityPlaceholder": "Indian",
+    "iqama": "Iqama / ID Status",
+    "licence": "Driving Licence",
+    "summary": "Professional Summary",
+    "summaryPlaceholder": "Three or four lines describing your experience, your strongest skill and what you are looking for.",
+    "experience": "Work Experience",
+    "addExp": "Add a job",
+    "education": "Education",
+    "addEdu": "Add education",
+    "skillsCertLang": "Skills, Certificates & Languages",
+    "skills": "Key Skills",
+    "skillsPlaceholder": "Inventory control, Forklift operation, Stock auditing, WMS systems",
+    "certs": "Certificates & Licences",
+    "certsPlaceholder": "Forklift Operator Certificate (2023), OSHA Safety Awareness, Food Hygiene Level 2",
+    "langs": "Languages",
+    "langsPlaceholder": "English (fluent), Arabic (basic), Hindi (native)"
+  },
+  "careers": {
+    "title": "Careers",
+    "currentVacancies": "Current Vacancies",
+    "stats": {
+      "openings": "Open Vacancies",
+      "positions": "Positions to Fill",
+      "urgent": "Urgent Openings",
+      "response": "Response Time"
+    },
+    "search": "Search by job title, location or reference...",
+    "noResults": "No vacancies match your search",
+    "clearFilters": "Clear Filters",
+    "noVacancies": "No vacancies are open at this moment",
+    "registerInterest": "Register for Future Openings",
+    "speculativeTitle": "Cannot find the right role?",
+    "speculativeDesc": "Register your details anyway. We add every qualified candidate to our talent pool and contact them directly when a matching vacancy opens."
+  },
+  "serviceDetails": {
+    "title": "Service Details",
+    "desc": "Detailed breakdown of our manpower services: recruitment, mobilisation, Qiwa and Muqeem processing, WPS payroll and ongoing workforce management across Saudi Arabia."
+  },
+  "pageTitles": {
+    "home": "Basmat Al Mawared Company Limited",
+    "about": "About Us",
+    "careers": "Careers",
+    "apply": "Apply Now",
+    "cvBuilder": "CV Builder",
+    "serviceDetails": "Service Details",
+    "blog": "Manpower Insights",
+    "blogDetails": "Insights",
+    "portfolio": "Sector Deployment",
+    "cookiePolicy": "Cookie Policy",
+    "starter": "About Us"
+  },
+  "language": {
+    "en": "English",
+    "ar": "العربية"
+  }
+}
