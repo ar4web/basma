@@ -62,7 +62,7 @@
     Promise.all([
       fetch('assets/i18n/en.json').then(function(r){ return r.json(); }).then(function(d){ dictEn = d; dictLoaded.en = true; }),
       fetch('assets/i18n/ar.json').then(function(r){ return r.json(); }).then(function(d){ dictAr = d; dictLoaded.ar = true; })
-    ]).catch(function() {});
+    ]).then(function () { translatePage(); }).catch(function() {});
   }
 
   function translatePage() {
