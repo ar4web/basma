@@ -295,6 +295,46 @@
 
   /* ---------------- submit ---------------- */
 
+  /* Reference in the same BMC+YYDDMMHHMM (Asia/Riyadh) format the PHP backend issued. */
+  function clientRef() {
+    try {
+      var parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Riyadh', year: '2-digit', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+      var g = {};
+      parts.forEach(function (p) { g[p.type] = p.value; });
+      var h = g.hour === '24' ? '00' : g.hour;
+      return 'BMC' + g.year + g.day + g.month + h + g.minute;
+    } catch (e) {
+      var d = new Date();
+      var z = function (n) { return String(n).padStart(2, '0'); };
+      return 'BMC' + z(d.getFullYear() % 100) + z(d.getDate()) + z(d.getMonth() + 1) + z(d.getHours()) + z(d.getMinutes());
+    }
+  }
+
+  function showSuccess(ref) {
+    form.style.display = 'none';
+    document.querySelector('#apply-intro').style.display = 'none';
+    document.querySelector('#form-steps').style.display = 'none';
+    document.querySelector('#success-ref').textContent = ref;
+
+    // Let the candidate copy their reference in one tap.
+    const copyBtn = document.querySelector('#copy-ref');
+    if (copyBtn && navigator.clipboard) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(ref).then(() => {
+          copyBtn.innerHTML = '<i class="bi bi-check-lg"></i>';
+          setTimeout(() => { copyBtn.innerHTML = '<i class="bi bi-clipboard"></i>'; }, 1800);
+        }).catch(() => {});
+      });
+    } else if (copyBtn) {
+      copyBtn.style.display = 'none';
+    }
+    document.querySelector('#apply-success').style.display = 'block';
+    window.scrollTo({
+      top: document.querySelector('.form-wrap').offsetTop - 110,
+      behavior: 'smooth'
+    });
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!validate(LAST)) return;
@@ -304,40 +344,23 @@
     alertBox.innerHTML = '';
     lastAlertMsg = null;
 
+    var fd = new FormData(form);
+    var ref = clientRef();
+    // bot traps (mirror forms/apply.php fake-success)
+    var trapped = (fd.get('website') || '').toString().trim() !== '';
+    var opened = parseInt(fd.get('form_time'), 10) || 0;
+    if (trapped || (opened && (Date.now() / 1000 - opened) < 5)) { showSuccess(ref); return; }
+    fd.append('_subject', '[Job Application] ' + (document.querySelector('#job_title_hidden').value || '') + ' — ' + ((fd.get('full_name') || '').toString()) + ' (' + ref + ')');
+    fd.append('_template', 'table');
+    fd.append('_captcha', 'false');
+
     fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      body: fd,
+      headers: { 'Accept': 'application/json' }
     })
-      .then(r => r.json().catch(() => ({ ok: false, error: T('apply.errors.serverResponse', 'Unexpected server response.') })))
-      .then(data => {
-        if (data.ok) {
-          form.style.display = 'none';
-          document.querySelector('#apply-intro').style.display = 'none';
-          document.querySelector('#form-steps').style.display = 'none';
-          document.querySelector('#success-ref').textContent = data.reference || '—';
-
-          // Let the candidate copy their reference in one tap.
-          const copyBtn = document.querySelector('#copy-ref');
-          if (copyBtn && navigator.clipboard) {
-            copyBtn.addEventListener('click', () => {
-              navigator.clipboard.writeText(data.reference || '').then(() => {
-                copyBtn.innerHTML = '<i class="bi bi-check-lg"></i>';
-                setTimeout(() => { copyBtn.innerHTML = '<i class="bi bi-clipboard"></i>'; }, 1800);
-              }).catch(() => {});
-            });
-          } else if (copyBtn) {
-            copyBtn.style.display = 'none';
-          }
-          document.querySelector('#apply-success').style.display = 'block';
-          window.scrollTo({
-            top: document.querySelector('.form-wrap').offsetTop - 110,
-            behavior: 'smooth'
-          });
-        } else {
-          throw new Error(data.error || T('apply.errors.submitFailed', 'Submission failed.'));
-        }
-      })
+      .then(r => { if (!r.ok) throw new Error(T('apply.errors.submitFailed', 'Submission failed.')); })
+      .then(() => showSuccess(ref))
       .catch(err => {
         lastAlertMsg = err.message;
         alertBox.innerHTML =
