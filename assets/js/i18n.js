@@ -175,7 +175,7 @@
     if (mobile && navList) {
       if (!drawerItem) { drawerItem = document.createElement('li'); drawerItem.className = 'lang-toggle-item'; }
       if (toggle.parentNode !== drawerItem) drawerItem.appendChild(toggle);
-      if (drawerItem.parentNode !== navList) navList.insertBefore(drawerItem, navList.firstChild);
+      if (drawerItem.parentNode !== navList) navList.appendChild(drawerItem); // last in drawer
       return;
     }
     if (drawerItem && drawerItem.parentNode) drawerItem.parentNode.removeChild(drawerItem);
