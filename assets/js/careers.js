@@ -27,16 +27,24 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
     c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+  function T(key, fallback, vars) {
+    if (window.BAM_t) return window.BAM_t(key, fallback, vars);
+    let v = String(fallback);
+    if (vars) Object.keys(vars).forEach(k => { v = v.split('{' + k + '}').join(vars[k]); });
+    return v;
+  }
+  function loc() { return (window.BAM_lang && window.BAM_lang() === 'ar') ? 'ar-EG' : 'en-US'; }
+
   function daysAgo(dateStr) {
     const then = new Date(dateStr + 'T00:00:00');
     if (isNaN(then)) return '';
     const diff = Math.floor((Date.now() - then.getTime()) / 86400000);
-    if (diff <= 0) return 'Posted today';
-    if (diff === 1) return 'Posted yesterday';
-    if (diff < 7) return 'Posted ' + diff + ' days ago';
-    if (diff < 14) return 'Posted 1 week ago';
-    if (diff < 60) return 'Posted ' + Math.floor(diff / 7) + ' weeks ago';
-    return 'Posted ' + Math.floor(diff / 30) + ' months ago';
+    if (diff <= 0) return T('careers.ui.postedToday', 'Posted today');
+    if (diff === 1) return T('careers.ui.postedYesterday', 'Posted yesterday');
+    if (diff < 7) return T('careers.ui.postedDays', 'Posted {n} days ago', { n: diff.toLocaleString(loc()) });
+    if (diff < 14) return T('careers.ui.postedWeek', 'Posted 1 week ago');
+    if (diff < 60) return T('careers.ui.postedWeeks', 'Posted {n} weeks ago', { n: Math.floor(diff / 7).toLocaleString(loc()) });
+    return T('careers.ui.postedMonths', 'Posted {n} months ago', { n: Math.floor(diff / 30).toLocaleString(loc()) });
   }
 
   /* ---------- headline stats ---------- */
@@ -58,9 +66,9 @@
     const dur = 900, t0 = performance.now();
     function tick(now) {
       const p = Math.min((now - t0) / dur, 1);
-      el.textContent = Math.floor(p * target).toLocaleString();
+      el.textContent = Math.floor(p * target).toLocaleString(loc());
       if (p < 1) requestAnimationFrame(tick);
-      else el.textContent = target.toLocaleString();
+      else el.textContent = target.toLocaleString(loc());
     }
     requestAnimationFrame(tick);
   }
@@ -71,11 +79,14 @@
     const cats = ['All', ...Array.from(new Set(jobs.map(j => j.category)))];
     filterBar.innerHTML = cats.map(c => {
       const n = c === 'All' ? jobs.length : jobs.filter(j => j.category === c).length;
+      const label = c === 'All' ? T('careers.ui.all', 'All') : c;
       return '<button type="button" data-cat="' + esc(c) + '"' +
-        (c === 'All' ? ' class="active"' : '') + '>' + esc(c) +
-        ' <span style="opacity:.65">(' + n + ')</span></button>';
+        (c === activeCat ? ' class="active"' : '') + '>' + esc(label) +
+        ' <span style="opacity:.65">(' + esc(n.toLocaleString(loc())) + ')</span></button>';
     }).join('');
 
+    if (filterBar.dataset.bamBound) return;
+    filterBar.dataset.bamBound = '1';
     filterBar.addEventListener('click', e => {
       const btn = e.target.closest('button');
       if (!btn) return;
@@ -90,7 +101,10 @@
   function card(j) {
     const reqs = (j.requirements || []).map(r => '<li>' + esc(r) + '</li>').join('');
     const bens = (j.benefits || []).map(b => '<li>' + esc(b) + '</li>').join('');
-    const posText = j.vacancies > 1 ? j.vacancies + ' positions' : '1 position';
+    const posN = Number(j.vacancies).toLocaleString(loc());
+    const posText = j.vacancies > 1
+      ? T('careers.ui.positions', '{n} positions', { n: posN })
+      : T('careers.ui.position1', '1 position');
 
     return '' +
       '<div class="col-lg-6">' +
@@ -100,31 +114,31 @@
               '<h3>' + esc(j.title) + '</h3>' +
               '<span class="job-ref">Ref ' + esc(j.id) + ' &middot; ' + esc(j.category) + '</span>' +
             '</div>' +
-            (j.urgent ? '<span class="job-urgent">Urgent</span>' : '') +
+            (j.urgent ? '<span class="job-urgent">' + esc(T('careers.ui.urgent', 'Urgent')) + '</span>' : '') +
           '</div>' +
 
           '<div class="job-meta">' +
             '<span><i class="bi bi-geo-alt"></i>' + esc(j.location) + '</span>' +
             '<span><i class="bi bi-briefcase"></i>' + esc(j.type) + '</span>' +
             '<span><i class="bi bi-bar-chart"></i>' + esc(j.experience) + '</span>' +
-            '<span><i class="bi bi-people"></i>' + posText + '</span>' +
+            '<span><i class="bi bi-people"></i>' + esc(posText) + '</span>' +
             '<span><i class="bi bi-cash-coin"></i>' + esc(j.salary) + '</span>' +
           '</div>' +
 
           '<p class="job-summary">' + esc(j.summary) + '</p>' +
 
           '<div class="job-detail" id="detail-' + esc(j.id) + '">' +
-            (reqs ? '<h5>Requirements</h5><ul>' + reqs + '</ul>' : '') +
-            (bens ? '<h5>What We Offer</h5><ul>' + bens + '</ul>' : '') +
+            (reqs ? '<h5>' + esc(T('careers.ui.requirements', 'Requirements')) + '</h5><ul>' + reqs + '</ul>' : '') +
+            (bens ? '<h5>' + esc(T('careers.ui.whatWeOffer', 'What We Offer')) + '</h5><ul>' + bens + '</ul>' : '') +
           '</div>' +
 
           '<div class="job-actions">' +
-            '<a class="btn-brand" href="apply.html?job=' + encodeURIComponent(j.id) + '">Apply Now</a>' +
+            '<a class="btn-brand" href="apply.html?job=' + encodeURIComponent(j.id) + '">' + esc(T('careers.ui.applyNow', 'Apply Now')) + '</a>' +
             '<button type="button" class="job-toggle" aria-expanded="false" ' +
               'aria-controls="detail-' + esc(j.id) + '" data-toggle="' + esc(j.id) + '">' +
-              '<span class="t">View details</span> <i class="bi bi-chevron-down"></i>' +
+              '<span class="t">' + esc(T('careers.ui.viewDetails', 'View details')) + '</span> <i class="bi bi-chevron-down"></i>' +
             '</button>' +
-            '<span class="job-posted">' + daysAgo(j.posted) + '</span>' +
+            '<span class="job-posted">' + esc(daysAgo(j.posted)) + '</span>' +
           '</div>' +
         '</article>' +
       '</div>';
@@ -162,7 +176,7 @@
     if (toolbar) toolbar.style.display = noneAtAll ? 'none' : '';
 
     countEl.textContent = out.length
-      ? 'Showing ' + out.length + ' of ' + jobs.length + ' vacancies'
+      ? T('careers.ui.showing', 'Showing {a} of {b} vacancies', { a: out.length.toLocaleString(loc()), b: jobs.length.toLocaleString(loc()) })
       : '';
   }
 
@@ -174,7 +188,9 @@
     const panel = document.querySelector('#detail-' + CSS.escape(btn.dataset.toggle));
     const open = panel.classList.toggle('open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.querySelector('.t').textContent = open ? 'Hide details' : 'View details';
+    btn.querySelector('.t').textContent = open
+      ? T('careers.ui.hideDetails', 'Hide details')
+      : T('careers.ui.viewDetails', 'View details');
   });
 
   /* ---------- search (debounced) ---------- */
@@ -203,6 +219,8 @@
   }
 
   /* ---------- init ---------- */
+
+  document.addEventListener('bam:lang', () => { buildFilters(); render(); });
 
   buildFilters();
   render();

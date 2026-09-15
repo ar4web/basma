@@ -33,7 +33,24 @@
       }
     }
     translatePage();
+    // Let dynamic renderers (job cards, cookie banner) re-render in the new language.
+    try { document.dispatchEvent(new CustomEvent('bam:lang', { detail: { lang: lang } })); } catch (e) {}
   }
+
+  /* Public helpers for scripts that render HTML dynamically (careers.js, cookie banner).
+     BAM_t('careers.ui.urgent', 'Urgent') -> Arabic string, or the fallback when missing.
+     Supports {name} placeholders: BAM_t('k', 'Hi {n}', { n: 5 }). */
+  window.BAM_t = function (key, fallback, vars) {
+    var val = resolveKey(getCurrentDict(), key);
+    if (val === undefined) val = (fallback !== undefined) ? fallback : key;
+    if (vars) {
+      for (var k in vars) {
+        if (vars.hasOwnProperty(k)) val = String(val).split('{' + k + '}').join(vars[k]);
+      }
+    }
+    return val;
+  };
+  window.BAM_lang = function () { return currentLang; };
 
   function getCurrentDict() {
     if (currentLang === 'ar') {
@@ -58,10 +75,22 @@
     }
   }
 
+  function dictBase() {
+    // Resolve dict URLs relative to this script, so /admin/ (which loads
+    // ../assets/js/i18n.js) fetches ../assets/i18n/*.json instead of 404ing.
+    try {
+      var src = (document.currentScript && document.currentScript.src) || '';
+      var m = src.match(/^(.*\/)js\/i18n\.js(\?.*)?$/);
+      if (m) return m[1] + 'i18n/';
+    } catch (e) {}
+    return 'assets/i18n/';
+  }
+
   function loadDicts() {
+    var base = dictBase();
     Promise.all([
-      fetch('assets/i18n/en.json').then(function(r){ return r.json(); }).then(function(d){ dictEn = d; dictLoaded.en = true; }),
-      fetch('assets/i18n/ar.json').then(function(r){ return r.json(); }).then(function(d){ dictAr = d; dictLoaded.ar = true; })
+      fetch(base + 'en.json').then(function(r){ return r.json(); }).then(function(d){ dictEn = d; dictLoaded.en = true; }),
+      fetch(base + 'ar.json').then(function(r){ return r.json(); }).then(function(d){ dictAr = d; dictLoaded.ar = true; })
     ]).then(function () { translatePage(); }).catch(function() {});
   }
 

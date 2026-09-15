@@ -21,9 +21,17 @@
   const alertBox = document.querySelector('#form-alert');
   let current = 1;
   const LAST = panels.length;
+  let lastAlertMsg = null;
 
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
     c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function T(key, fallback, vars) {
+    if (window.BAM_t) return window.BAM_t(key, fallback, vars);
+    let v = String(fallback);
+    if (vars) Object.keys(vars).forEach(k => { v = v.split('{' + k + '}').join(vars[k]); });
+    return v;
+  }
 
   /* ---------------- populate the position dropdown ---------------- */
 
@@ -45,7 +53,7 @@
 
   const spec = document.createElement('option');
   spec.value = 'SPECULATIVE';
-  spec.textContent = 'No specific role — register me for future openings';
+  spec.textContent = T('apply.ui.speculativeOption', 'No specific role — register me for future openings');
   sel.appendChild(spec);
 
   // Preselect from ?job=WH-104
@@ -66,10 +74,9 @@
           '<div style="background: color-mix(in srgb, var(--accent-color), transparent 95%);' +
           ' border-left: 3px solid var(--accent-color); border-radius: 6px; padding: 14px 16px;">' +
           '<div style="font-size:13.5px; line-height:1.7;">' +
-          '<strong>Registering for future openings</strong><br>' +
+          '<strong>' + esc(T('apply.ui.futureTitle', 'Registering for future openings')) + '</strong><br>' +
           '<span style="color: color-mix(in srgb, var(--default-color), transparent 30%);">' +
-          'Your details go into our candidate pool. When a client requirement matches your ' +
-          'profile we contact you directly, usually before the role is advertised.' +
+          esc(T('apply.ui.futureDesc', 'Your details go into our candidate pool. When a client requirement matches your profile we contact you directly, usually before the role is advertised.')) +
           '</span></div></div>';
       } else {
         brief.hidden = true;
@@ -96,21 +103,25 @@
   const idHelp = document.querySelector('#id-help');
   const idErr = document.querySelector('#id-error');
 
+  function setIdHelp() {
+    if (idType.value === 'iqama') {
+      idNum.placeholder = T('apply.ui.idPhIqama', '2XXXXXXXXX');
+      idHelp.textContent = T('apply.ui.idHelpIqama', 'Your Iqama number is 10 digits and starts with 2.');
+    } else if (idType.value === 'national') {
+      idNum.placeholder = T('apply.ui.idPhNational', '1XXXXXXXXX');
+      idHelp.textContent = T('apply.ui.idHelpNational', 'Your Saudi National ID is 10 digits and starts with 1.');
+    } else if (idType.value === 'passport') {
+      idNum.placeholder = T('apply.ui.idPhPassport', 'Passport number');
+      idHelp.textContent = T('apply.ui.idHelpPassport', 'Enter your passport number exactly as printed.');
+    } else {
+      idNum.placeholder = T('apply.ui.idPhDefault', 'Select ID type first');
+      idHelp.textContent = T('apply.ui.idHelpDefault', 'Saudi National ID starts with 1, Iqama starts with 2. Both are 10 digits.');
+    }
+  }
+
   idType.addEventListener('change', () => {
     idNum.value = '';
-    if (idType.value === 'iqama') {
-      idNum.placeholder = '2XXXXXXXXX';
-      idHelp.textContent = 'Your Iqama number is 10 digits and starts with 2.';
-    } else if (idType.value === 'national') {
-      idNum.placeholder = '1XXXXXXXXX';
-      idHelp.textContent = 'Your Saudi National ID is 10 digits and starts with 1.';
-    } else if (idType.value === 'passport') {
-      idNum.placeholder = 'Passport number';
-      idHelp.textContent = 'Enter your passport number exactly as printed.';
-    } else {
-      idNum.placeholder = 'Select ID type first';
-      idHelp.textContent = 'Saudi National ID starts with 1, Iqama starts with 2. Both are 10 digits.';
-    }
+    setIdHelp();
   });
 
   // Digits only for Saudi IDs
@@ -126,11 +137,11 @@
     // so a typo is still caught before submission.
     if (!v) { idErr.textContent = ''; return true; }
     if (idType.value === 'iqama') {
-      if (!/^2\d{9}$/.test(v)) { idErr.textContent = 'An Iqama number must be 10 digits starting with 2.'; return false; }
+      if (!/^2\d{9}$/.test(v)) { idErr.textContent = T('apply.errors.iqama', 'An Iqama number must be 10 digits starting with 2.'); return false; }
     } else if (idType.value === 'national') {
-      if (!/^1\d{9}$/.test(v)) { idErr.textContent = 'A Saudi National ID must be 10 digits starting with 1.'; return false; }
+      if (!/^1\d{9}$/.test(v)) { idErr.textContent = T('apply.errors.national', 'A Saudi National ID must be 10 digits starting with 1.'); return false; }
     } else if (idType.value === 'passport') {
-      if (!/^[A-Za-z0-9]{5,15}$/.test(v)) { idErr.textContent = 'Please enter a valid passport number.'; return false; }
+      if (!/^[A-Za-z0-9]{5,15}$/.test(v)) { idErr.textContent = T('apply.errors.passport', 'Please enter a valid passport number.'); return false; }
     }
     return true;
   }
@@ -143,6 +154,7 @@
   const fileErr = document.querySelector('#file-error');
   const MAXBYTES = 5 * 1024 * 1024;
   const OK_EXT = ['pdf', 'doc', 'docx'];
+  let lastFileErr = null;
 
   zone.addEventListener('click', () => fileInput.click());
   zone.addEventListener('keydown', e => {
@@ -162,16 +174,19 @@
 
   function handleFile() {
     fileErr.style.display = 'none';
+    lastFileErr = null;
     const f = fileInput.files[0];
     if (!f) { fileBox.classList.remove('show'); return; }
     const ext = f.name.split('.').pop().toLowerCase();
     if (OK_EXT.indexOf(ext) === -1) {
-      fileErr.textContent = 'Only PDF, DOC and DOCX files are accepted.';
+      lastFileErr = { kind: 'type' };
+      fileErr.textContent = T('apply.errors.fileType', 'Only PDF, DOC and DOCX files are accepted.');
       fileErr.style.display = 'block';
       fileInput.value = ''; fileBox.classList.remove('show'); return;
     }
     if (f.size > MAXBYTES) {
-      fileErr.textContent = 'That file is ' + (f.size / 1048576).toFixed(1) + ' MB. The maximum is 5 MB.';
+      lastFileErr = { kind: 'size', size: (f.size / 1048576).toFixed(1) };
+      fileErr.textContent = T('apply.errors.fileSize', 'That file is {size} MB. The maximum is 5 MB.', { size: (f.size / 1048576).toFixed(1) });
       fileErr.style.display = 'block';
       fileInput.value = ''; fileBox.classList.remove('show'); return;
     }
@@ -227,33 +242,33 @@
     const f = fileInput.files[0];
 
     const block = (title, rows) =>
-      '<div class="review-block"><h6>' + title + '</h6>' +
+      '<div class="review-block"><h6>' + esc(title) + '</h6>' +
       rows.filter(r => r[1]).map(r =>
-        '<div class="review-row"><div class="k">' + r[0] + '</div><div class="v">' + esc(r[1]) + '</div></div>'
+        '<div class="review-row"><div class="k">' + esc(r[0]) + '</div><div class="v">' + esc(r[1]) + '</div></div>'
       ).join('') + '</div>';
 
     document.querySelector('#review-out').innerHTML =
-      block('Position', [
-        ['Applying for', txt('job_id')],
-        ['Available from', v('available_from')],
-        ['Current status', txt('current_location')]
+      block(T('apply.ui.reviewPosition', 'Position'), [
+        [T('apply.ui.rvApplyingFor', 'Applying for'), txt('job_id')],
+        [T('apply.ui.rvAvailableFrom', 'Available from'), v('available_from')],
+        [T('apply.ui.rvCurrentStatus', 'Current status'), txt('current_location')]
       ]) +
-      block('Personal Details', [
-        ['Full name', v('full_name')],
-        ['Nationality', v('nationality')],
-        ['Email', v('email')],
-        ['Mobile', v('phone')],
-        ['ID type', txt('id_type')],
-        ['ID number', v('id_number')],
-        ['Date of birth', v('dob')],
-        ['City', v('city')]
+      block(T('apply.ui.reviewPersonal', 'Personal Details'), [
+        [T('apply.ui.rvFullName', 'Full name'), v('full_name')],
+        [T('apply.ui.rvNationality', 'Nationality'), v('nationality')],
+        [T('apply.ui.rvEmail', 'Email'), v('email')],
+        [T('apply.ui.rvMobile', 'Mobile'), v('phone')],
+        [T('apply.ui.rvIdType', 'ID type'), txt('id_type')],
+        [T('apply.ui.rvIdNumber', 'ID number'), v('id_number')],
+        [T('apply.ui.rvDob', 'Date of birth'), v('dob')],
+        [T('apply.ui.rvCity', 'City'), v('city')]
       ]) +
-      block('Experience', [
-        ['Years of experience', txt('years_exp')],
-        ['Current job title', v('current_job')],
-        ['Skills', v('skills')],
-        ['CV attached', f ? f.name : 'No file uploaded'],
-        ['Additional notes', v('cover_note')]
+      block(T('apply.ui.reviewExperience', 'Experience'), [
+        [T('apply.ui.rvYearsExp', 'Years of experience'), txt('years_exp')],
+        [T('apply.ui.rvCurrentJob', 'Current job title'), v('current_job')],
+        [T('apply.ui.rvSkills', 'Skills'), v('skills')],
+        [T('apply.ui.rvCvAttached', 'CV attached'), f ? f.name : T('apply.ui.noFile', 'No file uploaded')],
+        [T('apply.ui.rvNotes', 'Additional notes'), v('cover_note')]
       ]);
   }
 
@@ -285,15 +300,16 @@
     if (!validate(LAST)) return;
 
     btnSubmit.disabled = true;
-    btnSubmit.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending...';
+    btnSubmit.innerHTML = '<i class="bi bi-hourglass-split"></i> ' + esc(T('apply.ui.sending', 'Sending...'));
     alertBox.innerHTML = '';
+    lastAlertMsg = null;
 
     fetch(form.action, {
       method: 'POST',
       body: new FormData(form),
       headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-      .then(r => r.json().catch(() => ({ ok: false, error: 'Unexpected server response.' })))
+      .then(r => r.json().catch(() => ({ ok: false, error: T('apply.errors.serverResponse', 'Unexpected server response.') })))
       .then(data => {
         if (data.ok) {
           form.style.display = 'none';
@@ -319,19 +335,47 @@
             behavior: 'smooth'
           });
         } else {
-          throw new Error(data.error || 'Submission failed.');
+          throw new Error(data.error || T('apply.errors.submitFailed', 'Submission failed.'));
         }
       })
       .catch(err => {
+        lastAlertMsg = err.message;
         alertBox.innerHTML =
           '<div style="background:#fdecea;border:1px solid #f5c6cb;color:#8a1c1c;' +
           'padding:12px 16px;border-radius:6px;font-size:14px;">' +
-          esc(err.message) + ' Please try again, or email your CV to info@basmat-almawared.com.' +
+          esc(err.message) + ' ' + esc(T('apply.errors.tryAgain', 'Please try again, or email your CV to info@basmat-almawared.com.')) +
           '</div>';
         btnSubmit.disabled = false;
-        btnSubmit.innerHTML = '<i class="bi bi-send"></i> Submit Application';
+        btnSubmit.innerHTML = '<i class="bi bi-send"></i> ' + esc(T('apply.ui.submit', 'Submit Application'));
       });
   });
+
+  /* ---------------- retranslate on language switch (never clears inputs) ---------------- */
+
+  function retranslate() {
+    spec.textContent = T('apply.ui.speculativeOption', 'No specific role — register me for future openings');
+    setIdHelp();
+    if (idErr.textContent) { idErr.textContent = ''; idValid(); }
+    if (lastFileErr) {
+      fileErr.textContent = lastFileErr.kind === 'size'
+        ? T('apply.errors.fileSize', 'That file is {size} MB. The maximum is 5 MB.', { size: lastFileErr.size })
+        : T('apply.errors.fileType', 'Only PDF, DOC and DOCX files are accepted.');
+      fileErr.style.display = 'block';
+    }
+    if (lastAlertMsg && alertBox.innerHTML) {
+      alertBox.innerHTML =
+        '<div style="background:#fdecea;border:1px solid #f5c6cb;color:#8a1c1c;' +
+        'padding:12px 16px;border-radius:6px;font-size:14px;">' +
+        esc(lastAlertMsg) + ' ' + esc(T('apply.errors.tryAgain', 'Please try again, or email your CV to info@basmat-almawared.com.')) +
+        '</div>';
+    }
+    showBrief();
+    if (current === LAST) buildReview();
+    btnSubmit.innerHTML = btnSubmit.disabled
+      ? '<i class="bi bi-hourglass-split"></i> ' + esc(T('apply.ui.sending', 'Sending...'))
+      : '<i class="bi bi-send"></i> ' + esc(T('apply.ui.submit', 'Submit Application'));
+  }
+  document.addEventListener('bam:lang', retranslate);
 
   /* ---------------- anti-spam timestamp ---------------- */
 
