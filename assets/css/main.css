@@ -12,9 +12,42 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Source Sans Pro",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
+  --default-font: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "DM Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --nav-font: "Poppins", sans-serif;
+
+  /* Font stack (shared) */
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+
+  /* Type scale (1.200 minor third, 16px base) */
+  --fs-2xs: 0.75rem;    /* 12px */
+  --fs-xs:  0.8125rem;  /* 13px */
+  --fs-sm:  0.875rem;   /* 14px */
+  --fs-base:0.9375rem;  /* 15px */
+  --fs-md:  1rem;       /* 16px */
+  --fs-lg:  1.125rem;   /* 18px */
+  --fs-xl:  1.375rem;   /* 22px */
+  --fs-2xl: 1.75rem;    /* 28px */
+  --fs-3xl: 2.25rem;    /* 36px */
+
+  /* Line-heights */
+  --lh-tight: 1.15;
+  --lh-heading: 1.22;
+  --lh-body: 1.68;
+  --lh-relaxed: 1.75;
+  --lh-snug: 1.35;
+
+  /* Heading weights */
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-medium: 500;
+  --weight-regular: 400;
+  --weight-light: 300;
+
+  /* Text colours — three steps */
+  --text-muted:   color-mix(in srgb, var(--default-color), transparent 24%);
+  --text-subtle:  color-mix(in srgb, var(--default-color), transparent 34%);
+  --text-faint:   color-mix(in srgb, var(--default-color), transparent 44%);
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
@@ -44,10 +77,66 @@
   --nav-color: var(--color-shades-300);  /* The default color of the main navmenu links */
   --nav-hover-color: var(--color-brand); /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: var(--color-tints-0); /* Used as the background color for mobile navigation menu */
-  --nav-dropdown-background-color: var(--color-tints-0); /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-dropdown-background-color: var(--color-tints-0); /* Used as the background color for dropdown items that appear when hovering over primary navigation items. */
   --nav-dropdown-color: var(--color-shades-300); /* Used for navigation links of the dropdown items in the navigation menu. */
   --nav-dropdown-hover-color: var(--color-brand); /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
+
+/*--------------------------------------------------------------
+# Global Typography
+--------------------------------------------------------------*/
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--default-font);
+  font-size: var(--fs-md);
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-body);
+  color: var(--default-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+  font-weight: var(--weight-semibold);
+  line-height: var(--lh-heading);
+  color: var(--heading-color);
+  margin-top: 0;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2rem, 3.5vw, var(--fs-3xl)); font-weight: var(--weight-bold); }
+h2 { font-size: clamp(1.5rem, 3vw, var(--fs-2xl)); }
+h3 { font-size: clamp(1.25rem, 2.5vw, var(--fs-xl)); }
+h4 { font-size: var(--fs-xl); }
+h5 { font-size: var(--fs-lg); }
+h6 { font-size: var(--fs-md); }
+
+p {
+  line-height: var(--lh-body);
+  margin-top: 0;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: color-mix(in srgb, var(--accent-color), transparent 25%);
+  text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+# Nav Menu Colors
+--------------------------------------------------------------*/
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
@@ -72,32 +161,7 @@
 /*--------------------------------------------------------------
 # General Styling & Shared Classes
 --------------------------------------------------------------*/
-body {
-  color: var(--default-color);
-  background-color: var(--background-color);
-  font-family: var(--default-font);
-}
-
-a {
-  color: var(--accent-color);
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-a:hover {
-  color: color-mix(in srgb, var(--accent-color), transparent 25%);
-  text-decoration: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--heading-color);
-  font-family: var(--heading-font);
-}
+/* Typography handled in #Global Typography above */
 
 /* Pulsating Play Button
 ------------------------------*/

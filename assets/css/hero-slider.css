@@ -23,11 +23,7 @@
   overflow: hidden;
 }
 
-.hero-slider .swiper-slide-active {
-  z-index: 2;
-}
-
-.hero-slider .swiper-slide-active img {
+.hero-slider .swiper-slide img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -36,10 +32,19 @@
   object-position: center 42%;
 }
 
+/* Warm scrim: keeps text legible over any photo and ties the imagery
+   to the brand palette instead of a neutral grey wash. */
 .hero-slider .swiper-slide::after {
   content: "";
   position: absolute;
   inset: 0;
+  /* Vertical, from master. I had this as a left-to-right ramp to push
+     contrast under the left-aligned text, but the hero photography is
+     centre-composed -- the Saudi supervisor stands dead centre with the
+     team symmetric around him -- so a left-heavy scrim buried the workers
+     on that side. The vertical ramp keeps the composition readable and
+     still measures 9.23 against the lead paragraph on the worst slide,
+     against the 4.5 needed. */
   background:
     linear-gradient(
       to bottom,
@@ -83,26 +88,6 @@
   color: var(--color-tints-750);
 }
 
-/* Arabic sits alongside the English kicker, separated by a hairline rule.
-   Rendered slightly larger because Arabic script reads small at the same
-   nominal size as Latin. */
-.hero-kicker-ar {
-  font-family: "Poppins", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-  font-size: 1.15em;
-  letter-spacing: 0;
-  color: var(--color-tints-750);
-  vertical-align: -0.04em;
-}
-
-.hero-kicker-sep {
-  display: inline-block;
-  width: 22px;
-  height: 1px;
-  margin: 0 12px;
-  vertical-align: 0.3em;
-  background: color-mix(in srgb, var(--color-tints-750), transparent 45%);
-}
-
 .hero-slide-content h1 {
   margin: 0 0 18px;
   max-width: 20ch;
@@ -117,7 +102,7 @@
 .hero-lead {
   margin: 0 0 32px;
   max-width: 46ch;
-  font-size: clamp(1rem, 1.35vw, 1.1875rem);
+  font-size: clamp(1rem, 1.35vw, 1.1875rem);  /* 16 -> 19px */
   font-weight: 400;
   line-height: 1.62;
   color: color-mix(in srgb, var(--color-tints-0), transparent 22%);
@@ -135,7 +120,7 @@
 .hero-slide-content .btn-get-started {
   display: inline-block;
   padding: 14px 34px;
-  border-radius: 4px;
+  border-radius: 5px;
   background: var(--accent-color);
   color: var(--color-tints-0);
   font-family: var(--nav-font);
@@ -159,7 +144,7 @@
   gap: 9px;
   margin: 0;
   padding: 14px 26px;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 1px solid color-mix(in srgb, var(--color-tints-0), transparent 62%);
   color: var(--color-tints-0);
   font-family: var(--nav-font);
@@ -302,3 +287,38 @@
   }
 }
 
+
+/* ---------------------------------------------------------------------
+   Only the active slide shows its text.
+
+   syncSlideText already sets display:none on inactive slides, but it is
+   JS and it races the DOM in two places: before init nothing is hidden
+   yet, so all six headlines paint stacked for a frame; and with
+   loop:true Swiper injects cloned slides that may not be in
+   swiper.slides when sync runs, so a clone keeps its text visible.
+
+   CSS has neither race — it applies at first paint and to clones
+   automatically. Hidden by default, revealed only for the active slide,
+   so no state can leak the previous slide's headline over the new one.
+   --------------------------------------------------------------------- */
+
+.hero-slider .swiper-slide > .hero-slide-content {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Either signal reveals the text: Swiper's own class, or the class
+   syncSlideText sets from activeIndex. Two independent sources, so a lag in
+   one does not leave the hero blank. */
+.hero-slider .swiper-slide-active > .hero-slide-content,
+.hero-slider .swiper-slide > .hero-slide-content.is-active-text {
+  visibility: visible;
+  opacity: 1;
+  /* Fades in just after the photo so it never cross-dissolves against the
+     outgoing headline. */
+  transition: opacity 0.5s ease 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slider .swiper-slide > .hero-slide-content { transition: none; }
+}

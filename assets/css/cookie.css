@@ -15,7 +15,7 @@
   max-width: 1180px;
   margin: 0 auto;
   background: #f1ede3;
-  border-radius: 12px;
+  border-radius: 5px;
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.22);
   border-top: 3px solid var(--color-brand, #8b6c38);
   padding: 26px 30px;
@@ -87,7 +87,7 @@
 
 .bam-cc-btn {
   border: 0;
-  border-radius: 6px;
+  border-radius: 5px;
   padding: 12px 24px;
   font-size: var(--fs-sm);
   font-weight: 600;
@@ -175,7 +175,7 @@
 
 .bam-cc-modal {
   background: #f1ede3;
-  border-radius: 12px;
+  border-radius: 5px;
   max-width: 640px;
   width: 100%;
   max-height: 88vh;
@@ -233,7 +233,7 @@
 
 .bam-cc-group {
   border: 1px solid #eae7dd;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 18px 20px;
   margin-bottom: 14px;
 }
@@ -375,7 +375,7 @@
   background: var(--color-brand, #8b6c38);
   color: #fff;
   border: 0;
-  border-radius: 6px;
+  border-radius: 5px;
   padding: 10px 22px;
   font-size: var(--fs-sm);
   font-weight: 600;
@@ -429,7 +429,7 @@
 .cookie-table code {
   background: #f2efe7;
   padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: var(--fs-2xs);
   color: #6b5426;
   word-break: break-all;
@@ -438,7 +438,7 @@
 .policy-note {
   background: color-mix(in srgb, var(--color-brand, #8b6c38), transparent 95%);
   border-left: 3px solid var(--color-brand, #8b6c38);
-  border-radius: 6px;
+  border-radius: 5px;
   padding: 18px 22px;
   margin: 24px 0;
 }

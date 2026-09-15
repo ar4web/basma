@@ -19,7 +19,6 @@
     window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
   }
 
-  document.addEventListener('scroll', toggleScrolled);
   window.addEventListener('load', toggleScrolled);
 
   /**
@@ -78,16 +77,19 @@
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
   }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  // Guarded, because toggleScrollTop above already treats this element as
+  // optional. Binding without a guard would throw on any page that omits it.
+  if (scrollTop) {
+    scrollTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-  });
+  }
 
   window.addEventListener('load', toggleScrollTop);
-  document.addEventListener('scroll', toggleScrollTop);
 
   /**
    * Animation on scroll function and init
@@ -200,22 +202,59 @@
    */
   let navmenulinks = document.querySelectorAll('.navmenu a');
 
+  // Resolve each link to its section once, instead of running a
+  // document.querySelector per link on every scroll event.
+  const spyTargets = [];
+  navmenulinks.forEach(link => {
+    if (!link.hash || link.hash === '#') return;
+    let section = null;
+    try { section = document.querySelector(link.hash); } catch (e) { return; }
+    if (section) spyTargets.push({ link: link, section: section });
+  });
+
   function navmenuScrollspy() {
-    navmenulinks.forEach(navmenulink => {
-      if (!navmenulink.hash) return;
-      let section = document.querySelector(navmenulink.hash);
-      if (!section) return;
-      let position = window.scrollY + 200;
-      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-        document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
-        navmenulink.classList.add('active');
-      } else {
-        navmenulink.classList.remove('active');
-      }
-    })
+    const position = window.scrollY + 200;
+    let current = null;
+
+    // Read first, write second. Interleaving offsetTop reads with class
+    // changes forces the browser to re-run layout between each one.
+    for (const t of spyTargets) {
+      const top = t.section.offsetTop;
+      if (position >= top && position <= top + t.section.offsetHeight) current = t.link;
+    }
+
+    for (const t of spyTargets) {
+      t.link.classList.toggle('active', t.link === current);
+    }
   }
   window.addEventListener('load', navmenuScrollspy);
-  document.addEventListener('scroll', navmenuScrollspy);
+
+  /**
+   * One passive, rAF-throttled scroll listener for all three handlers.
+   *
+   * These used to be three separate non-passive listeners, each running on
+   * every scroll event. A non-passive listener forces the browser to wait
+   * and see whether the handler calls preventDefault before it may scroll,
+   * and navmenuScrollspy reads offsetTop/offsetHeight, which forces a
+   * synchronous layout. Doing that on every event is the standard cause of
+   * scroll jank.
+   *
+   * Now the work is coalesced into a single animation frame, so it runs at
+   * most once per painted frame no matter how fast the events arrive, and
+   * { passive: true } tells the browser it can scroll immediately.
+   */
+  let scrollQueued = false;
+  function onScrollFrame() {
+    scrollQueued = false;
+    toggleScrolled();
+    toggleScrollTop();
+    navmenuScrollspy();
+  }
+  document.addEventListener('scroll', function () {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    requestAnimationFrame(onScrollFrame);
+  }, { passive: true });
 
   /**
    * Stamp the contact form with its render time.

@@ -94,6 +94,20 @@ function field(string $key, int $max = 500): string
     return mb_substr($v, 0, $max);
 }
 
+/**
+ * Neutralise spreadsheet formula injection.
+ *
+ * Excel and LibreOffice execute a cell that begins with = + - @, or with a
+ * tab/CR, so an applicant could put =HYPERLINK(...) in a free-text field and
+ * have it run when the team opens applicants.csv. Prefixing a single quote
+ * forces the cell to be read as text; it is not shown by the spreadsheet.
+ */
+function csvSafe($v): string
+{
+    $v = (string) $v;
+    return $v !== '' && strpbrk($v[0], "=+-@\t\r") !== false ? "'" . $v : $v;
+}
+
 function client_ip(): string
 {
     $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
@@ -188,7 +202,12 @@ $errors = [];
 if ($jobId === '')                       $errors[] = 'position';
 if (mb_strlen($name) < 2)                $errors[] = 'full name';
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'email address';
-if (strlen(preg_replace('/\D/', '', $phone)) < 9) $errors[] = 'mobile number';
+// Two separate checks. The charset rule matches contact.php and the browser
+// pattern, so junk like "0569990576<script>" is rejected outright instead of
+// passing on digit count alone. The digit rule then enforces a dialable
+// length, which the charset rule cannot express.
+if (!preg_match('/^[0-9+()\s.\-]{9,40}$/', $phone)
+    || strlen(preg_replace('/\D/', '', $phone)) < 9) $errors[] = 'mobile number';
 if ($nationality === '')                 $errors[] = 'nationality';
 if ($yearsExp === '')                    $errors[] = 'experience level';
 if (field('consent') === '')             $errors[] = 'consent confirmation';
@@ -376,12 +395,12 @@ if (is_dir($storageBase) && is_writable($storageBase)) {
                     'Talent Pool', 'CV File', 'IP',
                 ]);
             }
-            fputcsv($fh, [
+            fputcsv($fh, array_map('csvSafe', [
                 $reference, date('Y-m-d H:i:s'), $jobId, $jobTitle, $name, $nationality,
                 $email, $phone, $idType, $idNumber, $dob, $city, $status,
                 $available, $yearsExp, $currentJob, $skills,
                 $talentPool, $storedName ?: 'none', client_ip(),
-            ]);
+            ]));
             flock($fh, LOCK_UN);
         }
         fclose($fh);

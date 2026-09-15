@@ -13,16 +13,36 @@
  */
 
 :root {
+  /* ---- Font stacks ---- */
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --default-font: var(--font-sans);
+  --heading-font: "DM Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --nav-font: "Poppins", sans-serif;
+
   /* ---- Type scale (1.200 minor third, 16px base) ---- */
   --fs-2xs: 0.75rem;     /* 12px  — micro labels, legal */
   --fs-xs:  0.8125rem;   /* 13px  — captions, help text */
   --fs-sm:  0.875rem;    /* 14px  — secondary body */
-  --fs-base:0.9375rem;   /* 15px  — UI default */
+  --fs-base: 0.9375rem;  /* 15px  — UI default */
   --fs-md:  1rem;        /* 16px  — body */
   --fs-lg:  1.125rem;    /* 18px  — lead */
   --fs-xl:  1.375rem;    /* 22px  — card titles */
   --fs-2xl: 1.75rem;     /* 28px  — section sub-heads */
   --fs-3xl: 2.25rem;     /* 36px  — section titles */
+
+  /* ---- Line-heights ---- */
+  --lh-tight: 1.15;
+  --lh-heading: 1.22;
+  --lh-body: 1.68;
+  --lh-relaxed: 1.75;
+  --lh-snug: 1.35;
+
+  /* ---- Heading weights ---- */
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-medium: 500;
+  --weight-regular: 400;
+  --weight-light: 300;
 
   /* ---- Muted text: three steps, not eleven ---- */
   /* Secondary text. These were 32/48/64% transparent, which washed body copy
@@ -168,12 +188,14 @@ textarea.form-control {
 }
 
 /* =========================================================
-   1. TYPOGRAPHY — snap stray sizes onto the scale
-   ========================================================= */
+    1. TYPOGRAPHY — snap stray sizes onto the scale
+    ========================================================= */
 
 body {
+  font-family: var(--default-font);
   font-size: var(--fs-md);
-  line-height: 1.65;
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -181,16 +203,19 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font);
+  font-weight: var(--weight-semibold);
   letter-spacing: -0.011em;
-  line-height: 1.22;
+  line-height: var(--lh-heading);
 }
 
-h1 { font-weight: 600; }
-h2 { font-weight: 600; }
-h3, h4 { font-weight: 600; }
-h5, h6 { font-weight: 600; }
+h1 { font-size: clamp(2rem, 3.5vw, var(--fs-3xl)); font-weight: var(--weight-bold); }
+h2 { font-size: clamp(1.5rem, 3vw, var(--fs-2xl)); }
+h3 { font-size: clamp(1.25rem, 2.5vw, var(--fs-xl)); }
+h4 { font-size: var(--fs-xl); }
+h5 { font-size: var(--fs-lg); }
+h6 { font-size: var(--fs-md); }
 
-p { line-height: 1.68; }
+p { line-height: var(--lh-body); }
 
 /* Section titles were 36/40/42/44px across different sections */
 .section-title h2 {
@@ -209,6 +234,23 @@ p { line-height: 1.68; }
   margin-right: auto;
 }
 
+/* About lead: bold the core claim and pick the key phrase out in the brand
+   colour so the opening line has real contrast against the body copy. */
+.heading-emphasis {
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.heading-emphasis strong {
+  font-weight: 800;
+  color: var(--heading-color);
+}
+
+.heading-emphasis .accent {
+  color: var(--color-brand);
+  font-weight: 800;
+}
+
 /* Card and item headings: were 17/18/19/20/21/22px */
 .service-item h3,
 .service-item h4,
@@ -223,6 +265,10 @@ p { line-height: 1.68; }
   line-height: 1.3;
 }
 
+/* From master: service headings run 27-41 characters, so some wrap to two
+   lines and some to one, which left the cards' body copy on ragged
+   baselines. min-height reserves two lines for every card so the rows line
+   up, and the break rules stop a long compound word overflowing the card. */
 .services .details h3 {
   font-size: var(--fs-lg);
   line-height: 1.35;
@@ -247,7 +293,6 @@ p { line-height: 1.68; }
 /* Small print: was 11 / 11.5 / 12 / 12.5 / 13 / 13.5px */
 .field-help,
 .panel-hint,
-.cert-issuer,
 .marquee-heading p,
 .credits,
 .copyright {
@@ -260,8 +305,8 @@ p { line-height: 1.68; }
    2. COLOUR — collapse the eleven greys
    ========================================================= */
 
-.cert-issuer,
-.marquee-heading p { color: var(--text-subtle); }
+/* .marquee-heading p already takes --text-subtle from the small-print group
+   above; repeating it here set the same value twice. */
 
 .field-error { color: var(--color-danger); }
 .field-ok,
@@ -277,13 +322,11 @@ p { line-height: 1.68; }
 .php-email-form button[type="submit"] {
   font-family: var(--nav-font);
   font-size: var(--fs-base);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  border-radius: 4px;
+  /* Weight, letter-spacing, radius, colour and transition now come from the
+     GLASS BUTTON SYSTEM at the end of this file. Only the metrics that the
+     glass block does not set are kept here. Leaving border-radius: 4px in
+     place would have fought the 5px there for no reason. */
   padding: 12px 30px;
-  transition: background 0.28s ease, color 0.28s ease,
-              border-color 0.28s ease, transform 0.28s ease,
-              box-shadow 0.28s ease;
 }
 
 .btn-brand:hover,
@@ -327,7 +370,7 @@ p { line-height: 1.68; }
   -webkit-backdrop-filter: blur(14px) saturate(1.5);
   backdrop-filter: blur(14px) saturate(1.5);
   border: 1px solid rgba(255, 255, 255, 0.58);
-  border-radius: 50px;
+  border-radius: 5px;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.72),
     inset 0 -1px 0 rgba(139, 108, 56, 0.10),
@@ -359,23 +402,25 @@ p { line-height: 1.68; }
   }
 }
 
-/* Hidden from 1199px down, which is the same breakpoint where the nav
-   collapses to the hamburger. On those widths the hero's own "Request a
-   Quote" button is already on screen, so the header copy is a duplicate
-   competing with the menu toggle for a narrow bar.
+/* The header CTA used to be hidden from 1199px down on the homepage, on the
+   grounds that the hero repeats a "Request a Quote" button at those widths.
 
-   Scoped to the homepage. The hero only exists on index.html, so hiding
-   this globally would leave the other nine pages with no call to action in
-   the header at all on tablet and phone. There it stays. */
-@media (max-width: 1199px) {
-  body.index-page .header .btn-getstarted {
-    display: none;
-  }
-}
+   That no longer holds. The Contact nav item has been removed as a
+   duplicate of this button, so hiding the button on mobile would leave the
+   homepage header with no route to the contact form at all — only the
+   footer. The button now stays at every width, like it does on the other
+   nine pages. */
 
 /* =========================================================
    4. CARDS — unify radius, border and hover
    ========================================================= */
+
+/* Radius for these lives in the RADIUS SCALE block below, which supersedes
+   this one. .features-item is the exception: it is not in that group, so it
+   keeps its own declaration here. */
+.features-item {
+  border-radius: var(--r-md);
+}
 
 .service-item,
 .features-item,
@@ -384,7 +429,6 @@ p { line-height: 1.68; }
 .team-member,
 .faq-item,
 .pricing-item {
-  border-radius: var(--radius);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -407,7 +451,12 @@ textarea:focus-visible,
 [tabindex]:focus-visible {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
-  border-radius: 3px;
+  /* No border-radius here on purpose. It used to set 3px, which quietly
+     re-cornered every focused control: a:focus-visible (0,1,1) outranks
+     .btn-brand (0,1,0), so buttons snapped from 5px to 3px the moment they
+     took keyboard focus. `inherit` is not the fix either -- that takes the
+     PARENT's radius, not the element's own. Simply omitting the property
+     leaves each control on its own 5px, and the outline follows it. */
 }
 
 .form-control:focus,
@@ -448,27 +497,61 @@ a { transition: color 0.25s ease; }
 .footer .credits { margin-top: 4px; }
 
 /* =========================================================
-   MOTION — smoother, and less of it
-   ========================================================= */
+    SAUDI CORPORATE ANIMATIONS
+    Crisp 150ms ease-in-out transitions for enterprise-grade feel
+    ========================================================= */
 
-/* .features .tab-pane.active in main.css calls `animation: fadeIn 0.5s`,
-   but no @keyframes fadeIn is defined anywhere in the project or in the
-   AOS vendor stylesheet. The declaration has therefore been doing nothing
-   since the template shipped, so switching tabs snapped with no transition
-   at all. Defining it here as a small fade-and-rise, which is what the
-   original template clearly intended. */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: none; }
+/* Dashboard hovers, login buttons, and form inputs */
+.btn-brand,
+.btn-brand-outline,
+.btn-getstarted,
+.btn-get-started,
+.btn-watch-video,
+.btn-visit,
+.php-email-form button[type="submit"],
+.cta-btn,
+.input-btn button,
+.icon-btn,
+.nav-link,
+.form-control,
+.form-select,
+textarea.form-control,
+.form-wrap .form-control,
+.form-wrap .form-select,
+.upload-zone,
+.job-card,
+.pill,
+.job-filters button,
+.grid2,
+.grid3,
+.drawer,
+.modal-bg,
+.toast-bam,
+.label {
+  transition: all 150ms ease-in-out;
 }
 
-.features .tab-pane.active {
-  animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+/* Hover lift — 150ms */
+.btn-brand:hover,
+.btn-getstarted:hover,
+.btn-get-started:hover,
+.btn-visit:hover,
+.php-email-form button[type="submit"]:hover,
+.icon-btn:hover,
+.job-card:hover,
+.upload-zone:hover {
+  transition: all 150ms ease-in-out;
 }
 
-/* The template's default 0.3s linear-ish transitions read as mechanical.
-   A gentle ease-out curve costs nothing and makes hover states feel
-   settled rather than abrupt. */
+/* Form focus — 150ms */
+.form-control:focus,
+.form-select:focus,
+.form-wrap .form-control:focus,
+.form-wrap .form-select:focus {
+  transition: all 150ms ease-in-out;
+}
+
+/* Existing cubic-bezier transitions — keep for lift effects on service/cert cards */
 a,
 .btn,
 .btn-get-started,
@@ -493,6 +576,17 @@ a,
   will-change: transform;
 }
 
+/* Fallback animation for tab panes — re-defined since the original
+   @keyframes fadeIn was removed during the transition refactor. */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.features .tab-pane.active {
+  animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* Respect the OS setting. AOS is told to stop moving things, the hero stops
    panning, and the marquee holds still. */
 @media (prefers-reduced-motion: reduce) {
@@ -513,18 +607,16 @@ a,
    original template's inconsistency rather than a decision, and it is very
    visible when two differently-rounded cards sit next to each other.
 
-   Collapsed to three, plus the two that are genuinely shape-defining:
-     --r-sm   inputs, small controls, thumbnails, tags
-     --r-md   cards, panels, images, dropdowns
-     --r-lg   large feature panels (coverage, CTA, modals)
-     50%      avatars and icon circles, unchanged
-     50px     pill buttons, unchanged
+   All three now resolve to the single 5px corner used site-wide. They are
+   kept as separate names so existing rules keep reading, but they are no
+   longer a scale -- there is one radius. Genuinely shape-defining values
+   are untouched: 50% for avatars and icon circles, and the toggle capsules.
    ========================================================= */
 
 :root {
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
+  --r-sm: 5px;
+  --r-md: 5px;
+  --r-lg: 5px;
   /* Kept in step with the scale; --radius predates it and is still
      referenced by the focus-ring rule above. */
   --radius: var(--r-md);
@@ -538,8 +630,7 @@ textarea.form-control,
 .tag,
 .badge,
 .job-tag,
-.filter-chip,
-.hero-kicker-sep {
+.filter-chip {
   border-radius: var(--r-sm);
 }
 
@@ -739,6 +830,11 @@ body {
   max-height: none;
   margin-right: 0;
   flex: none;
+  /* From master: the footer is dark (#5f4a26) and the mark's own gold sits
+     too close to it. Knocking the artwork to solid white separates it and
+     matches the wordmark beside it. The 80px/10px in that same master rule
+     are inert here -- height and margin-right above already override them. */
+  filter: brightness(0) invert(1);
 }
 
 .footer .footer-about .logo .sitename {
@@ -802,10 +898,16 @@ body {
    scale so the form matches every other card on the page.
    ========================================================= */
 
-.contact .php-email-form .form-control,
-.contact .php-email-form input,
-.contact .php-email-form textarea,
-.contact .php-email-form select {
+/* Scoped to #contact so these reach 0,4,1 and outrank main.css's
+   `.contact .php-email-form input[type=text]` at 0,3,1. Without the id the
+   attribute selector wins and text/email keep main.css's 48px height,
+   0px corners and darker background, while the tel field — which matches
+   no attribute selector — takes these instead. That 2px height and 8px
+   radius difference is the mismatch between the two rows. */
+#contact .contact .php-email-form .form-control,
+#contact .contact .php-email-form input,
+#contact .contact .php-email-form textarea,
+#contact .contact .php-email-form select {
   border-radius: var(--r-sm);
   box-shadow: none;
   font-size: var(--fs-base);
@@ -819,12 +921,12 @@ body {
 }
 
 /* Every single-line control gets the same height, whatever its type. */
-.contact .php-email-form input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]) {
+#contact .contact .php-email-form input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]) {
   height: 50px;
   padding: 12px 16px;
 }
 
-.contact .php-email-form textarea {
+#contact .contact .php-email-form textarea {
   padding: 14px 16px;
   height: auto;
   min-height: 190px;
@@ -837,13 +939,13 @@ body {
   opacity: 1;
 }
 
-.contact .php-email-form .form-control:hover {
+#contact .contact .php-email-form .form-control:hover {
   border-color: color-mix(in srgb, var(--color-brand), transparent 66%);
 }
 
-.contact .php-email-form .form-control:focus,
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
+#contact .contact .php-email-form .form-control:focus,
+#contact .contact .php-email-form input:focus,
+#contact .contact .php-email-form textarea:focus {
   outline: none;
   border-color: var(--accent-color);
   background-color: var(--surface-color);
@@ -896,7 +998,7 @@ body {
 }
 
 .contact .php-email-form button[type=submit] {
-  border-radius: 50px;
+  border-radius: 5px;
   padding: 13px 38px;
   font-family: var(--nav-font, "Poppins", sans-serif);
   font-size: var(--fs-sm);
@@ -1004,6 +1106,20 @@ body {
   color: var(--color-brand);
 }
 
+/* Info panel field labels: small gold captions above the contact detail.
+   Kept genuinely accessible (a real <h4> element) but styled as a subtle
+   eyebrow so the icon + caption + value rows read as one clean object. */
+.contact .info-item h4 {
+  margin: 0 0 6px 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+
 /* =========================================================
    CALL TO ACTION — full bleed
    ---------------------------------------------------------
@@ -1024,7 +1140,10 @@ body {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  padding: 76px 32px;
+  /* Was 76px. The band carries a headline, a paragraph and a button, and at
+     76px they sat tight against the edges. More air is what separates a
+     deliberate band from a cramped one. */
+  padding: 108px 32px;
   /* No radius at full bleed: rounded corners against the viewport edge
      leave slivers of page colour showing in each corner. */
   border-radius: 0;
@@ -1032,9 +1151,17 @@ body {
      the panel has a light direction rather than being a flat fill. This is
      what allows the headline gold to be saturated; see the headline note
      below. */
-  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #4a3615 100%);
+  /* Ends on #5b4726 rather than #4a3615. #onfocus directly below is
+     #5f4a26, and the old end colour sat at ratio 1.36 against it: near
+     enough to look accidental, different enough to draw a hard seam across
+     the middle of the dark zone. Landing on #5b4726 puts that step at 1.05,
+     which is imperceptible, so the CTA and the video panel read as one
+     continuous dark field. Kept a shade off exact so the headline gold
+     holds 3.32 instead of 3.16. */
+  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #5b4726 100%);
   border-top: 1px solid rgba(192, 166, 88, 0.26);
-  border-bottom: 1px solid rgba(192, 166, 88, 0.26);
+  /* No bottom hairline: it would draw the very seam this gradient removes. */
+  border-bottom: 0;
   /* Containing block for the .bam-pattern layers. */
   position: relative;
   isolation: isolate;
@@ -1052,13 +1179,13 @@ body {
 
 @media (max-width: 992px) {
   .call-to-action .container {
-    padding: 58px 28px;
+    padding: 84px 28px;
   }
 }
 
 @media (max-width: 575px) {
   .call-to-action .container {
-    padding: 46px 20px;
+    padding: 66px 20px;
   }
 }
 
@@ -1071,9 +1198,10 @@ body {
    first resolved to #d3cec5, a near-white slab sitting behind the photo,
    and the second to #392a0f, invisible against the band. Warm gold at low
    alpha instead, so the stack reads as two lit edges behind the photo. */
+/* The <img> already takes --r-md from the radius scale; only the two
+   pseudo-element layers behind it need matching here. */
 .call-to-action .img:before,
-.call-to-action .img:after,
-.call-to-action .img img {
+.call-to-action .img:after {
   border-radius: var(--r-md);
 }
 
@@ -1213,6 +1341,24 @@ body {
   color: var(--text-muted);
 }
 
+/* The workforce-category tabs were sharp-cornered (border-radius: 0 in
+   main.css:1343). Round them to the site's 5px corner so they read as
+   cards, matching the service, info and pricing cards. */
+.features .nav-link {
+  border-radius: var(--r-md);
+}
+
+/* The tab icons were carrying an inline style="color: var(--color-brand)"
+   six times over, once per tab. Identical value each time, and an inline
+   attribute outranks every stylesheet, so the icons could not be themed
+   without editing markup. Same result, one rule.
+
+   The active and hover states are already handled in main.css:1380 with
+   !important, so they are deliberately not repeated here. */
+.features .nav-link i {
+  color: var(--color-brand);
+}
+
 /* =========================================================
    PRICING HEADERS — logo watermark
    ---------------------------------------------------------
@@ -1282,6 +1428,117 @@ body {
 .pricing .pricing-header h4 {
   position: relative;
   z-index: 1;
+}
+
+/* =========================================================
+   PRICING TYPOGRAPHY — hierarchy and alignment
+   ---------------------------------------------------------
+   The plan cards are <h3> name + <h4> tagline + <ul> + button. The h4 here
+   is NOT a dollar price (these are service tiers), but the template styled
+   it as a huge 48px price numeral, which made "Flexible / monthly terms"
+   render enormous and broken. Rescope the h4 to a clean subtitle and give
+   the whole card a consistent, readable ladder:
+   - h3  plan name: strong, mid-large
+   - h4  tagline:   small neutral "eyebrow" (first word a little stronger)
+   - ul  features:  tight rows with small brand check/x marks, left aligned
+   - button          bottom-aligned so all three cards' CTAs line up
+   ========================================================= */
+
+.pricing .pricing-header {
+  padding: 30px 24px 26px;
+}
+
+.pricing .pricing-header h3 {
+  margin: 0 0 6px 0;
+  font-size: clamp(1.35rem, 2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  color: var(--contrast-color);
+}
+
+.pricing .pricing-header h4 {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--contrast-color), transparent 18%);
+}
+
+.pricing .pricing-header h4 span {
+  color: color-mix(in srgb, var(--contrast-color), transparent 35%);
+}
+
+.pricing ul {
+  padding: 24px 0 28px;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.pricing ul li {
+  padding: 9px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--default-color);
+}
+
+.pricing ul li + li {
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+.pricing ul i {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  font-size: 15px;
+  line-height: 1;
+  text-align: center;
+  color: var(--color-brand);
+}
+
+.pricing ul .na {
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+}
+
+.pricing ul .na i {
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+}
+
+.pricing ul .na span {
+  text-decoration: none;
+}
+
+.pricing .buy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 13px 24px;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--default-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 55%);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+              box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.pricing .buy-btn:hover {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.pricing .featured .pricing-header h3,
+.pricing .featured .pricing-header h4 {
+  color: var(--contrast-color);
 }
 
 @media (max-width: 991px) {
@@ -1579,8 +1836,9 @@ body {
   );
 }
 
-/* Content must clear all three layers. */
-.bam-pattern > *:not(.bam-weave):not(.bam-glass):not(.testimonials-bg) {
+/* Content must clear all three layers. The .testimonials-bg exception that
+   used to live here went with the testimonials section. */
+.bam-pattern > *:not(.bam-weave):not(.bam-glass) {
   position: relative;
   z-index: 2;
 }
@@ -1596,33 +1854,6 @@ body {
   .bam-pattern > .bam-weave::before { opacity: 0.06; }
 }
 
-/* --- testimonials sits on a photo ------------------------------------
-   This section is the one place the shared treatment does not belong, and
-   it took two real defects to work that out.
-
-   It already has its own depth: a full-bleed photo and a dark scrim over
-   it. Adding the lattice and the glass on top of both muted the photo,
-   which is the entire point of the section.
-
-   The worse problem was the glass. .bam-glass paints a backdrop-filter
-   across the full section, carousel included, and .swiper-slide ships with
-   transform: translateZ(0) and backface-visibility: hidden. A composited,
-   moving element inside a backdrop-filtered region is re-rasterised
-   against the filtered backdrop every frame, so the prev/next slides
-   flickered and dimmed mid-transition. backdrop-filter over a moving
-   carousel is the wrong tool, so the glass is dropped here outright.
-
-   The lattice stays but is demoted beneath the scrim, so the scrim tints
-   it along with the photo and it reads as part of the image rather than as
-   a film laid over it. The carousel is then left completely alone. */
-.bam-pattern--photo > .bam-weave { z-index: 1; }
-.bam-pattern--photo > .bam-weave::before { opacity: 0.09; }
-
-/* No glass and no big marks on this section. */
-.bam-pattern--photo > .bam-glass { display: none; }
-
-/* Photo below the lattice; the scrim in main.css stays above both. */
-.testimonials.bam-pattern--photo > .testimonials-bg { z-index: 0; }
 
 /* The CTA's own ::before/::after watermark pair was deleted when the shared
    .bam-pattern treatment took over; four marks on one panel was too many. */
@@ -1650,4 +1881,718 @@ body {
   width: 340px;
   height: 398px;
   opacity: 0.030;
+}
+
+/* =========================================================
+   SCROLL SMOOTHNESS
+   ---------------------------------------------------------
+   Three separate problems, all of which show up as jank rather than as
+   anything visible in a screenshot.
+
+   1. scroll-behavior lived on :root. Chrome and Safari honour it there,
+      but the property is only reliably picked up from the scrolling
+      element, so it is restated on html and body.
+
+   2. .header carries `transition: all 0.5s`. When body.scrolled toggles,
+      "all" includes layout-affecting properties, so the browser animates
+      padding and re-runs layout for half a second while you are still
+      scrolling. Narrowed to the three properties that actually change.
+
+   3. Fixed-header offset was handled with scroll-margin-top on sections
+      only. scroll-padding-top on the scroll container covers every anchor
+      target, including ones added later.
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+  /* Keeps an anchored section clear of the sticky header. 100px matches the
+     scroll-margin-top already set on sections in main.css. */
+  scroll-padding-top: 100px;
+}
+
+@media (max-width: 1199px) {
+  html { scroll-padding-top: 66px; }
+}
+
+/* Animating `all` on a sticky element means every scroll-triggered class
+   change re-runs layout. Only these three ever change. */
+.header {
+  transition: background-color 0.4s ease,
+              box-shadow 0.4s ease,
+              padding 0.4s ease;
+}
+
+/* The sticky header is repainted constantly while scrolling. Promoting it
+   to its own compositor layer keeps that repaint off the main thread. */
+.header {
+  will-change: background-color;
+  backface-visibility: hidden;
+}
+
+/* Large background images repaint on every scroll step when the browser has
+   to resample them. Telling it these layers are static lets it cache them. */
+.hero-slider .swiper-slide img,
+
+/* Anyone who has asked the OS to reduce motion gets instant jumps instead of
+   animated scrolling, which can trigger motion sickness. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* =========================================================
+   SCROLL-TOP BUTTON
+   ---------------------------------------------------------
+   Was --accent-color (#8b6c38), the mid gold. Retuned to the darker
+   footer-top brown so the button reads as part of the same family as the
+   footer it sits above, rather than as a stray gold chip.
+
+   Contrast improves in both directions: the arrow goes from 4.56 to 7.86
+   against the button, and the button goes from 3.11 to 5.36 against the
+   page background, so it stays clearly visible over light sections.
+
+   Hover lifts to the footer's surface tone (#6f5931) instead of the
+   template's transparency mix, which washed out over a light page.
+   ========================================================= */
+
+.scroll-top {
+  background-color: #5f4a26;
+  /* The button is position:fixed, so at the bottom of a page it floats over
+     the footer -- which is this same #5f4a26. Without an edge it would
+     disappear completely there (contrast 1.00). The gold hairline is the
+     same device the dark-band components use, and gives it a 3.54 edge
+     against the footer while staying invisible against light sections. */
+  border: 1px solid rgba(192, 166, 88, 0.55);
+}
+
+.scroll-top:hover {
+  background-color: #6f5931;
+  border-color: rgba(192, 166, 88, 0.85);
+}
+
+.scroll-top i {
+  color: #f9f7f2;
+}
+
+/* =========================================================
+   HERO TEXT COLOUR — specificity fix
+   ---------------------------------------------------------
+   main.css:884 sets `.hero p { color: <near-black> }` at specificity
+   0,2,0. The slide paragraphs are <p class="hero-kicker"> and
+   <p class="hero-lead">, both inside .hero, so that rule matches them and
+   outranks the 0,1,0 class rules in hero-slider.css. Loading later does
+   not help — specificity beats source order.
+
+   Result: both paragraphs rendered near-black (#27200c at 70%) over a dark
+   photo, contrast 1.42. The h1 escaped only because .hero h1 sets no
+   colour of its own.
+
+   These selectors are 0,2,0 and 0,3,0, so they win on specificity rather
+   than relying on load order or !important.
+   ========================================================= */
+
+.hero .hero-kicker {
+  /* Not --color-tints-750 (#c0a658). Master's scrim is lighter than the one
+     I had, which drops that gold to 3.75 on hero-5 -- under the 4.5 this
+     13px uppercase text needs. #d9b76a is already in the palette (it paints
+     the brand marks) and measures 4.63 on the same slide. Raising the gold
+     rather than darkening the scrim, so the photography stays as intended. */
+  color: #d9b76a;
+}
+
+.hero .hero-lead {
+  color: color-mix(in srgb, var(--color-tints-0), transparent 22%);
+}
+
+/* The heading is correct today, but .hero h1 in main.css sets no colour, so
+   it inherits from the section. Pinning it makes that independent of the
+   section default rather than a happy accident. */
+.hero .hero-slide-content h1 {
+  color: var(--color-tints-0);
+}
+
+/* =========================================================
+   DARK ZONE BLENDING — #call-to-action + #onfocus
+   ---------------------------------------------------------
+   These two full-bleed sections sit directly on top of each other and
+   together form one dark zone in the middle of a light page. Three edges
+   were doing the wrong thing.
+
+   1. Between them: the CTA gradient used to end on #4a3615 against
+      #onfocus's #5f4a26 — ratio 1.36, a visible step. The gradient now
+      lands on #5b4726 (1.05) and the CTA's bottom hairline is gone, so the
+      two sections read as one field. Handled above.
+
+   2. Entering the zone: the page is #d5cebb and the band starts at
+      #2e2109 — a 10:1 cut with nothing easing it. A short strip above the
+      CTA carries the page colour down into the dark.
+
+   3. Leaving it: same problem in reverse under #onfocus.
+
+   The strips are ::before/::after on the sections, so no markup changes
+   and nothing shifts in the layout flow.
+   ========================================================= */
+
+.call-to-action,
+.onfocus {
+  position: relative;
+}
+
+/* Fade in from the page colour above the CTA. */
+.call-to-action::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 100vw;
+  height: 90px;
+  /* Opaque throughout. The first version faded to rgba(...,0), and fading
+     an opaque colour to transparent in sRGB interpolates toward transparent
+     black, which drags a grey smear through the middle. It also passed
+     through an invented khaki mid-stop that belonged to neither side. These
+     stops are the true page and band colours mixed in linear light on a
+     smoothstep curve, so the ramp is clean and does not band. */
+  background: linear-gradient(to bottom,
+              #d5cebb 0%,
+              #cbc4b2 20%,
+              #b1ab9a 40%,
+              #958e7f 55%,
+              #716a5d 70%,
+              #494033 85%,
+              #2e2109 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* And back out to the page colour below the video panel. */
+.onfocus::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 100vw;
+  height: 90px;
+  /* Same treatment, running from the #onfocus brown back out to the page. */
+  background: linear-gradient(to top,
+              #d5cebb 0%,
+              #d0c9b6 15%,
+              #c3bba8 30%,
+              #afa693 45%,
+              #978c78 60%,
+              #73634a 80%,
+              #5f4a26 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* The blend strips are decorative and must never sit over the content. */
+.call-to-action > .container,
+.onfocus > .container-fluid {
+  position: relative;
+  z-index: 2;
+}
+
+/* The CTA band's own top padding already gives the headline clearance, but
+   the incoming blend eats into it visually. A little more at the top only. */
+.call-to-action .container {
+  padding-top: 132px;
+}
+
+@media (max-width: 992px) {
+  .call-to-action::before,
+  .onfocus::after { height: 64px; }
+  .call-to-action .container { padding-top: 104px; }
+}
+
+@media (max-width: 575px) {
+  .call-to-action::before,
+  .onfocus::after { height: 48px; }
+  .call-to-action .container { padding-top: 82px; }
+}
+
+/* =========================================================
+   GLASS BUTTON SYSTEM — the header CTA style, site-wide
+   ---------------------------------------------------------
+   The header's .btn-getstarted was the only glass control on the site.
+   Promoted to the default button style, at a 5px radius on every corner
+   instead of the 50px pill.
+
+   The effect is a translucent fill plus a backdrop blur, so it does not
+   carry its own colour — it takes whatever is behind it. That means one
+   recipe cannot serve the whole site: measured against the four dark
+   surfaces here, the light glass drops to 1.60–2.29 and fails outright.
+
+   So there are two variants sharing one geometry:
+     .btn-brand, .btn-getstarted, submit buttons   light surfaces
+     .btn-glass-dark (+ automatic on dark bands)   dark surfaces
+
+   Light glass over the page reads 5.57, dark glass over the darkest band
+   reads 5.47. Both clear 4.5.
+   ========================================================= */
+
+.btn-brand,
+.btn-getstarted,
+.btn-brand-outline,
+.cta-btn,
+.php-email-form button[type="submit"],
+.btn-visit {
+  position: relative;
+  border-radius: 5px;
+  font-family: var(--nav-font);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #6b5322;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.46) 0%,
+    rgba(255, 255, 255, 0.30) 52%,
+    rgba(255, 255, 255, 0.38) 100%
+  );
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(139, 108, 56, 0.10),
+    0 2px 10px rgba(58, 42, 15, 0.09);
+  transition: background 0.28s ease, color 0.28s ease,
+              border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.btn-brand:hover,
+.btn-getstarted:hover,
+.btn-brand-outline:hover,
+.cta-btn:hover,
+.php-email-form button[type="submit"]:hover,
+.btn-visit:hover {
+  color: #5f4a26;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.60) 0%,
+    rgba(255, 255, 255, 0.42) 52%,
+    rgba(255, 255, 255, 0.52) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(139, 108, 56, 0.12),
+    0 6px 18px rgba(58, 42, 15, 0.14);
+}
+
+/* ---- Dark-surface variant -------------------------------------------
+   Same geometry, lighter fill, light text. Applied automatically inside
+   the dark bands so no markup has to change. */
+
+.dark-background .btn-brand,
+.dark-background .btn-brand-outline,
+.dark-background .php-email-form button[type="submit"],
+.call-to-action .cta-btn,
+.hero .hero-slide-content .btn-get-started,
+.btn-glass-dark {
+  color: #fdf8ec;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.10) 52%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.16),
+    0 2px 12px rgba(0, 0, 0, 0.20);
+}
+
+.dark-background .btn-brand:hover,
+.dark-background .btn-brand-outline:hover,
+.dark-background .php-email-form button[type="submit"]:hover,
+.call-to-action .cta-btn:hover,
+.hero .hero-slide-content .btn-get-started:hover,
+.btn-glass-dark:hover {
+  color: #ffffff;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.17) 52%,
+    rgba(255, 255, 255, 0.23) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.44);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.40),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 6px 20px rgba(0, 0, 0, 0.26);
+}
+
+/* The header pill becomes a 5px rectangle like everything else. */
+.header .btn-getstarted,
+.header .btn-getstarted:focus {
+  border-radius: 5px;
+}
+
+/* Hero buttons are styled by `.hero-slide-content .btn-*` in
+   hero-slider.css, not by `.hero .btn-*`. Matching that selector under
+   .hero puts these at 0,3,0 so they actually win, and gives the primary
+   hero button the glass treatment and the blur the generic rule missed. */
+.hero .hero-slide-content .btn-get-started,
+.hero .hero-slide-content .btn-watch-video {
+  border-radius: 5px;
+}
+
+.hero .hero-slide-content .btn-get-started {
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+}
+
+/* No backdrop-filter: fall back to opaque fills rather than near-invisible
+   transparent ones. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .btn-brand,
+  .btn-getstarted,
+  .btn-brand-outline,
+  .cta-btn,
+  .php-email-form button[type="submit"],
+  .btn-visit {
+    background: #ece9e0;
+  }
+  .dark-background .btn-brand,
+  .dark-background .btn-brand-outline,
+  .call-to-action .cta-btn,
+  .hero .hero-slide-content .btn-get-started,
+  .btn-glass-dark {
+    background: #6f5931;
+  }
+}
+
+/* =========================================================
+   FORM FIELDS — 5px, matching the button system
+   ---------------------------------------------------------
+   The glass button work set every button to 5px but left form controls on
+   --r-sm (8px). That put two different corner radii inside the same card:
+   8px inputs stacked directly above a 5px submit button. On a 50px-tall
+   field an 8px corner is a third of the half-height, so next to the crisp
+   buttons the inputs read as rounded pills.
+
+   Scoped the same way as the field rules above (#contact ... ) so they
+   clear main.css's `input[type=text]` attribute selectors, plus the
+   .form-wrap forms on apply/careers so the whole site agrees.
+   ========================================================= */
+
+#contact .contact .php-email-form .form-control,
+#contact .contact .php-email-form input,
+#contact .contact .php-email-form textarea,
+#contact .contact .php-email-form select,
+.form-wrap .form-control,
+.form-wrap .form-select,
+.form-wrap input,
+.form-wrap textarea,
+.form-wrap select {
+  border-radius: 5px;
+}
+
+
+/* =========================================================
+   BLEND THE REMAINING DARK EDGES
+   ---------------------------------------------------------
+   The CTA and #onfocus already ease into the page. The footer still met it
+   on a hard cut at 5.36, so it gets the same treatment — opaque stops
+   mixed in linear light, never fading to transparent.
+
+   The strip is decorative only: pointer-events off, with the footer
+   content lifted above it.
+   ========================================================= */
+
+/* The ::before is absolutely positioned against this. */
+.footer {
+  position: relative;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  background: linear-gradient(to bottom,
+              #d5cebb 0%,
+              #c8c1ae 25%,
+              #a89e8b 50%,
+              #7c6d56 75%,
+              #5f4a26 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer .container,
+.footer .footer-top,
+.footer .copyright {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 992px) {
+  .footer::before { height: 52px; }
+}
+
+/* =========================================================
+   ONE RADIUS LANGUAGE — 5px
+   ---------------------------------------------------------
+   The site had 17 different rectangular radii (4, 6, 7, 8, 10, 11, 12,
+   14, 15, 25, 26, 30, 50px and three tokens). Buttons and fields were
+   already moved to 5px; this finishes the job so every panel, card,
+   widget and control agrees.
+
+   The other sheets were edited in place because each loads last on its
+   own page. main.css cannot be edited, so its rules are overridden here.
+   Selectors are matched or exceeded in specificity — load order alone
+   does not win.
+
+   Deliberately NOT changed:
+     - border-radius: 50% — real circles (avatars, icon bubbles, the play
+       button, spinners). 5px would turn them into lozenges.
+     - Toggle capsules (.sw .track, .bam-cc-slider) — the pill shape is
+       the switch metaphor.
+     - Bars and rules under ~8px tall (.ats-bar, swiper bullets, the h3
+       underline) — a 5px radius on a 3-8px element is a blob.
+     - border-radius: 0 on full-bleed panels — those span the viewport,
+       so a radius leaves slivers of page colour at the screen edge.
+     - Underline-style tabs (.about/.features .nav-link).
+   ========================================================= */
+
+.header .btn-getstarted,
+.header .btn-getstarted:focus,
+.navmenu .dropdown ul,
+.navmenu ul,
+.footer .social-links a,
+.scroll-top,
+.hero .btn-get-started,
+.call-to-action .content .cta-btn,
+.call-to-action .img:before,
+.call-to-action .img:after,
+.call-to-action .img img,
+.onfocus .content .read-more,
+.services .img,
+.services .details,
+.pricing .pricing-item,
+.pricing .buy-btn,
+.team .team-member .member-img,
+.team .team-member .member-info,
+.recent-posts article,
+.blog-posts article,
+.contact .php-email-form,
+.contact .php-email-form button[type=submit],
+.portfolio-details .portfolio-info .btn-visit,
+.comment-form form input,
+.comment-form form textarea,
+.comment-form form .btn-primary {
+  border-radius: 5px;
+}
+
+/* Welded to the right edge of its input: only the outer corners round. */
+.search-widget form button {
+  border-radius: 0 5px 5px 0;
+}
+
+/* main.css sets these to 15px inside a media query, so match the context. */
+@media (min-width: 1200px) {
+  .call-to-action .container,
+  .call-to-action .img:before,
+  .call-to-action .img:after,
+  .call-to-action .img img {
+    border-radius: 5px;
+  }
+  .navmenu .dropdown ul { border-radius: 5px; }
+}
+
+@media (max-width: 1199px) {
+  .navmenu ul { border-radius: 5px; }
+}
+
+/* The radius tokens are collapsed to 5px at their original definition
+   further up this file, so every rule still referencing --r-sm/md/lg
+   lands on the same corner. The certificate corners were pinned at 5px
+   independently and are unaffected. */
+
+/* =========================================================
+   FOOTER + CONTACT: MAKE THE DETAILS ACTUALLY CONTACTABLE
+   ---------------------------------------------------------
+   The phone number and email address were plain text on all ten pages —
+   no tel: or mailto:. On a phone the number could not be dialled, which
+   matters more now that the contact form has been removed and these are
+   the only remaining route to the company.
+
+   Linking them exposed a second problem: a bare <a> takes --accent-color
+   (#8b6c38), which on the footer brown (#5f4a26) is 1.72 — invisible. The
+   footer links therefore inherit the footer's own text colour and are
+   marked with an underline so they still read as links without relying on
+   colour alone.
+   ========================================================= */
+
+.footer .footer-contact a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(242, 237, 225, 0.4);
+  transition: text-decoration-color 0.25s ease, color 0.25s ease;
+}
+
+.footer .footer-contact a:hover,
+.footer .footer-contact a:focus-visible {
+  color: #f7d99a;
+  text-decoration-color: #f7d99a;
+}
+
+/* Contact panel sits on the light card, where the brand gold is legible,
+   but underline it for the same colour-independence reason. */
+.contact .info a {
+  color: var(--heading-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(125, 97, 47, 0.35);
+  transition: text-decoration-color 0.25s ease, color 0.25s ease;
+}
+
+.contact .info a:hover,
+.contact .info a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+/* =========================================================
+   ENQUIRY FORM — built in the "Get in touch" idiom
+   ---------------------------------------------------------
+   The old form was a generic Bootstrap grid: two-up rows of bare inputs
+   that looked nothing like the panel beside it. This one borrows the
+   info panel's exact language — same surface, same 40px padding, same
+   shadow, same gold icon in the gutter, same label-above-content rhythm
+   and the same hairline divider between rows — so the two columns read
+   as one object.
+
+   Deliberately one field per row. The old two-up layout put Name beside
+   Email and Phone beside Company, which on a 992px breakpoint collapsed
+   to a single column anyway; the stacked rhythm matches the three
+   info-items opposite and keeps the eye on one line.
+   ========================================================= */
+
+.contact .enquiry {
+  background-color: var(--surface-color);
+  padding: 40px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  height: 100%;
+}
+
+.contact .enquiry > h3 {
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.contact .enquiry > p {
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  margin-bottom: 26px;
+}
+
+/* Mirrors .contact .info-item: content in a clean stack, hairline rule
+   between consecutive rows. Icons were removed from the enquiry form, so
+   there is no icon gutter here. */
+.contact .enquiry-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.contact .enquiry-row + .enquiry-row {
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.contact .enquiry-field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.contact .enquiry-field input,
+.contact .enquiry-field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: var(--fs-base);
+  font-family: inherit;
+  color: var(--default-color);
+  background-color: var(--background-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 48%);
+  border-radius: 5px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact .enquiry-field input { height: 50px; }
+
+.contact .enquiry-field textarea {
+  min-height: 130px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.contact .enquiry-field input::placeholder,
+.contact .enquiry-field textarea::placeholder {
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+
+.contact .enquiry-field input:focus,
+.contact .enquiry-field textarea:focus {
+  outline: 0;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(139, 108, 56, 0.13);
+}
+
+.contact .enquiry form > button[type=submit] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 26px 0 0 0;
+  width: 100%;
+  padding: 14px 28px;
+  font-size: var(--fs-base);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.contact .enquiry form > button[type=submit]:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.contact .enquiry form > button[type=submit]:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 575px) {
+  .contact .enquiry { padding: 28px 22px; }
+}
+
+
+/* =========================================================
+   SERVICE CARD ANCHORS
+   ---------------------------------------------------------
+   The footer used to point eleven different labels at #services, so every
+   link landed in the same place. Each service card now carries its own id
+   and the footer targets them individually.
+
+   main.css sets scroll-margin-top on section/.section only, which is what
+   keeps the fixed header from covering a jump target. These anchors are on
+   .service-item divs inside a section, so they inherit nothing and would
+   land underneath the header. Same offsets, same breakpoint.
+   ========================================================= */
+
+.services .service-item[id] {
+  scroll-margin-top: 100px;
+}
+
+@media (max-width: 1199px) {
+  .services .service-item[id] {
+    scroll-margin-top: 66px;
+  }
 }
