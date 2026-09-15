@@ -164,6 +164,28 @@
     return typeof val === 'string' ? val : undefined;
   }
 
+  /* One toggle node: parked in the mobile drawer below 1200px, else in the header. */
+  var drawerItem = null;
+  function placeToggle() {
+    var toggle = document.getElementById('lang-toggle');
+    if (!toggle) return;
+    var mobile = false;
+    try { mobile = window.matchMedia('(max-width: 1199px)').matches; } catch (e) {}
+    var navList = document.querySelector('#navmenu > ul');
+    if (mobile && navList) {
+      if (!drawerItem) { drawerItem = document.createElement('li'); drawerItem.className = 'lang-toggle-item'; }
+      if (toggle.parentNode !== drawerItem) drawerItem.appendChild(toggle);
+      if (drawerItem.parentNode !== navList) navList.insertBefore(drawerItem, navList.firstChild);
+      return;
+    }
+    if (drawerItem && drawerItem.parentNode) drawerItem.parentNode.removeChild(drawerItem);
+    var header = document.querySelector('.header .container-fluid');
+    if (header && toggle.parentNode !== header) {
+      var logo = header.querySelector('.logo');
+      if (logo) header.insertBefore(toggle, logo); else header.appendChild(toggle);
+    }
+  }
+
   function createToggle() {
     var header = document.querySelector('.header .container-fluid');
     if (!header) return;
@@ -195,11 +217,17 @@
     } else {
       header.appendChild(toggle);
     }
+    placeToggle();
+    try {
+      var mq = window.matchMedia('(max-width: 1199px)');
+      if (mq.addEventListener) mq.addEventListener('change', placeToggle);
+      else if (mq.addListener) mq.addListener(placeToggle);
+    } catch (e) {}
   }
 
   function addStyles() {
     var style = document.createElement('style');
-    style.textContent = '.lang-switch{display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;transition:all 150ms ease-in-out;color:var(--nav-color);user-select:none;flex-shrink:0;} .lang-switch:hover{color:var(--nav-hover-color);background:rgba(139,108,56,0.08);} .lang-label{font-family:var(--nav-font);} .lang-divider{color:var(--text-faint);font-size:11px;} .lang-switch.active{color:var(--accent-color);background:rgba(139,108,56,0.1);}[dir="rtl"] .lang-divider{margin:0 2px;}[dir="rtl"] .lang-label{font-family:"Inter","Segoe UI","Helvetica Neue","Noto Sans",Arial,sans-serif;}';
+    style.textContent = '.lang-switch{display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;transition:all 150ms ease-in-out;color:var(--nav-color);user-select:none;flex-shrink:0;} .lang-switch:hover{color:var(--nav-hover-color);background:rgba(139,108,56,0.08);} .lang-label{font-family:var(--nav-font);} .lang-divider{color:var(--text-faint);font-size:11px;} .lang-switch.active{color:var(--accent-color);background:rgba(139,108,56,0.1);}[dir="rtl"] .lang-divider{margin:0 2px;}[dir="rtl"] .lang-label{font-family:"Inter","Segoe UI","Helvetica Neue","Noto Sans",Arial,sans-serif;} #navmenu .lang-toggle-item{list-style:none;}';
     document.head.appendChild(style);
   }
 
