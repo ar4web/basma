@@ -44,3 +44,13 @@ desktop.ini
 node_modules/
 vendor/composer/
 *.log
+
+# ---- Local-only: full site lives on the server-full branch --------------------
+# master (GitHub Pages) is static-only: forms post to FormSubmit, no PHP runs.
+forms/contact.php
+forms/apply.php
+admin/api.php
+# Heavy / unreferenced media kept on disk only
+assets/video/ads.mov.mp4
+assets/img/cleaner/
+assets/video/logi/
