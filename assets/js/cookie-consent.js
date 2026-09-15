@@ -34,6 +34,13 @@
   let state = null;
   const listeners = [];
 
+  function T(key, fallback, vars) {
+    if (window.BAM_t) return window.BAM_t(key, fallback, vars);
+    let v = String(fallback);
+    if (vars) Object.keys(vars).forEach(k => { v = v.split('{' + k + '}').join(vars[k]); });
+    return v;
+  }
+
   function load() {
     try {
       const raw = localStorage.getItem(KEY);
@@ -108,9 +115,8 @@
           ph.className = 'bam-cc-blocked';
           ph.innerHTML =
             '<i class="bi bi-play-btn"></i>' +
-            '<p>This video is hosted on YouTube, which may set its own cookies. ' +
-            'Allow functional cookies to play it here.</p>' +
-            '<button type="button" data-bam-allow-video>Allow and play video</button>';
+            '<p data-bam-t="consent.videoText">' + T('consent.videoText', 'This video is hosted on YouTube, which may set its own cookies. Allow functional cookies to play it here.') + '</p>' +
+            '<button type="button" data-bam-allow-video data-bam-t="consent.allowVideo">' + T('consent.allowVideo', 'Allow and play video') + '</button>';
           ph.querySelector('[data-bam-allow-video]').addEventListener('click', e => {
             e.stopPropagation();
             const p = Object.assign({}, prefs(), { functional: true });
@@ -151,20 +157,18 @@
     banner.className = 'bam-cc';
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-live', 'polite');
-    banner.setAttribute('aria-label', 'Cookie consent');
+    banner.setAttribute('aria-label', T('consent.bannerAria', 'Cookie consent'));
     banner.innerHTML =
       '<div class="bam-cc-inner">' +
         '<div class="bam-cc-icon"><i class="bi bi-shield-check"></i></div>' +
         '<div class="bam-cc-text">' +
-          '<h4>We respect your privacy</h4>' +
-          '<p>This site uses only what it needs to work. We do not track you across other websites, ' +
-          'and we set no advertising cookies. You can accept, decline, or choose exactly what to allow. ' +
-          'Read our <a href="cookie-policy.html">Cookie Policy</a>.</p>' +
+          '<h4 data-bam-t="consent.title">' + T('consent.title', 'We respect your privacy') + '</h4>' +
+          '<p data-bam-t-html="consent.intro">' + T('consent.intro', 'This site uses only what it needs to work. We do not track you across other websites, and we set no advertising cookies. You can accept, decline, or choose exactly what to allow. Read our <a href="cookie-policy.html">Cookie Policy</a>.') + '</p>' +
         '</div>' +
         '<div class="bam-cc-actions">' +
-          '<button type="button" class="bam-cc-btn bam-cc-manage" data-bam="manage">Manage</button>' +
-          '<button type="button" class="bam-cc-btn bam-cc-reject" data-bam="reject">Decline</button>' +
-          '<button type="button" class="bam-cc-btn bam-cc-accept" data-bam="accept">Accept All</button>' +
+          '<button type="button" class="bam-cc-btn bam-cc-manage" data-bam="manage">' + T('consent.manage', 'Manage') + '</button>' +
+          '<button type="button" class="bam-cc-btn bam-cc-reject" data-bam="reject">' + T('consent.decline', 'Decline') + '</button>' +
+          '<button type="button" class="bam-cc-btn bam-cc-accept" data-bam="accept">' + T('consent.acceptAll', 'Accept All') + '</button>' +
         '</div>' +
       '</div>';
 
@@ -172,61 +176,55 @@
     overlay.className = 'bam-cc-overlay';
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Cookie preferences');
+    overlay.setAttribute('aria-label', T('consent.modalAria', 'Cookie preferences'));
     overlay.innerHTML =
       '<div class="bam-cc-modal">' +
         '<div class="bam-cc-modal-head">' +
           '<div>' +
-            '<h3>Cookie Preferences</h3>' +
-            '<p>Choose what you allow. Your choice is saved on this device and you can change it at any time.</p>' +
+            '<h3 data-bam-t="consent.modalTitle">' + T('consent.modalTitle', 'Cookie Preferences') + '</h3>' +
+            '<p data-bam-t="consent.modalSub">' + T('consent.modalSub', 'Choose what you allow. Your choice is saved on this device and you can change it at any time.') + '</p>' +
           '</div>' +
-          '<button type="button" class="bam-cc-close" data-bam="close" aria-label="Close">&times;</button>' +
+          '<button type="button" class="bam-cc-close" data-bam="close" aria-label="' + T('consent.close', 'Close') + '">&times;</button>' +
         '</div>' +
 
         '<div class="bam-cc-modal-body">' +
 
           '<div class="bam-cc-group">' +
             '<div class="bam-cc-group-top">' +
-              '<h5>Strictly Necessary</h5>' +
-              '<span class="bam-cc-always">Always On</span>' +
+              '<h5 data-bam-t="consent.necessary">' + T('consent.necessary', 'Strictly Necessary') + '</h5>' +
+              '<span class="bam-cc-always" data-bam-t="consent.alwaysOn">' + T('consent.alwaysOn', 'Always On') + '</span>' +
             '</div>' +
-            '<p>Required for the site to function: remembering this cookie choice, keeping a form ' +
-            'submission secure, and limiting automated spam. These store nothing that identifies you ' +
-            'and cannot be switched off.</p>' +
+            '<p data-bam-t="consent.necessaryDesc">' + T('consent.necessaryDesc', 'Required for the site to function: remembering this cookie choice, keeping a form submission secure, and limiting automated spam. These store nothing that identifies you and cannot be switched off.') + '</p>' +
           '</div>' +
 
           '<div class="bam-cc-group">' +
             '<div class="bam-cc-group-top">' +
-              '<h5>Functional</h5>' +
+              '<h5 data-bam-t="consent.functional">' + T('consent.functional', 'Functional') + '</h5>' +
               '<label class="bam-cc-switch">' +
-                '<input type="checkbox" data-bam-pref="functional" aria-label="Allow functional cookies">' +
+                '<input type="checkbox" data-bam-pref="functional" aria-label="' + T('consent.allowFunctionalAria', 'Allow functional cookies') + '">' +
                 '<span class="bam-cc-slider"></span>' +
               '</label>' +
             '</div>' +
-            '<p>Enables the embedded YouTube video and saves a CV Builder draft on your own device so ' +
-            'you do not lose your work. Your CV draft never leaves your browser unless you submit an ' +
-            'application. Declining keeps the video blocked.</p>' +
+            '<p data-bam-t="consent.functionalDesc">' + T('consent.functionalDesc', 'Enables the embedded YouTube video and saves a CV Builder draft on your own device so you do not lose your work. Your CV draft never leaves your browser unless you submit an application. Declining keeps the video blocked.') + '</p>' +
           '</div>' +
 
           '<div class="bam-cc-group">' +
             '<div class="bam-cc-group-top">' +
-              '<h5>Analytics</h5>' +
+              '<h5 data-bam-t="consent.analytics">' + T('consent.analytics', 'Analytics') + '</h5>' +
               '<label class="bam-cc-switch">' +
-                '<input type="checkbox" data-bam-pref="analytics" aria-label="Allow analytics cookies">' +
+                '<input type="checkbox" data-bam-pref="analytics" aria-label="' + T('consent.allowAnalyticsAria', 'Allow analytics cookies') + '">' +
                 '<span class="bam-cc-slider"></span>' +
               '</label>' +
             '</div>' +
-            '<p>Anonymous statistics about which pages and vacancies are viewed, so we can improve the ' +
-            'site. <strong>No analytics tool is currently installed</strong>, so this setting has no ' +
-            'effect today. It is here so that nothing can start collecting data without your permission.</p>' +
+            '<p data-bam-t-html="consent.analyticsDesc">' + T('consent.analyticsDesc', 'Anonymous statistics about which pages and vacancies are viewed, so we can improve the site. <strong>No analytics tool is currently installed</strong>, so this setting has no effect today. It is here so that nothing can start collecting data without your permission.') + '</p>' +
           '</div>' +
 
         '</div>' +
 
         '<div class="bam-cc-modal-foot">' +
-          '<button type="button" class="bam-cc-btn bam-cc-reject" data-bam="reject">Decline All</button>' +
-          '<button type="button" class="bam-cc-btn bam-cc-manage" data-bam="savePrefs">Save My Choices</button>' +
-          '<button type="button" class="bam-cc-btn bam-cc-accept" data-bam="accept">Accept All</button>' +
+          '<button type="button" class="bam-cc-btn bam-cc-reject" data-bam="reject">' + T('consent.declineAll', 'Decline All') + '</button>' +
+          '<button type="button" class="bam-cc-btn bam-cc-manage" data-bam="savePrefs">' + T('consent.saveChoices', 'Save My Choices') + '</button>' +
+          '<button type="button" class="bam-cc-btn bam-cc-accept" data-bam="accept">' + T('consent.acceptAll', 'Accept All') + '</button>' +
         '</div>' +
       '</div>';
 
@@ -290,6 +288,59 @@
     if (b) b.classList.remove('show');
     if (o) o.classList.remove('show');
   }
+
+  /* Re-translate every consent string in place. Never touches visibility,
+     checkbox states or saved prefs — text nodes only. */
+  function retranslateConsent() {
+    const banner = document.querySelector('.bam-cc');
+    if (banner) {
+      banner.setAttribute('aria-label', T('consent.bannerAria', 'Cookie consent'));
+      const setText = (sel, key, fb) => {
+        const el = banner.querySelector(sel);
+        if (el) el.textContent = T(key, fb);
+      };
+      setText('[data-bam-t="consent.title"]', 'consent.title', 'We respect your privacy');
+      setText('[data-bam="manage"]', 'consent.manage', 'Manage');
+      setText('[data-bam="reject"]', 'consent.decline', 'Decline');
+      setText('[data-bam="accept"]', 'consent.acceptAll', 'Accept All');
+      const intro = banner.querySelector('[data-bam-t-html="consent.intro"]');
+      if (intro) intro.innerHTML = T('consent.intro', 'This site uses only what it needs to work. We do not track you across other websites, and we set no advertising cookies. You can accept, decline, or choose exactly what to allow. Read our <a href="cookie-policy.html">Cookie Policy</a>.');
+    }
+    const overlay = document.querySelector('.bam-cc-overlay');
+    if (overlay) {
+      overlay.setAttribute('aria-label', T('consent.modalAria', 'Cookie preferences'));
+      const setText = (sel, key, fb) => {
+        const el = overlay.querySelector(sel);
+        if (el) el.textContent = T(key, fb);
+      };
+      setText('[data-bam-t="consent.modalTitle"]', 'consent.modalTitle', 'Cookie Preferences');
+      setText('[data-bam-t="consent.modalSub"]', 'consent.modalSub', 'Choose what you allow. Your choice is saved on this device and you can change it at any time.');
+      setText('[data-bam-t="consent.necessary"]', 'consent.necessary', 'Strictly Necessary');
+      setText('[data-bam-t="consent.alwaysOn"]', 'consent.alwaysOn', 'Always On');
+      setText('[data-bam-t="consent.necessaryDesc"]', 'consent.necessaryDesc', 'Required for the site to function: remembering this cookie choice, keeping a form submission secure, and limiting automated spam. These store nothing that identifies you and cannot be switched off.');
+      setText('[data-bam-t="consent.functional"]', 'consent.functional', 'Functional');
+      setText('[data-bam-t="consent.functionalDesc"]', 'consent.functionalDesc', 'Enables the embedded YouTube video and saves a CV Builder draft on your own device so you do not lose your work. Your CV draft never leaves your browser unless you submit an application. Declining keeps the video blocked.');
+      setText('[data-bam-t="consent.analytics"]', 'consent.analytics', 'Analytics');
+      setText('[data-bam="reject"]', 'consent.declineAll', 'Decline All');
+      setText('[data-bam="savePrefs"]', 'consent.saveChoices', 'Save My Choices');
+      setText('[data-bam="accept"]', 'consent.acceptAll', 'Accept All');
+      const aDesc = overlay.querySelector('[data-bam-t-html="consent.analyticsDesc"]');
+      if (aDesc) aDesc.innerHTML = T('consent.analyticsDesc', 'Anonymous statistics about which pages and vacancies are viewed, so we can improve the site. <strong>No analytics tool is currently installed</strong>, so this setting has no effect today. It is here so that nothing can start collecting data without your permission.');
+      const close = overlay.querySelector('[data-bam="close"]');
+      if (close) close.setAttribute('aria-label', T('consent.close', 'Close'));
+      const fToggle = overlay.querySelector('[data-bam-pref="functional"]');
+      if (fToggle) fToggle.setAttribute('aria-label', T('consent.allowFunctionalAria', 'Allow functional cookies'));
+      const aToggle = overlay.querySelector('[data-bam-pref="analytics"]');
+      if (aToggle) aToggle.setAttribute('aria-label', T('consent.allowAnalyticsAria', 'Allow analytics cookies'));
+    }
+    document.querySelectorAll('.bam-cc-blocked').forEach(ph => {
+      const p = ph.querySelector('[data-bam-t="consent.videoText"]');
+      if (p) p.textContent = T('consent.videoText', 'This video is hosted on YouTube, which may set its own cookies. Allow functional cookies to play it here.');
+      const b = ph.querySelector('[data-bam-allow-video]');
+      if (b) b.textContent = T('consent.allowVideo', 'Allow and play video');
+    });
+  }
+  document.addEventListener('bam:lang', retranslateConsent);
 
   /* ---------------- public API ---------------- */
 

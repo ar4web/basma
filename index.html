@@ -294,19 +294,19 @@
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab1.title">Full Qiwa system registration for all deployed personnel</h4>
+                  <h4 data-i18n="about.tabs.tab1.title">Full Qiwa system registration for all deployed personnel</h4>
                 </div>
                 <p>Employment contracts, insurance and wage protection are managed digitally through Qiwa, ensuring zero compliance risk.</p>
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab1b.title">Wage Protection System (WPS) payroll handled in-house</h4>
+                  <h4 data-i18n="about.tabs.tab1b.title">Wage Protection System (WPS) payroll handled in-house</h4>
                 </div>
                 <p>Salaries are processed and disbursed on schedule through approved channels, keeping your organization fully audit-ready.</p>
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab1c.title">Dedicated compliance officers for every contract</h4>
+                  <h4 data-i18n="about.tabs.tab1c.title">Dedicated compliance officers for every contract</h4>
                 </div>
                 <p>Our team monitors regulatory updates and keeps all documentation current, from medical certificates to work permits.</p>
 
@@ -318,19 +318,19 @@
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab2.title">End-to-end Muqeem transfer processing on your behalf</h4>
+                  <h4 data-i18n="about.tabs.tab2.title">End-to-end Muqeem transfer processing on your behalf</h4>
                 </div>
                 <p>We handle sponsorship transfers, Iqama updates and exit/re-entry permits so your workforce stays compliant and mobile.</p>
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab2b.title">Transparent timelines with zero hidden fees</h4>
+                  <h4 data-i18n="about.tabs.tab2b.title">Transparent timelines with zero hidden fees</h4>
                 </div>
                 <p>Clear milestones from contract signing to first day on site, with all government fees itemized upfront.</p>
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab2c.title">Contract renewal and Iqama expiry management</h4>
+                  <h4 data-i18n="about.tabs.tab2c.title">Contract renewal and Iqama expiry management</h4>
                 </div>
                 <p>We track every deadline and proactively renew documents, preventing fines and work stoppages.</p>
 
@@ -342,19 +342,19 @@
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab3.title">Green-tier Nitaqat alignment strategies</h4>
+                  <h4 data-i18n="about.tabs.tab3.title">Green-tier Nitaqat alignment strategies</h4>
                 </div>
                 <p>Our recruitment mix is engineered to keep your organization in the preferred green band with optimal nationalization ratios.</p>
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab3b.title">Saudi national talent sourcing and placement</h4>
+                  <h4 data-i18n="about.tabs.tab3b.title">Saudi national talent sourcing and placement</h4>
                 </div>
                 <p>We recruit qualified Saudi candidates for key roles, strengthening your Saudization score and corporate image.</p>
 
                 <div class="d-flex align-items-center mt-4">
                   <i class="bi bi-check2"></i>
-                  <h4 data-i18n="about.tab3c.title">Vision 2030 workforce readiness consulting</h4>
+                  <h4 data-i18n="about.tabs.tab3c.title">Vision 2030 workforce readiness consulting</h4>
                 </div>
                 <p>Strategic workforce planning that anticipates regulation changes and aligns your staffing with the Kingdom's economic goals.</p>
 
@@ -1468,7 +1468,7 @@
 
             <div class="info">
               <h3 data-i18n="contact.getInTouch">Get in touch</h3>
-              <p>Request a quote or submit your manpower requirement today. Our specialists will respond within 24 hours.</p>
+              <p data-i18n="contact.intro">Request a quote or submit your manpower requirement today. Our specialists will respond within 24 hours.</p>
 
               <div class="info-item d-flex">
                 <i class="bi bi-geo-alt flex-shrink-0"></i>
@@ -1508,37 +1508,37 @@
             <div class="enquiry">
 
               <h3 data-i18n="contact.sendReq">Send your requirement</h3>
-              <p>Tell us the roles and the timeline. A specialist replies within 24 hours.</p>
+              <p data-i18n="contact.formIntro">Tell us the roles and the timeline. A specialist replies within 24 hours.</p>
 
-              <form action="forms/contact.php" method="post" class="php-email-form">
+              <form id="contact-form" action="https://formsubmit.co/ajax/info@basmat-almawared.com" method="post" class="php-email-form">
 
                 <div class="enquiry-row">
                   <div class="enquiry-field">
-                    <input type="text" name="name" id="name" placeholder="Full name *" data-i18n-placeholder="contact.namePlaceholder" data-i18n-placeholder="apply.steps.step1.fullNamePlaceholder" required autocomplete="name" aria-label="Full name (required)">
+                    <input type="text" name="name" id="name" placeholder="Full name *" data-i18n="contact.namePlaceholder" data-i18n-aria="contact.nameAria" required autocomplete="name" aria-label="Full name (required)">
                   </div>
                 </div>
 
                 <div class="enquiry-row">
                   <div class="enquiry-field">
-                    <input type="text" name="subject" id="subject" placeholder="Company *" data-i18n-placeholder="contact.companyPlaceholder" data-i18n-placeholder="apply.steps.step1.company" required autocomplete="organization" aria-label="Company (required)">
+                    <input type="text" name="subject" id="subject" placeholder="Company *" data-i18n="contact.companyPlaceholder" data-i18n-aria="contact.companyAria" required autocomplete="organization" aria-label="Company (required)">
                   </div>
                 </div>
 
                 <div class="enquiry-row">
                   <div class="enquiry-field">
-                    <input type="email" name="email" id="email" placeholder="Work email *" data-i18n-placeholder="contact.workEmailPlaceholder" data-i18n-placeholder="apply.steps.step2.emailPlaceholder" required autocomplete="email" aria-label="Work email (required)">
+                    <input type="email" name="email" id="email" placeholder="Work email *" data-i18n="contact.workEmailPlaceholder" data-i18n-aria="contact.workEmailAria" required autocomplete="email" aria-label="Work email (required)">
                   </div>
                 </div>
 
                 <div class="enquiry-row">
                   <div class="enquiry-field">
-                    <input type="tel" name="phone" id="phone" placeholder="Mobile (optional)" data-i18n-placeholder="contact.mobilePlaceholder" data-i18n-placeholder="apply.steps.step2.phonePlaceholder" autocomplete="tel" inputmode="tel" pattern="[0-9+()\s.\-]{9,40}" maxlength="40" title="Digits, spaces and + ( ) . - only, at least 9 digits" aria-label="Mobile (optional)">
+                    <input type="tel" name="phone" id="phone" placeholder="Mobile (optional)" data-i18n="contact.mobilePlaceholder" data-i18n-aria="contact.mobileAria" data-i18n-title="apply.steps.step2.phoneTitle" autocomplete="tel" inputmode="tel" pattern="[0-9+()\s.\-]{9,40}" maxlength="40" title="Digits, spaces and + ( ) . - only, at least 9 digits" aria-label="Mobile (optional)">
                   </div>
                 </div>
 
                 <div class="enquiry-row">
                   <div class="enquiry-field">
-                    <textarea name="message" id="message" rows="5" placeholder="Manpower requirement *" data-i18n-placeholder="contact.manpowerReqPlaceholder" data-i18n-placeholder="contact.requirement" required aria-label="Manpower requirement (required)"></textarea>
+                    <textarea name="message" id="message" rows="5" placeholder="Manpower requirement *" data-i18n="contact.manpowerReqPlaceholder" data-i18n-aria="contact.requirementAria" required aria-label="Manpower requirement (required)"></textarea>
                   </div>
                 </div>
 
@@ -1550,9 +1550,9 @@
                 <input type="hidden" name="form_time" value="0" id="form-time">
 
                 <div class="my-3">
-                  <div class="loading">Loading</div>
+                  <div class="loading" data-i18n="contact.loading">Loading</div>
                   <div class="error-message"></div>
-                  <div class="sent-message">Your request has been received. Our team will contact you shortly!</div>
+                  <div class="sent-message" data-i18n="contact.sent">Your request has been received. Our team will contact you shortly!</div>
                 </div>
 
                 <button type="submit" class="btn-brand" data-i18n="contact.submit">Submit manpower demand</button>
@@ -1669,7 +1669,6 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
@@ -1732,8 +1731,9 @@
 
   <script src="assets/js/main.js"></script>
   <script src="assets/js/cookie-consent.js"></script>
+  <script src="assets/js/forms-static.js?v=70"></script>
 
-<script src="assets/js/i18n.js"></script>
+<script src="assets/js/i18n.js?v=71"></script>
 </body>
 
 </html>

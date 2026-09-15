@@ -54,15 +54,33 @@
       "qiwa": "Qiwa Compliance",
       "muqeem": "Muqeem Transfers",
       "nitaqat": "Nitaqat Alignment",
-      "tab1.title": "Full Qiwa system registration for all deployed personnel",
-      "tab1b.title": "Wage Protection System (WPS) payroll handled in-house",
-      "tab1c.title": "Dedicated compliance officers for every contract",
-      "tab2.title": "End-to-end Muqeem transfer processing on your behalf",
-      "tab2b.title": "Transparent timelines with zero hidden fees",
-      "tab2c.title": "Contract renewal and Iqama expiry management",
-      "tab3.title": "Green-tier Nitaqat alignment strategies",
-      "tab3b.title": "Saudi national talent sourcing and placement",
-      "tab3c.title": "Vision 2030 workforce readiness consulting"
+      "tab1": {
+        "title": "Full Qiwa system registration for all deployed personnel"
+      },
+      "tab1b": {
+        "title": "Wage Protection System (WPS) payroll handled in-house"
+      },
+      "tab1c": {
+        "title": "Dedicated compliance officers for every contract"
+      },
+      "tab2": {
+        "title": "End-to-end Muqeem transfer processing on your behalf"
+      },
+      "tab2b": {
+        "title": "Transparent timelines with zero hidden fees"
+      },
+      "tab2c": {
+        "title": "Contract renewal and Iqama expiry management"
+      },
+      "tab3": {
+        "title": "Green-tier Nitaqat alignment strategies"
+      },
+      "tab3b": {
+        "title": "Saudi national talent sourcing and placement"
+      },
+      "tab3c": {
+        "title": "Vision 2030 workforce readiness consulting"
+      }
     }
   },
   "credentials": {
@@ -130,7 +148,7 @@
     "desc": "Flexible annual and monthly workforce supply agreements tailored to your requirements."
   },
   "faq": {
-    "title": "Frequently Asked Questions",
+    "title": "<span>Frequently Asked </span><strong>Questions</strong>",
     "desc": "Everything you need to know about compliant manpower supply, worker transfers and deployment in Saudi Arabia.",
     "q1": {
       "title": "How do you ensure compliance with Saudi labour law?",
@@ -173,7 +191,7 @@
       "countries": "Source Countries",
       "since": "Operating Since"
     },
-    "btn": "Tell Us What You Need"
+    "btn": "Tell Us What You Need <i class=\"bi bi-arrow-right\" aria-hidden=\"true\"></i>"
   },
   "howWeWork": {
     "title": "How We Work",
@@ -203,19 +221,175 @@
   },
   "blog": {
     "title": "Manpower Insights",
-    "desc": "Latest updates on Saudi labour regulations, recruitment and workforce trends."
+    "desc": "Latest updates on Saudi labour regulations, recruitment and workforce trends.",
+    "list": {
+      "post1": {
+        "imgAlt": "Navigating KSA Qiwa and Muqeem transfers"
+      },
+      "post2": {
+        "category": "Industry",
+        "imgAlt": "Achieving green-tier Nitaqat compliance",
+        "title": "Achieving Green-Tier Nitaqat Compliance"
+      },
+      "post3": {
+        "category": "Vision 2030",
+        "imgAlt": "Workforce management in Saudi Vision 2030",
+        "title": "The Role of Workforce Management in Saudi Vision 2030"
+      },
+      "post4": {
+        "category": "Recruitment",
+        "imgAlt": "Executive talent acquisition across the GCC",
+        "title": "Executive Talent Acquisition Across the GCC"
+      },
+      "post5": {
+        "category": "Payroll",
+        "imgAlt": "WPS payroll and salary compliance in Saudi Arabia",
+        "title": "WPS Payroll: Simplifying Salary Compliance in KSA"
+      },
+      "post6": {
+        "category": "Sectors",
+        "imgAlt": "Scaling warehouse teams for seasonal peaks",
+        "title": "Scaling Warehouse Teams for Seasonal Peaks"
+      }
+    }
   },
   "blogDetails": {
     "title": "Navigating KSA Qiwa & Muqeem Transfers",
-    "author": "Omar Al-Harbi",
+    "author": {
+      "name": "Omar Al-Harbi",
+      "bio": "Omar leads the compliance desk at Basmat Al Mawared, guiding employers through Qiwa, Muqeem and Nitaqat processes with more than 12 years of experience in Saudi labor law and workforce management."
+    },
     "date": "Jul 14, 2026",
     "categories": {
       "compliance": "Compliance"
+    },
+    "body": {
+      "h1": "Why documentation accuracy matters",
+      "h2": "How a manpower partner simplifies the process",
+      "p1": "Transferring employees between sponsors in the Kingdom of Saudi Arabia is a routine yet highly regulated process. With the Qiwa platform now serving as the single digital gateway for labor services, employers must keep their records current to avoid penalties and service interruptions.",
+      "p2": "A Muqeem transfer is the practical step that follows approval on Qiwa: the employee's sponsor record is updated with the Ministry of Interior, the worker receives the updated residence permit (Iqama), and the new sponsor assumes full responsibility for the worker.",
+      "p3": "Basmat Al Mawared's compliance desk manages every transfer end to end, achieving clearances in as little as a few business days. Because we maintain continuous records on Qiwa and Muqeem, transferred workers are deployable immediately upon completion, with zero gaps in legal status.",
+      "p4": "Inaccurate or delayed transfer records trigger Ministry of Labor warnings, affect your Nitaqat classification, and can halt the mobility of your entire workforce. Keeping a single accountable partner who processes every transfer correctly protects both your compliance rating and your project timelines.",
+      "p5": "From GOSI and medical bookings to insurance, WPS payroll and end-of-service benefits, a dedicated manpower supplier bundles every administrative step. Employers focus on operations while the partner guarantees 100% MLSD-compliant, background-checked personnel at every site.",
+      "quote": "The fastest, most compliant way to onboard transferred staff is to hand the full process - Qiwa approvals, Muqeem records, medical, insurance and Iqama updates - to a licensed manpower partner."
+    },
+    "sidebar": {
+      "cat": {
+        "compliance": "Compliance <span>(25)</span>",
+        "contractStaffing": "Contract Staffing <span>(8)</span>",
+        "payroll": "Payroll <span>(22)</span>",
+        "recruitment": "Recruitment <span>(12)</span>",
+        "sectors": "Sectors <span>(5)</span>",
+        "vision2030": "Vision 2030 <span>(14)</span>"
+      },
+      "categoriesTitle": "Categories",
+      "recent3": "Workforce Management in Saudi Vision 2030",
+      "recent4": "WPS Payroll: Simplifying Salary Compliance",
+      "recent5": "Blue-Collar Labor Supply for Construction",
+      "recentAlt1": "Qiwa and Muqeem transfer guidance article",
+      "recentAlt2": "Green-tier Nitaqat compliance article",
+      "recentAlt3": "Saudi Vision 2030 workforce management article",
+      "recentAlt4": "WPS payroll compliance article",
+      "recentAlt5": "Seasonal warehouse team scaling article",
+      "recentTitle": "Recent Posts",
+      "tag": {
+        "compliance": "Compliance",
+        "contracts": "Contracts",
+        "nitaqat": "Nitaqat",
+        "payroll": "Payroll",
+        "recruitment": "Recruitment",
+        "saudization": "Saudization",
+        "staffing": "Staffing",
+        "talent": "Talent",
+        "wps": "WPS"
+      },
+      "tagsTitle": "Tags"
+    },
+    "tags": {
+      "muqeem": "Muqeem",
+      "qiwa": "Qiwa",
+      "transfers": "Transfers"
     }
   },
   "cookiePolicy": {
     "title": "Cookie Policy",
-    "meta": "Basmat Al Mawared Company Limited · Last updated 31 August 2026 · Applies to basmat-almawared.com"
+    "meta": "<strong>Basmat Al Mawared Company Limited</strong> · Last updated 31 August 2026 · Applies to basmat-almawared.com",
+    "cta": {
+      "button": "<i class=\"bi bi-sliders\"></i> Open Cookie Settings",
+      "heading": "<strong>Change your mind at any time.</strong>"
+    },
+    "noAnalytics": "<strong>No analytics are installed on this website at present.</strong> There is no Google Analytics, no Meta Pixel, no advertising tag and no heatmap tool. The Analytics option in our cookie settings exists so that if we ever add one, it cannot begin collecting anything until you have given permission. This policy will be updated and your consent requested again before that happens.",
+    "s1": {
+      "text": "A cookie is a small text file a website stores on your device. Related technologies such as <em>local storage</em> work the same way in practice: they keep a small amount of information in your browser between visits. Throughout this policy we use the word “cookies” to cover both, because what matters to you is what is stored and why, not the technical mechanism.",
+      "title": "1. What cookies and similar technologies are"
+    },
+    "s2": {
+      "text": "Below is the complete list. If something is not in this table, we do not store it.",
+      "title": "2. What this website actually stores"
+    },
+    "s3": {
+      "analyticsText": "These would tell us which pages and vacancies are viewed most, so we can improve the site. As stated above, none are currently in use.",
+      "analyticsTitle": "Analytics",
+      "functionalText": "These improve the experience but are not essential. Today this covers only the CV Builder draft saved on your own device. If you decline, the website still works fully — your CV draft simply is not kept between visits. Our company video is self-hosted and needs no consent.",
+      "functionalTitle": "Functional",
+      "necessaryText": "These make the website work and cannot be switched off. They remember your cookie choice and help protect our forms from automated abuse. They store nothing that identifies you personally and are never used for marketing.",
+      "necessaryTitle": "Strictly necessary",
+      "title": "3. The categories explained"
+    },
+    "s4": {
+      "googleFonts": "<strong>Google Fonts</strong> (fonts.googleapis.com, fonts.gstatic.com) — supplies the typefaces used across the site. Google receives your IP address as part of that request, which is unavoidable for any externally hosted font. Google Fonts does not set cookies.",
+      "noAds": "We do not use advertising networks, social media tracking pixels, data brokers, or any service that profiles you across other websites.",
+      "text": "We keep third parties to an absolute minimum. Only one external service is involved in loading this website:",
+      "title": "4. Third parties that may receive data",
+      "video": "<strong>Our company video is hosted on our own server</strong>, not on YouTube or any other platform. Playing it contacts nobody but us and sets no third-party cookies at all."
+    },
+    "s5": {
+      "item1": "Use the <a href=\"javascript:void(0)\" data-bam-cookie-settings><strong>Cookie Settings</strong></a> link here or in the footer of any page to reopen the preferences panel.",
+      "item2": "Clear your browser's site data for this domain, which erases everything listed in the table and causes the banner to appear again.",
+      "item3": "Use your browser's own controls to block cookies generally. Every major browser offers this in its privacy settings. Blocking strictly necessary items may stop parts of the site working.",
+      "text": "You were asked to choose when you first arrived, and declining was made exactly as easy as accepting. You can change your decision whenever you like:",
+      "title": "5. Your choices and how to change them"
+    },
+    "s6": {
+      "contact": "To exercise any of these rights, contact us using the details in section 8. We will respond within the period required by the PDPL. If you are not satisfied with our response, you may raise the matter with SDAIA.",
+      "right1": "be informed of the legal basis and purpose for collecting your personal data;",
+      "right2": "request access to the personal data we hold about you;",
+      "right3": "request that inaccurate or incomplete data be corrected;",
+      "right4": "request that your data be destroyed when it is no longer needed for the purpose it was collected for;",
+      "right5": "withdraw your consent at any time, as easily as you gave it.",
+      "text": "We process personal data in line with the Kingdom's <strong>Personal Data Protection Law (PDPL)</strong>, administered by the Saudi Data and Artificial Intelligence Authority (SDAIA). Under the PDPL you have the right to:",
+      "title": "6. Your rights under Saudi law"
+    },
+    "s7": {
+      "item1": "<strong>The CV Builder runs entirely in your browser.</strong> Everything you type stays on your device. Nothing is transmitted to us, and we cannot see it. Pressing <em>Download as PDF</em> produces the file locally on your own computer.",
+      "item2": "<strong>An application is different.</strong> When you submit the form on our Apply page, the details and any CV you upload are sent to our recruitment team and stored securely for recruitment purposes. That is a deliberate action you take, and the form explains it before you submit.",
+      "item3": "Application data, including identity document numbers, is used only to assess your suitability for work and to complete the employment and visa formalities required in the Kingdom. It is not used for marketing and is not sold to anyone.",
+      "text": "This is worth stating plainly, because it is where the most sensitive information is involved.",
+      "title": "7. Job applications and the CV Builder"
+    },
+    "s8": {
+      "text": "For any question about this policy, or to exercise your rights over your personal data:",
+      "title": "8. Contact"
+    },
+    "s9": {
+      "text": "If we add a new cookie or a new third-party service, we will update this page, change the date at the top, and ask for your consent again before anything new begins collecting data. Your previous choice will not be silently carried over to a purpose you did not agree to.",
+      "title": "9. Changes to this policy"
+    },
+    "shortVersion": "<strong>The short version.</strong> This website sets no advertising cookies and no cross-site tracking cookies. We do not sell or share your data with advertisers. The only things stored on your device are the ones listed in the table below, and everything that is not strictly necessary stays switched off until you agree to it.",
+    "table": {
+      "category": "Category",
+      "consentPurpose": "Remembers the cookie choice you made, so we do not ask again on every page. Contains only your preferences and the date you set them.",
+      "days180": "180 days",
+      "draftPurpose": "Saves your CV Builder draft on your own device when you press <em>Save Draft</em>, so you do not lose your work. This never leaves your browser and is never sent to us unless you submit an application.",
+      "duration": "Duration",
+      "functional": "Functional",
+      "localStorage": "Local storage",
+      "name": "Name",
+      "necessary": "Strictly necessary",
+      "purpose": "Purpose",
+      "type": "Type",
+      "untilCleared": "Until you clear it"
+    }
   },
   "footer": {
     "about": "Basmat Al Mawared",
@@ -234,7 +408,7 @@
       "applyNow": "Apply Now",
       "cvBuilder": "CV Builder"
     },
-    "copyright": "© Copyright Basmat Al Mawared. All Rights Reserved",
+    "copyright": "© Copyright <strong><span>Basmat Al Mawared</span></strong>. All Rights Reserved",
     "businessHours": "Business Hours: Sunday - Thursday: 9:00 AM - 6:00 PM | basmat-almawared.com",
     "cr": "Basmat Al Mawared Company Limited · CR No. YOUR-CR-NUMBER · Riyadh, Saudi Arabia",
     "cookiePolicy": "Cookie Policy",
@@ -243,6 +417,14 @@
       "title": "Insights",
       "blog": "Manpower Insights",
       "details": "Insights Details"
+    },
+    "headings": {
+      "careers": "Careers",
+      "company": "Company"
+    },
+    "labels": {
+      "email": "Email:",
+      "phone": "Phone:"
     }
   },
   "apply": {
@@ -261,7 +443,10 @@
           "insideNotTransferable": "Inside Saudi Arabia - not transferable",
           "insideVisit": "Inside Saudi Arabia - visit visa",
           "outside": "Outside Saudi Arabia - overseas hire"
-        }
+        },
+        "availableFromLabel": "Available From <span class=\"req\">*</span>",
+        "currentLocationLabel": "Where are you now? <span class=\"req\">*</span>",
+        "positionLabel": "Position <span class=\"req\">*</span>"
       },
       "step2": {
         "label": "Personal",
@@ -285,7 +470,16 @@
         "idHelp": "Optional, but a valid Iqama or National ID speeds up hiring considerably — employers in the Kingdom can only hire candidates who hold one.",
         "dob": "Date of Birth",
         "city": "City of Residence",
-        "cityPlaceholder": "e.g. Riyadh"
+        "cityPlaceholder": "e.g. Riyadh",
+        "emailLabel": "Email Address <span class=\"req\">*</span>",
+        "fullNameLabel": "Full Name <span class=\"req\">*</span>",
+        "idNumberLabel": "ID Number <span class=\"opt\">(optional)</span>",
+        "idNumberPlaceholder": "Select ID type first",
+        "idTypeLabel": "ID Type <span class=\"opt\">(optional)</span>",
+        "nationalityLabel": "Nationality <span class=\"req\">*</span>",
+        "phoneLabel": "Mobile Number <span class=\"req\">*</span>",
+        "phoneTitle": "Digits, spaces and + ( ) . - only, at least 9 digits",
+        "title": "Your personal details"
       },
       "step3": {
         "label": "Experience and CV",
@@ -302,7 +496,22 @@
         "noCvDesc": "Build a professional, ATS-ready CV in a few minutes. It is free and yours to keep.",
         "openCvBuilder": "Open the CV Builder",
         "coverNote": "Anything else we should know?",
-        "coverNotePlaceholder": "Optional. A short note about why you are a good fit."
+        "coverNotePlaceholder": "Optional. A short note about why you are a good fit.",
+        "currentJobPlaceholder": "e.g. Warehouse Operative",
+        "cvHelp": "Your CV is what employers actually read. Attaching one moves your application to the front of the queue.",
+        "cvUploadLabel": "Upload Your CV <span class=\"opt\">— the fastest route to being hired</span>",
+        "expOptions": {
+          "entry": "No experience / entry level",
+          "gt10": "More than 10 years",
+          "lt1": "Less than 1 year",
+          "y1t2": "1 - 2 years",
+          "y3t5": "3 - 5 years",
+          "y6t10": "6 - 10 years"
+        },
+        "removeFileAria": "Remove selected file",
+        "shortLabel": "Experience",
+        "uploadAria": "Upload your CV, PDF or Word document, maximum 5 megabytes",
+        "yearsExpLabel": "Years of Experience <span class=\"req\">*</span>"
       },
       "step4": {
         "label": "Review",
@@ -311,8 +520,70 @@
         "talentPool": "Keep my details on file for future vacancies that match my profile.",
         "btnBack": "Back",
         "btnContinue": "Continue",
-        "btnSubmit": "Submit Application"
+        "btnSubmit": "Submit Application",
+        "btnBackLabel": "<i class=\"bi bi-arrow-left\"></i> Back",
+        "btnContinueLabel": "Continue <i class=\"bi bi-arrow-right\"></i>",
+        "btnSubmitLabel": "<i class=\"bi bi-send\"></i> Submit Application",
+        "consentLabel": "I confirm the information above is accurate, and I consent to Basmat Al Mawared storing and processing my details for recruitment purposes. <span class=\"req\">*</span>",
+        "title": "Review your application"
       }
+    },
+    "breadcrumb": "Apply",
+    "errors": {
+      "availableFrom": "Please tell us when you can start.",
+      "consent": "You must confirm before submitting.",
+      "email": "Please enter a valid email address.",
+      "experience": "Please select your experience level.",
+      "fileSize": "That file is {size} MB. The maximum is 5 MB.",
+      "fileType": "Only PDF, DOC and DOCX files are accepted.",
+      "fullName": "Please enter your full name.",
+      "idNumber": "Please enter a valid ID number.",
+      "idType": "Please select your ID type.",
+      "iqama": "An Iqama number must be 10 digits starting with 2.",
+      "location": "Please select your current status.",
+      "national": "A Saudi National ID must be 10 digits starting with 1.",
+      "nationality": "Please enter your nationality.",
+      "passport": "Please enter a valid passport number.",
+      "phone": "Please enter a valid mobile number.",
+      "position": "Please choose a position.",
+      "serverResponse": "Unexpected server response.",
+      "submitFailed": "Submission failed.",
+      "tryAgain": "Please try again, or email your CV to info@basmat-almawared.com."
+    },
+    "ui": {
+      "futureDesc": "Your details go into our candidate pool. When a client requirement matches your profile we contact you directly, usually before the role is advertised.",
+      "futureTitle": "Registering for future openings",
+      "idHelpDefault": "Saudi National ID starts with 1, Iqama starts with 2. Both are 10 digits.",
+      "idHelpIqama": "Your Iqama number is 10 digits and starts with 2.",
+      "idHelpNational": "Your Saudi National ID is 10 digits and starts with 1.",
+      "idHelpPassport": "Enter your passport number exactly as printed.",
+      "idPhDefault": "Select ID type first",
+      "idPhIqama": "2XXXXXXXXX",
+      "idPhNational": "1XXXXXXXXX",
+      "idPhPassport": "Passport number",
+      "noFile": "No file uploaded",
+      "reviewExperience": "Experience",
+      "reviewPersonal": "Personal Details",
+      "reviewPosition": "Position",
+      "rvApplyingFor": "Applying for",
+      "rvAvailableFrom": "Available from",
+      "rvCity": "City",
+      "rvCurrentJob": "Current job title",
+      "rvCurrentStatus": "Current status",
+      "rvCvAttached": "CV attached",
+      "rvDob": "Date of birth",
+      "rvEmail": "Email",
+      "rvFullName": "Full name",
+      "rvIdNumber": "ID number",
+      "rvIdType": "ID type",
+      "rvMobile": "Mobile",
+      "rvNationality": "Nationality",
+      "rvNotes": "Additional notes",
+      "rvSkills": "Skills",
+      "rvYearsExp": "Years of experience",
+      "sending": "Sending...",
+      "speculativeOption": "No specific role — register me for future openings",
+      "submit": "Submit Application"
     }
   },
   "success": {
@@ -357,7 +628,92 @@
     "certs": "Certificates & Licences",
     "certsPlaceholder": "Forklift Operator Certificate (2023), OSHA Safety Awareness, Food Hygiene Level 2",
     "langs": "Languages",
-    "langsPlaceholder": "English (fluent), Arabic (basic), Hindi (native)"
+    "langsPlaceholder": "English (fluent), Arabic (basic), Hindi (native)",
+    "addEduBtn": "<i class=\"bi bi-plus-lg\"></i> Add education",
+    "addExpBtn": "<i class=\"bi bi-plus-lg\"></i> Add a job",
+    "atsTitle": "ATS Readiness",
+    "btnPdf": "<i class=\"bi bi-file-earmark-pdf\"></i> Download as PDF",
+    "btnSample": "<i class=\"bi bi-lightbulb\"></i> Load Example",
+    "btnSave": "<i class=\"bi bi-save\"></i> Save Draft",
+    "certsHelp": "One per line, or comma separated. Include the year where you have it.",
+    "downloadHelp": "The download produces a PDF with real, selectable text — which is exactly what applicant tracking software needs to read. In the print dialog choose <strong>Save as PDF</strong> and set margins to <strong>None</strong>.",
+    "downloadTitle": "3. Download your CV",
+    "intro": "Most large employers in the Kingdom screen CVs with software before a person ever reads them. This builder produces a clean, machine-readable PDF that passes those filters. It is free, and nothing you type is sent to us unless you choose to submit it.",
+    "iqamaOptions": {
+      "notTransferable": "Iqama - not transferable",
+      "overseas": "Overseas applicant",
+      "saudi": "Saudi National",
+      "transferable": "Transferable Iqama",
+      "visit": "Visit Visa"
+    },
+    "licenceOptions": {
+      "heavy": "Saudi licence - Heavy vehicle",
+      "international": "International licence",
+      "light": "Saudi licence - Light vehicle",
+      "none": "None"
+    },
+    "notStated": "Not stated",
+    "reject1": "Photographs and personal graphics",
+    "reject2": "Two-column and sidebar layouts",
+    "reject3": "Text placed inside tables or boxes",
+    "reject4": "Headers and footers holding contact details",
+    "reject5": "Decorative fonts and icons",
+    "reject6": "CVs exported as an image or scan",
+    "rejectTitle": "What the scanners reject",
+    "saveNote": "<i class=\"bi bi-check-circle\"></i> Draft saved in this browser.",
+    "skillsHelp": "Comma separated. Use the same words that appear in the job advert.",
+    "summaryHelp": "Keep it under 60 words. Mention your years of experience and your main trade.",
+    "templatesHint": "All three are single-column and parser-safe. Pick the tone that suits your field.",
+    "titleHelp": "Use the exact job title you are applying for. ATS software matches on this.",
+    "tplClassic": "Classic",
+    "tplClassicDesc": "Centred header. Safest for government and large corporates.",
+    "tplCompact": "Compact",
+    "tplCompactDesc": "Tighter spacing. Best when you have a lot of experience to fit.",
+    "tplModern": "Modern",
+    "tplModernDesc": "Left-aligned with a gold rule. Good for corporate and technical roles.",
+    "ui": {
+      "atsBullets": "Duties written as bullet points",
+      "atsCerts": "Certificates or licences listed",
+      "atsContact": "Email and phone included",
+      "atsDates": "Employment dates given",
+      "atsEdu": "Education included",
+      "atsLangs": "Languages stated",
+      "atsName": "Full name present",
+      "atsNumbers": "Achievements include numbers",
+      "atsOneJob": "At least one job listed",
+      "atsSkills": "Five or more relevant skills",
+      "atsSummary": "Professional summary written",
+      "atsTitle": "Professional title matches the job",
+      "certs": "Certificates & Licences",
+      "dutiesHelp": "One point per line. \"Managed a team of 12\" beats \"responsible for team\".",
+      "dutiesPlaceholder": "One achievement per line. Start with a verb and add a number where you can.",
+      "education": "Education",
+      "employer": "Employer",
+      "emptyHint": "Start filling in the form and your CV will appear here.",
+      "fallbackPosition": "Position",
+      "fallbackQual": "Qualification",
+      "from": "From",
+      "institution": "Institution",
+      "jobTitle": "Job Title",
+      "languages": "Languages",
+      "licencePrefix": "Driving Licence:  ",
+      "location": "Location",
+      "profSummary": "Professional Summary",
+      "qualN": "Qualification {n}",
+      "qualification": "Qualification",
+      "removeEdu": "Remove this qualification",
+      "removeJob": "Remove this job",
+      "saveError": "Could not save the draft. Your browser may be blocking local storage.",
+      "skills": "Skills",
+      "statusPrefix": "Status:  ",
+      "to": "To",
+      "workExp": "Work Experience",
+      "year": "Year",
+      "yourName": "Your Name"
+    },
+    "whyP1": "Applicant Tracking Systems read a CV as plain text before any human sees it. Anything that breaks that reading — a photo, a two-column layout, a logo, text inside a table or a CV saved as an image — can cause an otherwise strong candidate to be filtered out automatically.",
+    "whyP2": "Every template here is single-column, uses standard section headings the software expects, and exports as selectable text rather than a picture of text. That is the difference between being read and being discarded.",
+    "whyTitle": "Why your CV format matters"
   },
   "careers": {
     "title": "Careers",
@@ -374,11 +730,53 @@
     "noVacancies": "No vacancies are open at this moment",
     "registerInterest": "Register for Future Openings",
     "speculativeTitle": "Cannot find the right role?",
-    "speculativeDesc": "Register your details anyway. We add every qualified candidate to our talent pool and contact them directly when a matching vacancy opens."
+    "speculativeDesc": "Register your details anyway. We add every qualified candidate to our talent pool and contact them directly when a matching vacancy opens.",
+    "emptyHint": "Try a different keyword, or clear the filters to see all open roles.",
+    "filtersAria": "Filter vacancies by category",
+    "intro": "We recruit continuously across logistics, hospitality, cleaning, industrial and corporate roles. Every position below is live, and every placement is made on a fully compliant Qiwa contract with WPS salary payment.",
+    "noneDesc": "New requirements come in from our clients every week, and they are often filled from candidates already registered with us before the role is ever advertised. Register now and we will contact you the moment something matches your profile.",
+    "registerCta": "Register Your Interest",
+    "searchAria": "Search vacancies",
+    "speculativeFull": "Register your details anyway. We add every qualified candidate to our talent pool and contact them directly when a matching vacancy opens. Most of our placements come from this pool before a role is ever advertised.",
+    "ui": {
+      "all": "All",
+      "applyNow": "Apply Now",
+      "hideDetails": "Hide details",
+      "position1": "1 position",
+      "positions": "{n} positions",
+      "postedDays": "Posted {n} days ago",
+      "postedMonths": "Posted {n} months ago",
+      "postedToday": "Posted today",
+      "postedWeek": "Posted 1 week ago",
+      "postedWeeks": "Posted {n} weeks ago",
+      "postedYesterday": "Posted yesterday",
+      "requirements": "Requirements",
+      "showing": "Showing {a} of {b} vacancies",
+      "urgent": "Urgent",
+      "viewDetails": "View details",
+      "whatWeOffer": "What We Offer"
+    }
   },
   "serviceDetails": {
     "title": "Service Details",
-    "desc": "Detailed breakdown of our manpower services: recruitment, mobilisation, Qiwa and Muqeem processing, WPS payroll and ongoing workforce management across Saudi Arabia."
+    "desc": "Detailed breakdown of our manpower services: recruitment, mobilisation, Qiwa and Muqeem processing, WPS payroll and ongoing workforce management across Saudi Arabia.",
+    "imgAlt": "Basmat Al Mawared manpower services across Saudi Arabia",
+    "mainHeading": "End-to-End Workforce Supply & Compliance",
+    "nav": {
+      "blueCollar": "Blue-Collar & Industrial Labor Supply",
+      "contract": "Flexible/Contract Staffing & Payroll",
+      "exec": "Executive & White-Collar Recruitment",
+      "qiwa": "Qiwa & Muqeem Transfers",
+      "saudization": "Saudization & Nitaqat Compliance"
+    },
+    "p1": "Basmat Al Mawared Company Limited manages the complete workforce lifecycle - recruitment, visa processing, Qiwa registration, Muqeem transfers, medical and insurance, WPS payroll, and end-of-service benefits - so your operations run uninterrupted.",
+    "p2": "Our recruitment team sources, vets and onboards candidates across construction, manufacturing, hospitality, oil & gas and white-collar sectors, aligned with Saudization and Nitaqat green-tier requirements.",
+    "p3": "Whether you need monthly flexible staffing, dedicated contract teams or an enterprise manpower supply agreement, we scale to your demand and guarantee compliant, reliable labor - with dedicated account management from Riyadh headquarters.",
+    "point1": "Background-checked personnel ready for rapid deployment across KSA.",
+    "point2": "Full Qiwa, Muqeem and GOSI processing handled by our compliance desk.",
+    "point3": "100% MLSD compliant, with transparent pricing and SLAs.",
+    "sideHeading": "Manpower Solutions Tailored to KSA",
+    "sideText": "From single executive placements to multi-thousand-man labor deployments, Basmat Al Mawared delivers background-checked personnel, 100% MLSD compliant documentation, and rapid mobilization across the Kingdom."
   },
   "pageTitles": {
     "home": "Basmat Al Mawared Company Limited",
@@ -396,5 +794,74 @@
   "language": {
     "en": "English",
     "ar": "العربية"
+  },
+  "common": {
+    "home": "Home"
+  },
+  "consent": {
+    "acceptAll": "Accept All",
+    "allowAnalyticsAria": "Allow analytics cookies",
+    "allowFunctionalAria": "Allow functional cookies",
+    "allowVideo": "Allow and play video",
+    "alwaysOn": "Always On",
+    "analytics": "Analytics",
+    "analyticsDesc": "Anonymous statistics about which pages and vacancies are viewed, so we can improve the site. <strong>No analytics tool is currently installed</strong>, so this setting has no effect today. It is here so that nothing can start collecting data without your permission.",
+    "bannerAria": "Cookie consent",
+    "close": "Close",
+    "decline": "Decline",
+    "declineAll": "Decline All",
+    "functional": "Functional",
+    "functionalDesc": "Enables the embedded YouTube video and saves a CV Builder draft on your own device so you do not lose your work. Your CV draft never leaves your browser unless you submit an application. Declining keeps the video blocked.",
+    "intro": "This site uses only what it needs to work. We do not track you across other websites, and we set no advertising cookies. You can accept, decline, or choose exactly what to allow. Read our <a href=\"cookie-policy.html\">Cookie Policy</a>.",
+    "manage": "Manage",
+    "modalAria": "Cookie preferences",
+    "modalSub": "Choose what you allow. Your choice is saved on this device and you can change it at any time.",
+    "modalTitle": "Cookie Preferences",
+    "necessary": "Strictly Necessary",
+    "necessaryDesc": "Required for the site to function: remembering this cookie choice, keeping a form submission secure, and limiting automated spam. These store nothing that identifies you and cannot be switched off.",
+    "saveChoices": "Save My Choices",
+    "title": "We respect your privacy",
+    "videoText": "This video is hosted on YouTube, which may set its own cookies. Allow functional cookies to play it here."
+  },
+  "portfolioDetails": {
+    "alt": {
+      "cleaning": "Cleaning and facility management team on site",
+      "hospitality": "Hospitality staff supplied to a Saudi venue",
+      "industrial": "Industrial workforce deployment at a Saudi plant",
+      "logistics": "Logistics workforce deployment for a Saudi distribution centre"
+    },
+    "heading": "Large-Scale Workforce Deployment in Riyadh",
+    "infoTitle": "Deployment information",
+    "p1": "Basmat Al Mawared mobilized 1,200+ background-checked blue-collar and white-collar personnel for a major Riyadh construction program. Every worker was onboarded through Qiwa, with Muqeem transfers, medicals, insurance and WPS payroll completed before site induction.",
+    "p2": "Deployment was staged across 6 weeks to match the client's phase ramp-up, achieving 100% attendance from day one and zero compliance issues in Ministry of Labor and Saudi Ministry audits.",
+    "p3": "For phase two, the client contracted our enterprise manpower supply agreement covering flexible staffing, payroll management and ongoing Nitaqat alignment - keeping their Saudization classification at green-tier while meeting aggressive delivery targets.",
+    "p4": "Our end-to-end model - from sourcing and vetting to deployment, transfers and end-of-service benefits - gave the client a single accountable partner for the full workforce lifecycle across the Kingdom."
+  },
+  "starter": {
+    "body": "Basmat Al Mawared Company Limited delivers end-to-end manpower solutions - executive and white-collar recruitment, blue-collar and industrial labor supply, flexible contract staffing and payroll management, and enterprise manpower supply agreements. Fully 100% MLSD compliant, with rapid deployment across KSA and full support for Qiwa, Muqeem transfers and Nitaqat alignment.",
+    "heading": "Basmat Al Mawared Company Limited",
+    "lead": "Trusted manpower supply and workforce management partner for organizations across the Kingdom of Saudi Arabia."
+  },
+  "contact": {
+    "companyAria": "Company (required)",
+    "companyPlaceholder": "Company *",
+    "email": "Email",
+    "formIntro": "Tell us the roles and the timeline. A specialist replies within 24 hours.",
+    "getInTouch": "Get in touch",
+    "intro": "Request a quote or submit your manpower requirement today. Our specialists will respond within 24 hours.",
+    "loading": "Loading",
+    "location": "Location",
+    "manpowerReqPlaceholder": "Manpower requirement *",
+    "mobileAria": "Mobile (optional)",
+    "mobilePlaceholder": "Mobile (optional)",
+    "nameAria": "Full name (required)",
+    "namePlaceholder": "Full name *",
+    "phone": "Phone",
+    "requirementAria": "Manpower requirement (required)",
+    "sendReq": "Send your requirement",
+    "sent": "Your request has been received. Our team will contact you shortly!",
+    "submit": "Submit manpower demand",
+    "workEmailAria": "Work email (required)",
+    "workEmailPlaceholder": "Work email *"
   }
 }

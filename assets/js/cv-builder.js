@@ -24,6 +24,13 @@
     return el ? el.value.trim() : '';
   };
 
+  function T(key, fallback, vars) {
+    if (window.BAM_t) return window.BAM_t(key, fallback, vars);
+    let v = String(fallback);
+    if (vars) Object.keys(vars).forEach(k => { v = v.split('{' + k + '}').join(vars[k]); });
+    return v;
+  }
+
   /* ================= repeatable entries ================= */
 
   let expSeq = 0, eduSeq = 0;
@@ -34,27 +41,28 @@
     const div = document.createElement('div');
     div.className = 'entry-row';
     div.dataset.kind = 'exp';
+    div.dataset.seq = i;
     div.innerHTML =
-      '<button type="button" class="entry-remove" aria-label="Remove this job">&times;</button>' +
-      '<h6>Position ' + i + '</h6>' +
+      '<button type="button" class="entry-remove" aria-label="' + esc(T('cvBuilder.ui.removeJob', 'Remove this job')) + '">&times;</button>' +
+      '<h6>' + esc(T('cvBuilder.ui.positionN', 'Position {n}', { n: i })) + '</h6>' +
       '<div class="row">' +
-        '<div class="col-md-6 mb-2"><label class="field-label">Job Title</label>' +
+        '<div class="col-md-6 mb-2"><label class="field-label">' + esc(T('cvBuilder.ui.jobTitle', 'Job Title')) + '</label>' +
           '<input type="text" class="form-control cv-in" data-f="title" placeholder="Warehouse Supervisor" value="' + esc(d.title || '') + '"></div>' +
-        '<div class="col-md-6 mb-2"><label class="field-label">Employer</label>' +
+        '<div class="col-md-6 mb-2"><label class="field-label">' + esc(T('cvBuilder.ui.employer', 'Employer')) + '</label>' +
           '<input type="text" class="form-control cv-in" data-f="org" placeholder="Company name" value="' + esc(d.org || '') + '"></div>' +
       '</div>' +
       '<div class="row">' +
-        '<div class="col-md-4 mb-2"><label class="field-label">From</label>' +
+        '<div class="col-md-4 mb-2"><label class="field-label">' + esc(T('cvBuilder.ui.from', 'From')) + '</label>' +
           '<input type="text" class="form-control cv-in" data-f="from" placeholder="Jan 2021" value="' + esc(d.from || '') + '"></div>' +
-        '<div class="col-md-4 mb-2"><label class="field-label">To</label>' +
+        '<div class="col-md-4 mb-2"><label class="field-label">' + esc(T('cvBuilder.ui.to', 'To')) + '</label>' +
           '<input type="text" class="form-control cv-in" data-f="to" placeholder="Present" value="' + esc(d.to || '') + '"></div>' +
-        '<div class="col-md-4 mb-2"><label class="field-label">Location</label>' +
+        '<div class="col-md-4 mb-2"><label class="field-label">' + esc(T('cvBuilder.ui.location', 'Location')) + '</label>' +
           '<input type="text" class="form-control cv-in" data-f="loc" placeholder="Riyadh" value="' + esc(d.loc || '') + '"></div>' +
       '</div>' +
-      '<div class="mb-1"><label class="field-label">What you did</label>' +
+      '<div class="mb-1"><label class="field-label">' + esc(T('cvBuilder.ui.whatYouDid', 'What you did')) + '</label>' +
         '<textarea class="form-control cv-in" data-f="duties" rows="3" ' +
-        'placeholder="One achievement per line. Start with a verb and add a number where you can.">' + esc(d.duties || '') + '</textarea>' +
-        '<div class="field-help">One point per line. "Managed a team of 12" beats "responsible for team".</div></div>';
+        'placeholder="' + esc(T('cvBuilder.ui.dutiesPlaceholder', 'One achievement per line. Start with a verb and add a number where you can.')) + '">' + esc(d.duties || '') + '</textarea>' +
+        '<div class="field-help">' + esc(T('cvBuilder.ui.dutiesHelp', 'One point per line. "Managed a team of 12" beats "responsible for team".')) + '</div></div>';
     expList.appendChild(div);
     return div;
   }
@@ -65,16 +73,17 @@
     const div = document.createElement('div');
     div.className = 'entry-row';
     div.dataset.kind = 'edu';
+    div.dataset.seq = i;
     div.innerHTML =
-      '<button type="button" class="entry-remove" aria-label="Remove this qualification">&times;</button>' +
-      '<h6>Qualification ' + i + '</h6>' +
+      '<button type="button" class="entry-remove" aria-label="' + esc(T('cvBuilder.ui.removeEdu', 'Remove this qualification')) + '">&times;</button>' +
+      '<h6>' + esc(T('cvBuilder.ui.qualN', 'Qualification {n}', { n: i })) + '</h6>' +
       '<div class="row">' +
-        '<div class="col-md-7 mb-2"><label class="field-label">Qualification</label>' +
+        '<div class="col-md-7 mb-2"><label class="field-label">' + esc(T('cvBuilder.ui.qualification', 'Qualification')) + '</label>' +
           '<input type="text" class="form-control cv-in" data-f="deg" placeholder="Diploma in Logistics" value="' + esc(d.deg || '') + '"></div>' +
-        '<div class="col-md-5 mb-2"><label class="field-label">Year</label>' +
+        '<div class="col-md-5 mb-2"><label class="field-label">' + esc(T('cvBuilder.ui.year', 'Year')) + '</label>' +
           '<input type="text" class="form-control cv-in" data-f="year" placeholder="2019" value="' + esc(d.year || '') + '"></div>' +
       '</div>' +
-      '<div class="mb-1"><label class="field-label">Institution</label>' +
+      '<div class="mb-1"><label class="field-label">' + esc(T('cvBuilder.ui.institution', 'Institution')) + '</label>' +
         '<input type="text" class="form-control cv-in" data-f="school" placeholder="Institution name and country" value="' + esc(d.school || '') + '"></div>';
     eduList.appendChild(div);
     return div;
@@ -137,14 +146,14 @@
       .filter(Boolean);
 
     const extras = [];
-    if (val('cv_iqama')) extras.push('Status: ' + val('cv_iqama'));
-    if (val('cv_licence') && val('cv_licence') !== 'None') extras.push('Driving Licence: ' + val('cv_licence'));
+    if (val('cv_iqama')) extras.push(T('cvBuilder.ui.statusPrefix', 'Status: ') + val('cv_iqama'));
+    if (val('cv_licence') && val('cv_licence') !== 'None') extras.push(T('cvBuilder.ui.licencePrefix', 'Driving Licence: ') + val('cv_licence'));
 
     let h = '';
 
     /* header */
     h += '<div class="cv-head">';
-    h += '<div class="cv-name">' + (name ? esc(name) : '<span class="cv-placeholder">Your Name</span>') + '</div>';
+    h += '<div class="cv-name">' + (name ? esc(name) : '<span class="cv-placeholder">' + esc(T('cvBuilder.ui.yourName', 'Your Name')) + '</span>') + '</div>';
     if (role) h += '<div class="cv-role">' + esc(role) + '</div>';
     if (contact.length) h += '<p class="cv-contact">' + contact.map(esc).join(' &nbsp;|&nbsp; ') + '</p>';
     if (extras.length) h += '<p class="cv-contact">' + extras.map(esc).join(' &nbsp;|&nbsp; ') + '</p>';
@@ -153,19 +162,19 @@
     /* summary */
     const summary = val('cv_summary');
     if (summary) {
-      h += '<h2 class="cv-h">Professional Summary</h2>';
+      h += '<h2 class="cv-h">' + esc(T('cvBuilder.ui.profSummary', 'Professional Summary')) + '</h2>';
       h += '<p class="cv-body">' + esc(summary) + '</p>';
     }
 
     /* experience */
     const exps = collect('exp').filter(x => x.title || x.org);
     if (exps.length) {
-      h += '<h2 class="cv-h">Work Experience</h2>';
+      h += '<h2 class="cv-h">' + esc(T('cvBuilder.ui.workExp', 'Work Experience')) + '</h2>';
       exps.forEach(x => {
         const when = [x.from, x.to].filter(Boolean).join(' – ');
         h += '<div class="cv-entry">';
         h += '<div class="cv-entry-top">';
-        h += '<span class="cv-entry-title">' + esc(x.title || 'Position') + '</span>';
+        h += '<span class="cv-entry-title">' + esc(x.title || T('cvBuilder.ui.fallbackPosition', 'Position')) + '</span>';
         if (when) h += '<span class="cv-entry-date">' + esc(when) + '</span>';
         h += '</div>';
         const org = [x.org, x.loc].filter(Boolean).join(', ');
@@ -179,11 +188,11 @@
     /* education */
     const edus = collect('edu').filter(x => x.deg || x.school);
     if (edus.length) {
-      h += '<h2 class="cv-h">Education</h2>';
+      h += '<h2 class="cv-h">' + esc(T('cvBuilder.ui.education', 'Education')) + '</h2>';
       edus.forEach(x => {
         h += '<div class="cv-entry">';
         h += '<div class="cv-entry-top">';
-        h += '<span class="cv-entry-title">' + esc(x.deg || 'Qualification') + '</span>';
+        h += '<span class="cv-entry-title">' + esc(x.deg || T('cvBuilder.ui.fallbackQual', 'Qualification')) + '</span>';
         if (x.year) h += '<span class="cv-entry-date">' + esc(x.year) + '</span>';
         h += '</div>';
         if (x.school) h += '<div class="cv-entry-org">' + esc(x.school) + '</div>';
@@ -194,27 +203,27 @@
     /* skills */
     const skills = listFrom(val('cv_skills'));
     if (skills.length) {
-      h += '<h2 class="cv-h">Skills</h2>';
+      h += '<h2 class="cv-h">' + esc(T('cvBuilder.ui.skills', 'Skills')) + '</h2>';
       h += '<p class="cv-inline">' + skills.map(esc).join(' &nbsp;&middot;&nbsp; ') + '</p>';
     }
 
     /* certificates */
     const certs = listFrom(val('cv_certs'));
     if (certs.length) {
-      h += '<h2 class="cv-h">Certificates &amp; Licences</h2>';
+      h += '<h2 class="cv-h">' + esc(T('cvBuilder.ui.certs', 'Certificates & Licences')) + '</h2>';
       h += '<div class="cv-entry"><ul>' + certs.map(c => '<li>' + esc(c) + '</li>').join('') + '</ul></div>';
     }
 
     /* languages */
     const langs = val('cv_langs');
     if (langs) {
-      h += '<h2 class="cv-h">Languages</h2>';
+      h += '<h2 class="cv-h">' + esc(T('cvBuilder.ui.languages', 'Languages')) + '</h2>';
       h += '<p class="cv-inline">' + esc(langs) + '</p>';
     }
 
     if (!name && !summary && !exps.length) {
       h += '<p class="cv-placeholder" style="margin-top:14mm;text-align:center;">' +
-           'Start filling in the form and your CV will appear here.</p>';
+           esc(T('cvBuilder.ui.emptyHint', 'Start filling in the form and your CV will appear here.')) + '</p>';
     }
 
     sheet.className = 'tpl-' + tpl;
@@ -231,18 +240,18 @@
     const skills = listFrom(val('cv_skills'));
 
     const checks = [
-      { ok: !!val('cv_name'), t: 'Full name present' },
-      { ok: !!val('cv_title'), t: 'Professional title matches the job' },
-      { ok: !!(val('cv_email') && val('cv_phone')), t: 'Email and phone included' },
-      { ok: val('cv_summary').split(/\s+/).filter(Boolean).length >= 15, t: 'Professional summary written' },
-      { ok: exps.length >= 1, t: 'At least one job listed' },
-      { ok: exps.every(x => x.from), t: 'Employment dates given' },
-      { ok: bullets(allDuties).length >= 3, t: 'Duties written as bullet points' },
-      { ok: /\d/.test(allDuties), t: 'Achievements include numbers' },
-      { ok: skills.length >= 5, t: 'Five or more relevant skills' },
-      { ok: collect('edu').some(x => x.deg), t: 'Education included' },
-      { ok: !!val('cv_certs'), t: 'Certificates or licences listed' },
-      { ok: !!val('cv_langs'), t: 'Languages stated' },
+      { ok: !!val('cv_name'), t: T('cvBuilder.ui.atsName', 'Full name present') },
+      { ok: !!val('cv_title'), t: T('cvBuilder.ui.atsTitle', 'Professional title matches the job') },
+      { ok: !!(val('cv_email') && val('cv_phone')), t: T('cvBuilder.ui.atsContact', 'Email and phone included') },
+      { ok: val('cv_summary').split(/\s+/).filter(Boolean).length >= 15, t: T('cvBuilder.ui.atsSummary', 'Professional summary written') },
+      { ok: exps.length >= 1, t: T('cvBuilder.ui.atsOneJob', 'At least one job listed') },
+      { ok: exps.every(x => x.from), t: T('cvBuilder.ui.atsDates', 'Employment dates given') },
+      { ok: bullets(allDuties).length >= 3, t: T('cvBuilder.ui.atsBullets', 'Duties written as bullet points') },
+      { ok: /\d/.test(allDuties), t: T('cvBuilder.ui.atsNumbers', 'Achievements include numbers') },
+      { ok: skills.length >= 5, t: T('cvBuilder.ui.atsSkills', 'Five or more relevant skills') },
+      { ok: collect('edu').some(x => x.deg), t: T('cvBuilder.ui.atsEdu', 'Education included') },
+      { ok: !!val('cv_certs'), t: T('cvBuilder.ui.atsCerts', 'Certificates or licences listed') },
+      { ok: !!val('cv_langs'), t: T('cvBuilder.ui.atsLangs', 'Languages stated') },
     ];
 
     const pass = checks.filter(c => c.ok).length;
@@ -303,7 +312,7 @@
       n.style.display = 'block';
       setTimeout(() => { n.style.display = 'none'; }, 2600);
     } catch (e) {
-      alert('Could not save the draft. Your browser may be blocking local storage.');
+      alert(T('cvBuilder.ui.saveError', 'Could not save the draft. Your browser may be blocking local storage.'));
     }
   });
 
@@ -341,6 +350,47 @@
       ],
     });
   });
+
+  /* ================= retranslate chrome on language switch (inputs untouched) ================= */
+
+  function retranslateRows() {
+    document.querySelectorAll('.entry-row[data-kind="exp"]').forEach(row => {
+      const n = row.dataset.seq || '';
+      const h6 = row.querySelector('h6');
+      if (h6) h6.textContent = T('cvBuilder.ui.positionN', 'Position {n}', { n: n });
+      const rm = row.querySelector('.entry-remove');
+      if (rm) rm.setAttribute('aria-label', T('cvBuilder.ui.removeJob', 'Remove this job'));
+      const labels = row.querySelectorAll('.field-label');
+      const keys = [
+        ['cvBuilder.ui.jobTitle', 'Job Title'],
+        ['cvBuilder.ui.employer', 'Employer'],
+        ['cvBuilder.ui.from', 'From'],
+        ['cvBuilder.ui.to', 'To'],
+        ['cvBuilder.ui.location', 'Location'],
+        ['cvBuilder.ui.whatYouDid', 'What you did'],
+      ];
+      labels.forEach((el, idx) => { if (keys[idx]) el.textContent = T(keys[idx][0], keys[idx][1]); });
+      const ta = row.querySelector('textarea[data-f="duties"]');
+      if (ta) ta.placeholder = T('cvBuilder.ui.dutiesPlaceholder', 'One achievement per line. Start with a verb and add a number where you can.');
+      const help = row.querySelector('.field-help');
+      if (help) help.textContent = T('cvBuilder.ui.dutiesHelp', 'One point per line. "Managed a team of 12" beats "responsible for team".');
+    });
+    document.querySelectorAll('.entry-row[data-kind="edu"]').forEach(row => {
+      const n = row.dataset.seq || '';
+      const h6 = row.querySelector('h6');
+      if (h6) h6.textContent = T('cvBuilder.ui.qualN', 'Qualification {n}', { n: n });
+      const rm = row.querySelector('.entry-remove');
+      if (rm) rm.setAttribute('aria-label', T('cvBuilder.ui.removeEdu', 'Remove this qualification'));
+      const labels = row.querySelectorAll('.field-label');
+      const keys = [
+        ['cvBuilder.ui.qualification', 'Qualification'],
+        ['cvBuilder.ui.year', 'Year'],
+        ['cvBuilder.ui.institution', 'Institution'],
+      ];
+      labels.forEach((el, idx) => { if (keys[idx]) el.textContent = T(keys[idx][0], keys[idx][1]); });
+    });
+  }
+  document.addEventListener('bam:lang', () => { retranslateRows(); render(); });
 
   /* ================= init ================= */
 
