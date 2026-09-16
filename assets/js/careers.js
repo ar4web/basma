@@ -33,7 +33,7 @@
     if (vars) Object.keys(vars).forEach(k => { v = v.split('{' + k + '}').join(vars[k]); });
     return v;
   }
-  function loc() { return (window.BAM_lang && window.BAM_lang() === 'ar') ? 'ar-EG' : 'en-US'; }
+  function loc() { return 'en-US'; }
 
   function daysAgo(dateStr) {
     const then = new Date(dateStr + 'T00:00:00');
