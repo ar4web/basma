@@ -100,31 +100,25 @@
 .bam-cc-accept {
   background: var(--color-brand, #8b6c38);
   color: #fff;
+  padding: 10px 20px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  border-radius: 4px;
 }
-
-.bam-cc-accept:hover {
-  background: #755a2d;
-}
+.bam-cc-accept:hover { background: color-mix(in srgb, var(--color-brand), black 25%); }
 
 .bam-cc-reject {
-  background: #f2f0ea;
-  color: #3b3626;
-}
-
-.bam-cc-reject:hover {
-  background: #e6e2d7;
-}
-
-.bam-cc-manage {
   background: transparent;
   color: var(--color-brand, #8b6c38);
-  border: 1px solid color-mix(in srgb, var(--color-brand, #8b6c38), transparent 60%);
+  padding: 10px 20px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  border: 1px solid color-mix(var(--color-brand), transparent 60%);
+  border-radius: 4px;
 }
+.bam-cc-reject:hover { background: color-mix(var(--color-brand), transparent 90%); }
 
-.bam-cc-manage:hover {
-  border-color: var(--color-brand, #8b6c38);
-  background: color-mix(in srgb, var(--color-brand, #8b6c38), transparent 94%);
-}
+/* Manage button removed — preferences access via cookie-policy.html link only */
 
 @media (max-width: 991px) {
   .bam-cc-inner {

@@ -3,7 +3,6 @@
  *
  * WHY THIS FILE EXISTS
  * The custom stylesheets had grown 29 different font sizes (including
- * half-pixel values like 12.5px and 13.5px), 11 different muted-grey text
  * colours, and both #fff and #ffffff. That is what reads as "multiple
  * colours and inconsistent text sizes" on screen.
  *
@@ -162,12 +161,10 @@ body.scrolled .header .logo {
 
 @media (max-width: 1199px) {
   .header .logo { --logo-h: 34px; }
-}
 
 @media (max-width: 575px) {
   .header .logo { --logo-h: 30px; }
   .header .logo .sitename { font-size: calc(var(--logo-h) * 0.52); }
-}
 
 /* Nav sits on the same optical line as the lockup */
 .header .navmenu > ul > li > a {
@@ -316,17 +313,11 @@ p { line-height: var(--lh-body); }
    3. BUTTONS — were four different paddings and three radii
    ========================================================= */
 
-.btn-brand,
-.btn-brand-outline,
-.btn-getstarted,
-.php-email-form button[type="submit"] {
-  font-family: var(--nav-font);
-  font-size: var(--fs-base);
-  /* Weight, letter-spacing, radius, colour and transition now come from the
-     GLASS BUTTON SYSTEM at the end of this file. Only the metrics that the
-     glass block does not set are kept here. Leaving border-radius: 4px in
-     place would have fought the 5px there for no reason. */
-  padding: 12px 30px;
+/* Glass button system — unified sizes, one transition */
+.btn-primary,
+.btn-secondary,
+.btn-small {
+  transition: all 150ms ease-in-out;
 }
 
 .btn-brand:hover,
@@ -400,7 +391,6 @@ p { line-height: var(--lh-body); }
   .header .btn-getstarted:focus {
     background: #ece9e0;
   }
-}
 
 /* The header CTA used to be hidden from 1199px down on the homepage, on the
    grounds that the hero repeats a "Request a Quote" button at those widths.
@@ -581,7 +571,6 @@ a,
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: none; }
-}
 
 .features .tab-pane.active {
   animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -597,7 +586,6 @@ a,
     animation: none !important;
   }
   .features .tab-pane.active { animation: none; }
-}
 
 /* =========================================================
    RADIUS — one scale, applied everywhere
@@ -985,7 +973,6 @@ body {
   .contact .php-email-form .col-md-6 + .col-md-6 .form-control {
     margin-top: 0;
   }
-}
 
 /* Submit button: was a 4px square in a form of 0px squares, and sat full
    left. Matched to the site button treatment. */
@@ -1181,13 +1168,11 @@ body {
   .call-to-action .container {
     padding: 84px 28px;
   }
-}
 
 @media (max-width: 575px) {
   .call-to-action .container {
     padding: 66px 20px;
   }
-}
 
 /* The rotated card stack behind the photo is the section's signature, so it
    stays. Radius aligned to the scale rather than the template's 15px.
@@ -1274,7 +1259,6 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-}
 
 .call-to-action .content h3 em {
   font-style: italic;
@@ -1308,7 +1292,6 @@ body {
 
 @media (max-width: 575px) {
   .call-to-action .content h3 { letter-spacing: 0; }
-}
 
 /* =========================================================
    TWO BROKEN TOKENS IN main.css
@@ -1548,7 +1531,6 @@ body {
     right: -10%;
     top: -38%;
   }
-}
 
 /* =========================================================
    INVALID FIELD FEEDBACK
@@ -1685,13 +1667,11 @@ body {
 
 @media (max-width: 1199px) {
   .credential-grid { grid-template-columns: repeat(3, 1fr); }
-}
 
 @media (max-width: 767px) {
   .credential-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .credential-item { padding: 22px 12px 18px; }
   .credential-icon { width: 46px; height: 46px; font-size: 21px; }
-}
 
 @media (max-width: 420px) {
   .credential-grid { grid-template-columns: 1fr; }
@@ -1705,7 +1685,6 @@ body {
     padding: 16px 18px;
   }
   .credential-icon { margin-bottom: 0; flex: none; }
-}
 
 /* =========================================================
    CERTIFICATE CORNERS
@@ -1846,13 +1825,11 @@ body {
 @media (max-width: 991px) {
   .bam-pattern > .bam-weave::after { width: 300px; height: 351px; }
   .bam-pattern > .bam-glass::before { width: 340px; height: 398px; }
-}
 
 @media (max-width: 575px) {
   .bam-pattern > .bam-weave::after { display: none; }
   .bam-pattern > .bam-glass::before { width: 260px; height: 304px; opacity: 0.032; }
   .bam-pattern > .bam-weave::before { opacity: 0.06; }
-}
 
 
 /* The CTA's own ::before/::after watermark pair was deleted when the shared
@@ -1912,7 +1889,6 @@ html {
 
 @media (max-width: 1199px) {
   html { scroll-padding-top: 66px; }
-}
 
 /* Animating `all` on a sticky element means every scroll-triggered class
    change re-runs layout. Only these three ever change. */
@@ -1939,7 +1915,6 @@ html {
   html {
     scroll-behavior: auto;
   }
-}
 
 /* =========================================================
    SCROLL-TOP BUTTON
@@ -2105,494 +2080,10 @@ html {
   .call-to-action::before,
   .onfocus::after { height: 64px; }
   .call-to-action .container { padding-top: 104px; }
-}
 
 @media (max-width: 575px) {
   .call-to-action::before,
   .onfocus::after { height: 48px; }
   .call-to-action .container { padding-top: 82px; }
-}
 
 /* =========================================================
-   GLASS BUTTON SYSTEM — the header CTA style, site-wide
-   ---------------------------------------------------------
-   The header's .btn-getstarted was the only glass control on the site.
-   Promoted to the default button style, at a 5px radius on every corner
-   instead of the 50px pill.
-
-   The effect is a translucent fill plus a backdrop blur, so it does not
-   carry its own colour — it takes whatever is behind it. That means one
-   recipe cannot serve the whole site: measured against the four dark
-   surfaces here, the light glass drops to 1.60–2.29 and fails outright.
-
-   So there are two variants sharing one geometry:
-     .btn-brand, .btn-getstarted, submit buttons   light surfaces
-     .btn-glass-dark (+ automatic on dark bands)   dark surfaces
-
-   Light glass over the page reads 5.57, dark glass over the darkest band
-   reads 5.47. Both clear 4.5.
-   ========================================================= */
-
-.btn-brand,
-.btn-getstarted,
-.btn-brand-outline,
-.cta-btn,
-.php-email-form button[type="submit"],
-.btn-visit {
-  position: relative;
-  border-radius: 5px;
-  font-family: var(--nav-font);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: #6b5322;
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.46) 0%,
-    rgba(255, 255, 255, 0.30) 52%,
-    rgba(255, 255, 255, 0.38) 100%
-  );
-  -webkit-backdrop-filter: blur(14px) saturate(1.5);
-  backdrop-filter: blur(14px) saturate(1.5);
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.72),
-    inset 0 -1px 0 rgba(139, 108, 56, 0.10),
-    0 2px 10px rgba(58, 42, 15, 0.09);
-  transition: background 0.28s ease, color 0.28s ease,
-              border-color 0.28s ease, box-shadow 0.28s ease;
-}
-
-.btn-brand:hover,
-.btn-getstarted:hover,
-.btn-brand-outline:hover,
-.cta-btn:hover,
-.php-email-form button[type="submit"]:hover,
-.btn-visit:hover {
-  color: #5f4a26;
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.60) 0%,
-    rgba(255, 255, 255, 0.42) 52%,
-    rgba(255, 255, 255, 0.52) 100%
-  );
-  border-color: rgba(255, 255, 255, 0.75);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1px 0 rgba(139, 108, 56, 0.12),
-    0 6px 18px rgba(58, 42, 15, 0.14);
-}
-
-/* ---- Dark-surface variant -------------------------------------------
-   Same geometry, lighter fill, light text. Applied automatically inside
-   the dark bands so no markup has to change. */
-
-.dark-background .btn-brand,
-.dark-background .btn-brand-outline,
-.dark-background .php-email-form button[type="submit"],
-.call-to-action .cta-btn,
-.hero .hero-slide-content .btn-get-started,
-.btn-glass-dark {
-  color: #fdf8ec;
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.18) 0%,
-    rgba(255, 255, 255, 0.10) 52%,
-    rgba(255, 255, 255, 0.15) 100%
-  );
-  border-color: rgba(255, 255, 255, 0.30);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.16),
-    0 2px 12px rgba(0, 0, 0, 0.20);
-}
-
-.dark-background .btn-brand:hover,
-.dark-background .btn-brand-outline:hover,
-.dark-background .php-email-form button[type="submit"]:hover,
-.call-to-action .cta-btn:hover,
-.hero .hero-slide-content .btn-get-started:hover,
-.btn-glass-dark:hover {
-  color: #ffffff;
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.28) 0%,
-    rgba(255, 255, 255, 0.17) 52%,
-    rgba(255, 255, 255, 0.23) 100%
-  );
-  border-color: rgba(255, 255, 255, 0.44);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.40),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
-    0 6px 20px rgba(0, 0, 0, 0.26);
-}
-
-/* The header pill becomes a 5px rectangle like everything else. */
-.header .btn-getstarted,
-.header .btn-getstarted:focus {
-  border-radius: 5px;
-}
-
-/* Hero buttons are styled by `.hero-slide-content .btn-*` in
-   hero-slider.css, not by `.hero .btn-*`. Matching that selector under
-   .hero puts these at 0,3,0 so they actually win, and gives the primary
-   hero button the glass treatment and the blur the generic rule missed. */
-.hero .hero-slide-content .btn-get-started,
-.hero .hero-slide-content .btn-watch-video {
-  border-radius: 5px;
-}
-
-.hero .hero-slide-content .btn-get-started {
-  -webkit-backdrop-filter: blur(14px) saturate(1.5);
-  backdrop-filter: blur(14px) saturate(1.5);
-}
-
-/* No backdrop-filter: fall back to opaque fills rather than near-invisible
-   transparent ones. */
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .btn-brand,
-  .btn-getstarted,
-  .btn-brand-outline,
-  .cta-btn,
-  .php-email-form button[type="submit"],
-  .btn-visit {
-    background: #ece9e0;
-  }
-  .dark-background .btn-brand,
-  .dark-background .btn-brand-outline,
-  .call-to-action .cta-btn,
-  .hero .hero-slide-content .btn-get-started,
-  .btn-glass-dark {
-    background: #6f5931;
-  }
-}
-
-/* =========================================================
-   FORM FIELDS — 5px, matching the button system
-   ---------------------------------------------------------
-   The glass button work set every button to 5px but left form controls on
-   --r-sm (8px). That put two different corner radii inside the same card:
-   8px inputs stacked directly above a 5px submit button. On a 50px-tall
-   field an 8px corner is a third of the half-height, so next to the crisp
-   buttons the inputs read as rounded pills.
-
-   Scoped the same way as the field rules above (#contact ... ) so they
-   clear main.css's `input[type=text]` attribute selectors, plus the
-   .form-wrap forms on apply/careers so the whole site agrees.
-   ========================================================= */
-
-#contact .contact .php-email-form .form-control,
-#contact .contact .php-email-form input,
-#contact .contact .php-email-form textarea,
-#contact .contact .php-email-form select,
-.form-wrap .form-control,
-.form-wrap .form-select,
-.form-wrap input,
-.form-wrap textarea,
-.form-wrap select {
-  border-radius: 5px;
-}
-
-
-/* =========================================================
-   BLEND THE REMAINING DARK EDGES
-   ---------------------------------------------------------
-   The CTA and #onfocus already ease into the page. The footer still met it
-   on a hard cut at 5.36, so it gets the same treatment — opaque stops
-   mixed in linear light, never fading to transparent.
-
-   The strip is decorative only: pointer-events off, with the footer
-   content lifted above it.
-   ========================================================= */
-
-/* The ::before is absolutely positioned against this. */
-.footer {
-  position: relative;
-}
-
-.footer::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 70px;
-  background: linear-gradient(to bottom,
-              #d5cebb 0%,
-              #c8c1ae 25%,
-              #a89e8b 50%,
-              #7c6d56 75%,
-              #5f4a26 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.footer .container,
-.footer .footer-top,
-.footer .copyright {
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 992px) {
-  .footer::before { height: 52px; }
-}
-
-/* =========================================================
-   ONE RADIUS LANGUAGE — 5px
-   ---------------------------------------------------------
-   The site had 17 different rectangular radii (4, 6, 7, 8, 10, 11, 12,
-   14, 15, 25, 26, 30, 50px and three tokens). Buttons and fields were
-   already moved to 5px; this finishes the job so every panel, card,
-   widget and control agrees.
-
-   The other sheets were edited in place because each loads last on its
-   own page. main.css cannot be edited, so its rules are overridden here.
-   Selectors are matched or exceeded in specificity — load order alone
-   does not win.
-
-   Deliberately NOT changed:
-     - border-radius: 50% — real circles (avatars, icon bubbles, the play
-       button, spinners). 5px would turn them into lozenges.
-     - Toggle capsules (.sw .track, .bam-cc-slider) — the pill shape is
-       the switch metaphor.
-     - Bars and rules under ~8px tall (.ats-bar, swiper bullets, the h3
-       underline) — a 5px radius on a 3-8px element is a blob.
-     - border-radius: 0 on full-bleed panels — those span the viewport,
-       so a radius leaves slivers of page colour at the screen edge.
-     - Underline-style tabs (.about/.features .nav-link).
-   ========================================================= */
-
-.header .btn-getstarted,
-.header .btn-getstarted:focus,
-.navmenu .dropdown ul,
-.navmenu ul,
-.footer .social-links a,
-.scroll-top,
-.hero .btn-get-started,
-.call-to-action .content .cta-btn,
-.call-to-action .img:before,
-.call-to-action .img:after,
-.call-to-action .img img,
-.onfocus .content .read-more,
-.services .img,
-.services .details,
-.pricing .pricing-item,
-.pricing .buy-btn,
-.team .team-member .member-img,
-.team .team-member .member-info,
-.recent-posts article,
-.blog-posts article,
-.contact .php-email-form,
-.contact .php-email-form button[type=submit],
-.portfolio-details .portfolio-info .btn-visit,
-.comment-form form input,
-.comment-form form textarea,
-.comment-form form .btn-primary {
-  border-radius: 5px;
-}
-
-/* Welded to the right edge of its input: only the outer corners round. */
-.search-widget form button {
-  border-radius: 0 5px 5px 0;
-}
-
-/* main.css sets these to 15px inside a media query, so match the context. */
-@media (min-width: 1200px) {
-  .call-to-action .container,
-  .call-to-action .img:before,
-  .call-to-action .img:after,
-  .call-to-action .img img {
-    border-radius: 5px;
-  }
-  .navmenu .dropdown ul { border-radius: 5px; }
-}
-
-@media (max-width: 1199px) {
-  .navmenu ul { border-radius: 5px; }
-}
-
-/* The radius tokens are collapsed to 5px at their original definition
-   further up this file, so every rule still referencing --r-sm/md/lg
-   lands on the same corner. The certificate corners were pinned at 5px
-   independently and are unaffected. */
-
-/* =========================================================
-   FOOTER + CONTACT: MAKE THE DETAILS ACTUALLY CONTACTABLE
-   ---------------------------------------------------------
-   The phone number and email address were plain text on all ten pages —
-   no tel: or mailto:. On a phone the number could not be dialled, which
-   matters more now that the contact form has been removed and these are
-   the only remaining route to the company.
-
-   Linking them exposed a second problem: a bare <a> takes --accent-color
-   (#8b6c38), which on the footer brown (#5f4a26) is 1.72 — invisible. The
-   footer links therefore inherit the footer's own text colour and are
-   marked with an underline so they still read as links without relying on
-   colour alone.
-   ========================================================= */
-
-.footer .footer-contact a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: rgba(242, 237, 225, 0.4);
-  transition: text-decoration-color 0.25s ease, color 0.25s ease;
-}
-
-.footer .footer-contact a:hover,
-.footer .footer-contact a:focus-visible {
-  color: #f7d99a;
-  text-decoration-color: #f7d99a;
-}
-
-/* Contact panel sits on the light card, where the brand gold is legible,
-   but underline it for the same colour-independence reason. */
-.contact .info a {
-  color: var(--heading-color);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: rgba(125, 97, 47, 0.35);
-  transition: text-decoration-color 0.25s ease, color 0.25s ease;
-}
-
-.contact .info a:hover,
-.contact .info a:focus-visible {
-  text-decoration-color: currentColor;
-}
-
-/* =========================================================
-   ENQUIRY FORM — built in the "Get in touch" idiom
-   ---------------------------------------------------------
-   The old form was a generic Bootstrap grid: two-up rows of bare inputs
-   that looked nothing like the panel beside it. This one borrows the
-   info panel's exact language — same surface, same 40px padding, same
-   shadow, same gold icon in the gutter, same label-above-content rhythm
-   and the same hairline divider between rows — so the two columns read
-   as one object.
-
-   Deliberately one field per row. The old two-up layout put Name beside
-   Email and Phone beside Company, which on a 992px breakpoint collapsed
-   to a single column anyway; the stacked rhythm matches the three
-   info-items opposite and keeps the eye on one line.
-   ========================================================= */
-
-.contact .enquiry {
-  background-color: var(--surface-color);
-  padding: 40px;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  height: 100%;
-}
-
-.contact .enquiry > h3 {
-  font-weight: 600;
-  font-size: 24px;
-  margin-bottom: 6px;
-}
-
-.contact .enquiry > p {
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
-  margin-bottom: 26px;
-}
-
-/* Mirrors .contact .info-item: content in a clean stack, hairline rule
-   between consecutive rows. Icons were removed from the enquiry form, so
-   there is no icon gutter here. */
-.contact .enquiry-row {
-  display: flex;
-  align-items: stretch;
-}
-
-.contact .enquiry-row + .enquiry-row {
-  padding-top: 20px;
-  margin-top: 20px;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-}
-
-.contact .enquiry-field {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.contact .enquiry-field input,
-.contact .enquiry-field textarea {
-  width: 100%;
-  padding: 14px 16px;
-  font-size: var(--fs-base);
-  font-family: inherit;
-  color: var(--default-color);
-  background-color: var(--background-color);
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 48%);
-  border-radius: 5px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.contact .enquiry-field input { height: 50px; }
-
-.contact .enquiry-field textarea {
-  min-height: 130px;
-  resize: vertical;
-  line-height: 1.6;
-}
-
-.contact .enquiry-field input::placeholder,
-.contact .enquiry-field textarea::placeholder {
-  color: color-mix(in srgb, var(--default-color), transparent 35%);
-}
-
-.contact .enquiry-field input:focus,
-.contact .enquiry-field textarea:focus {
-  outline: 0;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(139, 108, 56, 0.13);
-}
-
-.contact .enquiry form > button[type=submit] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: 26px 0 0 0;
-  width: 100%;
-  padding: 14px 28px;
-  font-size: var(--fs-base);
-  font-weight: 600;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.contact .enquiry form > button[type=submit]:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
-}
-
-.contact .enquiry form > button[type=submit]:active {
-  transform: translateY(0);
-}
-
-@media (max-width: 575px) {
-  .contact .enquiry { padding: 28px 22px; }
-}
-
-
-/* =========================================================
-   SERVICE CARD ANCHORS
-   ---------------------------------------------------------
-   The footer used to point eleven different labels at #services, so every
-   link landed in the same place. Each service card now carries its own id
-   and the footer targets them individually.
-
-   main.css sets scroll-margin-top on section/.section only, which is what
-   keeps the fixed header from covering a jump target. These anchors are on
-   .service-item divs inside a section, so they inherit nothing and would
-   land underneath the header. Same offsets, same breakpoint.
-   ========================================================= */
-
-.services .service-item[id] {
-  scroll-margin-top: 100px;
-}
-
-@media (max-width: 1199px) {
-  .services .service-item[id] {
-    scroll-margin-top: 66px;
-  }
-}

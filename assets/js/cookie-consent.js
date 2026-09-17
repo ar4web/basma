@@ -166,9 +166,8 @@
           '<p data-bam-t-html="consent.intro">' + T('consent.intro', 'This site uses only what it needs to work. We do not track you across other websites, and we set no advertising cookies. You can accept, decline, or choose exactly what to allow. Read our <a href="cookie-policy.html">Cookie Policy</a>.') + '</p>' +
         '</div>' +
         '<div class="bam-cc-actions">' +
-          '<button type="button" class="bam-cc-btn bam-cc-manage" data-bam="manage">' + T('consent.manage', 'Manage') + '</button>' +
+          '<button type="button" class="bam-cc-btn bam-cc-accept" data-bam="accept">' + T('consent.accept', 'Accept') + '</button>' +
           '<button type="button" class="bam-cc-btn bam-cc-reject" data-bam="reject">' + T('consent.decline', 'Decline') + '</button>' +
-          '<button type="button" class="bam-cc-btn bam-cc-accept" data-bam="accept">' + T('consent.acceptAll', 'Accept All') + '</button>' +
         '</div>' +
       '</div>';
 
