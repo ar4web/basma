@@ -219,7 +219,7 @@
   color: var(--color-tints-0);
   font-size: 1.25rem;
   cursor: pointer;
-  opacity: 0;
+  opacity: 0.85;
   transition: opacity 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 

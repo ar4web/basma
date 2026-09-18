@@ -59,9 +59,10 @@
   }
 
   function loadDicts() {
+    var prefix = /\/admin(?:\/|$)/.test(location.pathname) ? '../' : '';
     Promise.all([
-      fetch('assets/i18n/en.json').then(function(r){ return r.json(); }).then(function(d){ dictEn = d; dictLoaded.en = true; }),
-      fetch('assets/i18n/ar.json').then(function(r){ return r.json(); }).then(function(d){ dictAr = d; dictLoaded.ar = true; })
+      fetch(prefix + 'assets/i18n/en.json').then(function(r){ return r.json(); }).then(function(d){ dictEn = d; dictLoaded.en = true; }),
+      fetch(prefix + 'assets/i18n/ar.json').then(function(r){ return r.json(); }).then(function(d){ dictAr = d; dictLoaded.ar = true; })
     ]).then(function () { translatePage(); }).catch(function() {});
   }
 
@@ -170,7 +171,7 @@
 
   function addStyles() {
     var style = document.createElement('style');
-    style.textContent = '.lang-switch{display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;transition:all 150ms ease-in-out;color:var(--nav-color);user-select:none;flex-shrink:0;} .lang-switch:hover{color:var(--nav-hover-color);background:rgba(139,108,56,0.08);} .lang-label{font-family:var(--nav-font);} .lang-divider{color:var(--text-faint);font-size:11px;} .lang-switch.active{color:var(--accent-color);background:rgba(139,108,56,0.1);}[dir="rtl"] .lang-divider{margin:0 2px;}[dir="rtl"] .lang-label{font-family:"Inter","Segoe UI","Helvetica Neue","Noto Sans",Arial,sans-serif;}';
+    style.textContent = '.lang-switch{display:flex;align-items:center;justify-content:center;gap:4px;min-width:44px;min-height:44px;padding:6px 12px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;transition:all 150ms ease-in-out;color:var(--nav-color);user-select:none;flex-shrink:0;} .lang-switch:hover{color:var(--nav-hover-color);background:rgba(139,108,56,0.08);} .lang-label{font-family:var(--nav-font);} .lang-divider{color:var(--text-faint);font-size:11px;} .lang-switch.active{color:var(--accent-color);background:rgba(139,108,56,0.1);}';
     document.head.appendChild(style);
   }
 

@@ -10,73 +10,11 @@
     -------------------------------------------------------------- */
 [dir="rtl"] {
   direction: rtl;
-  text-align: right;
-}
-
-[dir="rtl"] * {
-  text-align: start;
-}
-
-/* --------------------------------------------------------------
-    LOGICAL PROPERTY OVERRIDES
-    Replace directional physical properties with logical equivalents
-    so layouts flip automatically when dir="rtl".
-    -------------------------------------------------------------- */
-
-/* Margin */
-[dir="rtl"] .me-auto,
-[dir="rtl"] .me-xl-0 {
-  margin-inline-start: auto;
-  margin-inline-end: 0;
-}
-
-[dir="rtl"] .me-auto {
-  margin-inline-end: 0;
-}
-
-[dir="rtl"] .mb-2,
-[dir="rtl"] .mb-lg-0 {
-  margin-block-end: var(--mb, 0.5rem);
-}
-
-[dir="rtl"] .ms-auto {
-  margin-inline-start: auto;
-}
-
-/* Padding */
-[dir="rtl"] .ps-0 {
-  padding-inline-start: 0;
-}
-
-[dir="rtl"] .pe-0 {
-  padding-inline-end: 0;
-}
-
-/* Text alignment — use start/end instead of left/right */
-[dir="rtl"] .text-start {
-  text-align: start;
-}
-
-[dir="rtl"] .text-end {
-  text-align: end;
-}
-
-/* Flexbox ordering for RTL */
-[dir="rtl"] .d-flex {
-  flex-direction: row;
-}
-
-[dir="rtl"] .justify-content-between {
-  justify-content: space-between;
 }
 
 /* --------------------------------------------------------------
     NAVIGATION — RTL swap
     -------------------------------------------------------------- */
-
-[dir="rtl"] .navmenu ul {
-  flex-direction: row;
-}
 
 [dir="rtl"] .navmenu>ul>li {
   padding-inline-start: 15px;
@@ -97,43 +35,7 @@
     HERO SLIDER — RTL swap
     -------------------------------------------------------------- */
 
-[dir="rtl"] .hero-slider .swiper-slide::after {
-  background:
-    linear-gradient(
-      to top,
-      rgba(20, 15, 7, 0.28) 0%,
-      rgba(20, 15, 7, 0.52) 45%,
-      rgba(20, 15, 7, 0.70) 100%
-    );
-}
 
-[dir="rtl"] .hero-slide-content h1 {
-  max-width: 20ch;
-}
-
-[dir="rtl"] .hero-actions {
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-/* --------------------------------------------------------------
-    BUTTONS — RTL swap
-    -------------------------------------------------------------- */
-
-[dir="rtl"] .btn-brand,
-[dir="rtl"] .btn-getstarted,
-[dir="rtl"] .btn-brand-outline,
-[dir="rtl"] .cta-btn,
-[dir="rtl"] .php-email-form button[type="submit"],
-[dir="rtl"] .btn-visit {
-  padding-inline: 12px 30px;
-  padding-block: 12px 30px;
-}
-
-[dir="rtl"] .hero-slide-content .btn-get-started,
-[dir="rtl"] .hero-slide-content .btn-watch-video {
-  padding-inline: 14px 34px;
-}
 
 /* --------------------------------------------------------------
     FORMS — RTL swap
@@ -180,17 +82,9 @@
   transform: translateX(0);
 }
 
-/* --------------------------------------------------------------
-    LOGO LOCKUP — RTL swap
-    -------------------------------------------------------------- */
 
-[dir="rtl"] .header .logo {
-  flex-direction: row;
-}
 
-[dir="rtl"] .footer .footer-about .logo {
-  flex-direction: row;
-}
+
 
 /* --------------------------------------------------------------
     BREADCRUMBS — RTL swap
@@ -202,31 +96,15 @@
   padding-left: 0;
 }
 
-[dir="rtl"] .breadcrumbs ol {
-  flex-direction: row-reverse;
-}
+
 
 /* --------------------------------------------------------------
     PAGINATION — RTL swap
     -------------------------------------------------------------- */
 
-[dir="rtl"] .hero-slider .hero-pagination {
-  left: auto;
-  right: 0;
-}
 
-/* --------------------------------------------------------------
-    GRID — RTL-safe
-    -------------------------------------------------------------- */
 
-[dir="rtl"] .row {
-  flex-direction: row;
-}
 
-[dir="rtl"] .grid2,
-[dir="rtl"] .grid3 {
-  flex-direction: row;
-}
 
 /* --------------------------------------------------------------
     PORTFOLIO INFO — RTL swap
@@ -314,9 +192,7 @@
     CREDENTIALS — RTL swap
     -------------------------------------------------------------- */
 
-[dir="rtl"] .credential-item {
-  flex-direction: column;
-}
+
 
 /* --------------------------------------------------------------
     ADMIN RTL
@@ -332,13 +208,7 @@
   left: 0;
 }
 
-[dir="rtl"] .admin .topbar-in {
-  flex-direction: row;
-}
 
-[dir="rtl"] .admin .row-job {
-  flex-direction: row;
-}
 
 /* --------------------------------------------------------------
     RESPONSIVE RTL ADJUSTMENTS

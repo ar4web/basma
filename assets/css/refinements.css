@@ -14,10 +14,10 @@
 
 :root {
   /* ---- Font stacks ---- */
-  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --font-sans: "Inter", "Noto Sans Arabic", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
   --default-font: var(--font-sans);
-  --heading-font: "DM Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --nav-font: "Poppins", sans-serif;
+  --heading-font: "DM Sans", "Noto Sans Arabic", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --nav-font: "Poppins", "Noto Sans Arabic", sans-serif;
 
   /* ---- Type scale (1.200 minor third, 16px base) ---- */
   --fs-2xs: 0.75rem;     /* 12px  — micro labels, legal */
@@ -160,13 +160,42 @@ body.scrolled .header .logo {
   --logo-h: 34px;
 }
 
+.header .container-fluid {
+  gap: 8px;
+  min-width: 0;
+}
+
+.header .logo {
+  min-width: 0;
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 12px;
+  flex-shrink: 0;
+}
+
 @media (max-width: 1199px) {
   .header .logo { --logo-h: 34px; }
+  .header .btn-getstarted {
+    padding: 8px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 }
 
 @media (max-width: 575px) {
   .header .logo { --logo-h: 30px; }
-  .header .logo .sitename { font-size: calc(var(--logo-h) * 0.52); }
+  .header .logo .sitename { display: none; }
+  .header .btn-getstarted {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
 }
 
 /* Nav sits on the same optical line as the lockup */
@@ -2512,6 +2541,21 @@ html {
 .contact .enquiry-field {
   flex: 1 1 auto;
   min-width: 0;
+}
+
+.contact .enquiry-field .field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.contact .enquiry-field .field-label .req { color: var(--color-danger); }
+.contact .enquiry-field .field-label .opt {
+  color: var(--text-subtle);
+  font-weight: 400;
+  font-size: 0.86em;
 }
 
 .contact .enquiry-field input,

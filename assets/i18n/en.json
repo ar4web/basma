@@ -380,6 +380,15 @@
     "title": "Service Details",
     "desc": "Detailed breakdown of our manpower services: recruitment, mobilisation, Qiwa and Muqeem processing, WPS payroll and ongoing workforce management across Saudi Arabia."
   },
+  "contact": {
+    "title": "Contact Us",
+    "getInTouch": "Get in touch",
+    "location": "Location",
+    "email": "Email",
+    "phone": "Phone",
+    "sendReq": "Send your requirement",
+    "submit": "Submit manpower demand"
+  },
   "pageTitles": {
     "home": "Basmat Al Mawared Company Limited",
     "about": "About Us",

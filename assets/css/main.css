@@ -12,12 +12,12 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "DM Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --nav-font: "Poppins", sans-serif;
+  --default-font: "Inter", "Noto Sans Arabic", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "DM Sans", "Noto Sans Arabic", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --nav-font: "Poppins", "Noto Sans Arabic", sans-serif;
 
   /* Font stack (shared) */
-  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --font-sans: "Inter", "Noto Sans Arabic", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
 
   /* Type scale (1.200 minor third, 16px base) */
   --fs-2xs: 0.75rem;    /* 12px */

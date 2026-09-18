@@ -12,8 +12,8 @@
   --ok: var(--color-success);
   --warn: var(--color-danger);
 
-  --default-font: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
-  --heading-font: "DM Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --default-font: "Inter", "Noto Sans Arabic", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --heading-font: "DM Sans", "Noto Sans Arabic", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --nav-font: "Poppins", sans-serif;
   --font-sans: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
 
