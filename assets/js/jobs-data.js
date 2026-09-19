@@ -1,21 +1,5 @@
-/**
- * =============================================================================
- * BASMAT AL MAWARED — VACANCY LOADER
- * =============================================================================
- * Job postings are managed in the admin panel at /admin/ and stored in
- * data/jobs.json. You should not need to edit this file.
- *
- *   To add, edit, pause or delete a vacancy:  open  yoursite.com/admin/
- *
- * This file fetches data/jobs.json and hands the result to the careers page.
- * The list below is only a fallback, used if the JSON file cannot be read
- * (for example when previewing the site straight from the file system).
- * =============================================================================
- */
-
 window.BAM_JOBS = [];
 
-/** Fallback used only if data/jobs.json is unreachable. */
 const BAM_JOBS_FALLBACK = [
   {
     id: "WH-104",
@@ -43,11 +27,6 @@ const BAM_JOBS_FALLBACK = [
   }
 ];
 
-/**
- * Loads the vacancy list, then runs the careers page renderer.
- * A cache-busting timestamp is added so an edit in the admin panel shows up
- * immediately rather than being served from the browser cache.
- */
 window.BAM_JOBS_READY = (async function loadJobs() {
   try {
     const res = await fetch('data/jobs.json?t=' + Date.now(), { cache: 'no-store' });
@@ -57,12 +36,8 @@ window.BAM_JOBS_READY = (async function loadJobs() {
     window.BAM_JOBS = jobs;
     window.BAM_JOBS_UPDATED = data.updated || null;
   } catch (e) {
-    // File missing or unreadable: fall back so the page is never empty by accident.
     window.BAM_JOBS = BAM_JOBS_FALLBACK;
     window.BAM_JOBS_SOURCE = 'fallback';
-    if (window.console) {
-      console.warn('[Basmat] Could not load data/jobs.json, using the built-in fallback list.', e.message);
-    }
   }
   return window.BAM_JOBS;
 })();
