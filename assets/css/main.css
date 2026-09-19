@@ -3096,3 +3096,65 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+
+/* Language switch */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+  color: var(--nav-color);
+  user-select: none;
+  flex-shrink: 0;
+}
+.lang-switch:hover {
+  color: var(--nav-hover-color);
+  background: rgba(139, 108, 56, 0.08);
+}
+.lang-label {
+  font-family: var(--nav-font);
+}
+.lang-divider {
+  color: var(--text-faint);
+  font-size: 11px;
+}
+.lang-switch.active {
+  color: var(--accent-color);
+  background: rgba(139, 108, 56, 0.1);
+}
+[dir="rtl"] .lang-divider {
+  margin: 0 2px;
+}
+[dir="rtl"] .lang-label {
+  font-family: "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+}
+
+/* Job brief alert */
+.job-brief-alert {
+  background: color-mix(in srgb, var(--accent-color), transparent 95%);
+  border-left: 3px solid var(--accent-color);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.job-brief-alert .alert-body {
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+.job-brief-alert .alert-muted {
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+}
+
+/* Form error alert */
+.form-error-alert {
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  color: #8a1c1c;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+}

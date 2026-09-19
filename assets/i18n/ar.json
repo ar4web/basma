@@ -1,13 +1,11 @@
 {
   "site": {
-    "name": "بسمة الموارد",
-    "tagline": "توريد القوى العاملة السعودية"
+    "name": "بسمة الموارد"
   },
   "nav": {
     "about": "من نحن",
     "services": "خدماتنا",
-    "industries": "القطاعات",
-    "careers": "الوظائف"
+    "industries": "القطاعات"
   },
   "hero": {
     "kicker": "منذ 2017 · الرياض",
@@ -16,9 +14,17 @@
   "features": {
     "title": "فئات القوى العاملة"
   },
-  "footer": {
-    "about": "بسمة الموارد",
-    "phone": "+966 56 999 0576",
-    "cr": "شركة بسمة الموارد المحدودة · س.ت. YOUR-CR-NUMBER · الرياض، المملكة العربية السعودية"
+  "contact": {
+    "getInTouch": "اتصل بنا",
+    "location": "الموقع",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "sendReq": "أرسل طلبك",
+    "submit": "أرسل طلب القوى العاملة",
+    "namePlaceholder": "الاسم الكامل *",
+    "companyPlaceholder": "الشركة *",
+    "workEmailPlaceholder": "البريد الإلكتروني للعمل *",
+    "mobilePlaceholder": "رقم الجوال (اختياري)",
+    "manpowerReqPlaceholder": "طلب القوى العاملة *"
   }
 }

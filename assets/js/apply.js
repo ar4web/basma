@@ -63,11 +63,10 @@
       if (sel.value === 'SPECULATIVE') {
         brief.hidden = false;
         brief.innerHTML =
-          '<div style="background: color-mix(in srgb, var(--accent-color), transparent 95%);' +
-          ' border-left: 3px solid var(--accent-color); border-radius: 6px; padding: 14px 16px;">' +
-          '<div style="font-size:13.5px; line-height:1.7;">' +
+          '<div class="job-brief-alert">' +
+          '<div class="alert-body">' +
           '<strong>Registering for future openings</strong><br>' +
-          '<span style="color: color-mix(in srgb, var(--default-color), transparent 30%);">' +
+          '<span class="alert-muted">' +
           'Your details go into our candidate pool. When a client requirement matches your ' +
           'profile we contact you directly, usually before the role is advertised.' +
           '</span></div></div>';
@@ -78,11 +77,10 @@
     }
     brief.hidden = false;
     brief.innerHTML =
-      '<div style="background: color-mix(in srgb, var(--accent-color), transparent 95%);' +
-      ' border-left: 3px solid var(--accent-color); border-radius: 6px; padding: 14px 16px;">' +
-      '<div style="font-size:13.5px; line-height:1.7;">' +
+      '<div class="job-brief-alert">' +
+      '<div class="alert-body">' +
       '<strong>' + esc(j.title) + '</strong> &middot; ' + esc(j.location) + '<br>' +
-      '<span style="color: color-mix(in srgb, var(--default-color), transparent 30%);">' +
+      '<span class="alert-muted">' +
       esc(j.type) + ' &middot; ' + esc(j.experience) + ' &middot; ' + esc(j.salary) +
       '</span></div></div>';
   }
@@ -324,8 +322,7 @@
       })
       .catch(err => {
         alertBox.innerHTML =
-          '<div style="background:#fdecea;border:1px solid #f5c6cb;color:#8a1c1c;' +
-          'padding:12px 16px;border-radius:6px;font-size:14px;">' +
+          '<div class="form-error-alert">' +
           esc(err.message) + ' Please try again, or email your CV to info@basmat-almawared.com.' +
           '</div>';
         btnSubmit.disabled = false;

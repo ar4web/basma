@@ -307,41 +307,6 @@
     }
   });
 
-  /* ================= worked example ================= */
-
-  document.querySelector('#btn-sample').addEventListener('click', () => {
-    restore({
-      tpl: tpl,
-      f: {
-        cv_name: 'Imran Khan',
-        cv_title: 'Warehouse Supervisor',
-        cv_email: 'imran.khan@example.com',
-        cv_phone: '+966 55 123 4567',
-        cv_city: 'Riyadh, Saudi Arabia',
-        cv_nationality: 'Pakistani',
-        cv_iqama: 'Transferable Iqama',
-        cv_licence: 'Saudi licence - Light vehicle',
-        cv_summary: 'Warehouse supervisor with 8 years of experience in distribution and cold chain operations in Saudi Arabia. Managed teams of up to 24 staff across three shifts and reduced picking errors by 31% in twelve months. Seeking a supervisory role with a large logistics operator in Riyadh.',
-        cv_skills: 'Inventory control, Team supervision, WMS (SAP EWM), Stock auditing, Cold chain handling, Health and safety, Shift planning, Loading and dispatch',
-        cv_certs: 'Forklift Operator Certificate (2022)\nOSHA General Industry Safety Awareness (2021)\nFirst Aid at Work (2023)',
-        cv_langs: 'English (fluent), Urdu (native), Arabic (conversational)',
-      },
-      exp: [
-        {
-          title: 'Warehouse Supervisor', org: 'Gulf Distribution Company', from: 'Mar 2020', to: 'Present', loc: 'Riyadh',
-          duties: 'Supervise 24 warehouse staff across three shifts in a 14,000 sqm distribution centre\nReduced picking errors by 31% by introducing a double-scan verification step\nCoordinate daily dispatch of up to 180 orders against next-day delivery targets\nTrain new operatives on WMS procedures and safe manual handling',
-        },
-        {
-          title: 'Senior Warehouse Operative', org: 'Al Rashid Logistics', from: 'Jun 2017', to: 'Feb 2020', loc: 'Dammam',
-          duties: 'Handled inbound receiving and put-away for an average of 40 containers per month\nMaintained 99.2% stock accuracy across quarterly audits\nOperated counterbalance and reach forklifts in a high-density racking environment',
-        },
-      ],
-      edu: [
-        { deg: 'Diploma in Supply Chain Management', year: '2016', school: 'Punjab Board of Technical Education, Pakistan' },
-      ],
-    });
-  });
-
   /* ================= init ================= */
 
   document.addEventListener('input', e => {

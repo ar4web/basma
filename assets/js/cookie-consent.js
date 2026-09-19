@@ -69,61 +69,8 @@
   }
 
   /* ---------------- third-party gating ---------------- */
-  /**
-   * The company video is now self-hosted from assets/video/, so it sets no
-   * third-party cookies and needs no consent.
-   *
-   * This gate is kept active for any FUTURE third-party embed: if a YouTube or
-   * Vimeo link is ever added back, it is blocked automatically until the
-   * visitor allows functional cookies. Nothing to change at that point.
-   */
-  function gateEmbeds(allowed) {
-    document.querySelectorAll('a.glightbox[href*="youtube.com"], a.glightbox[href*="youtu.be"], a.glightbox[href*="vimeo.com"]')
-      .forEach(link => {
-        const holder = link.parentElement;
-        if (!holder) return;
-
-        if (allowed) {
-          if (link.dataset.bamHref) {
-            link.setAttribute('href', link.dataset.bamHref);
-            delete link.dataset.bamHref;
-          }
-          link.classList.remove('bam-cc-disabled');
-          const ph = holder.querySelector('.bam-cc-blocked');
-          if (ph) ph.remove();
-          return;
-        }
-
-        // Block it.
-        if (!link.dataset.bamHref) {
-          link.dataset.bamHref = link.getAttribute('href') || '';
-          link.setAttribute('href', 'javascript:void(0)');
-          link.classList.add('bam-cc-disabled');
-        }
-        if (!holder.querySelector('.bam-cc-blocked')) {
-          if (getComputedStyle(holder).position === 'static') {
-            holder.style.position = 'relative';
-          }
-          const ph = document.createElement('div');
-          ph.className = 'bam-cc-blocked';
-          ph.innerHTML =
-            '<i class="bi bi-play-btn"></i>' +
-            '<p>This video is hosted on YouTube, which may set its own cookies. ' +
-            'Allow functional cookies to play it here.</p>' +
-            '<button type="button" data-bam-allow-video>Allow and play video</button>';
-          ph.querySelector('[data-bam-allow-video]').addEventListener('click', e => {
-            e.stopPropagation();
-            const p = Object.assign({}, prefs(), { functional: true });
-            save(p);
-            syncToggles();
-          });
-          holder.appendChild(ph);
-        }
-      });
-  }
 
   function applyConsent(p) {
-    gateEmbeds(!!p.functional);
     document.documentElement.dataset.bamConsent =
       [p.essential && 'essential', p.functional && 'functional', p.analytics && 'analytics']
         .filter(Boolean).join(' ');
