@@ -15,6 +15,7 @@
   function toggleScrolled() {
     const selectBody = document.querySelector('body');
     const selectHeader = document.querySelector('#header');
+    if (!selectHeader) return;
     if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
     window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
   }
@@ -28,10 +29,12 @@
 
   function mobileNavToogle() {
     document.querySelector('body').classList.toggle('mobile-nav-active');
-    mobileNavToggleBtn.classList.toggle('bi-list');
-    mobileNavToggleBtn.classList.toggle('bi-x');
+    if (mobileNavToggleBtn) {
+      mobileNavToggleBtn.classList.toggle('bi-list');
+      mobileNavToggleBtn.classList.toggle('bi-x');
+    }
   }
-  mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+  if (mobileNavToggleBtn) mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
   /**
    * Hide mobile nav on same-page/hash links
@@ -95,15 +98,10 @@
    * Animation on scroll function and init
    */
   function aosInit() {
+    if (typeof AOS === 'undefined') return;
     AOS.init({
-      // Shorter, and eased out rather than in-out. 'ease-in-out' starts slow,
-      // which is what made the old motion feel sluggish and draggy; content
-      // should arrive quickly and settle, not creep in.
       duration: 450,
       easing: 'ease-out-cubic',
-      // Start the animation slightly before the element reaches the viewport
-      // so it has finished by the time it is properly in view, instead of
-      // animating in front of the reader.
       offset: 40,
       once: true,
       mirror: false
@@ -111,17 +109,15 @@
   }
   window.addEventListener('load', aosInit);
 
-  /**
-   * Initiate glightbox
-   */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
+  if (typeof GLightbox !== 'undefined') {
+    GLightbox({ selector: '.glightbox' });
+  }
 
   /**
    * Init swiper sliders
    */
   function initSwiper() {
+    if (typeof Swiper === 'undefined') return;
     document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
@@ -154,6 +150,7 @@
     let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
     let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
+    if (typeof imagesLoaded === 'undefined' || typeof Isotope === 'undefined') return;
     let initIsotope;
     imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
       initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
@@ -256,14 +253,25 @@
     requestAnimationFrame(onScrollFrame);
   }, { passive: true });
 
-  /**
-   * Stamp the contact form with its render time.
-   * The server rejects submissions completed faster than a human could type,
-   * which blocks the bulk of automated spam without a CAPTCHA.
-   */
-  const formTimeField = document.querySelector('#form-time');
-  if (formTimeField) {
-    formTimeField.value = Math.floor(Date.now() / 1000);
+  const contactForm = document.querySelector('#contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if ((this.website && this.website.value) || !this.checkValidity()) return;
+      const body = [
+        'Name: ' + this.name.value.trim(),
+        'Company: ' + this.subject.value.trim(),
+        'Email: ' + this.email.value.trim(),
+        'Phone: ' + (this.phone.value.trim() || '—'),
+        '',
+        this.message.value.trim()
+      ].join('\n');
+      window.location.href = 'mailto:info@basmat-almawared.com?subject=' +
+        encodeURIComponent('Manpower request — ' + this.subject.value.trim()) +
+        '&body=' + encodeURIComponent(body);
+      const sent = this.querySelector('.sent-message');
+      if (sent) sent.classList.add('d-block');
+    });
   }
 
 })();

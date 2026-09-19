@@ -1,7 +1,7 @@
 /**
  * Multi-step job application form.
- * Client-side validation only improves the experience — forms/apply.php
- * revalidates everything on the server, which is the real gate.
+ * Opens the visitor's email client with the application details.
+ * Attach a CV before sending.
  */
 (async function () {
   "use strict";
@@ -24,6 +24,13 @@
 
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
     c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const v = id => (document.querySelector('#' + id) || {}).value || '';
+  const txt = id => {
+    const el = document.querySelector('#' + id);
+    if (!el) return '';
+    if (el.tagName === 'SELECT' && el.selectedIndex >= 0) return el.options[el.selectedIndex].text;
+    return el.value;
+  };
 
   /* ---------------- populate the position dropdown ---------------- */
 
@@ -215,13 +222,6 @@
   /* ---------------- review panel ---------------- */
 
   function buildReview() {
-    const v = id => (document.querySelector('#' + id) || {}).value || '';
-    const txt = id => {
-      const el = document.querySelector('#' + id);
-      if (!el) return '';
-      if (el.tagName === 'SELECT' && el.selectedIndex >= 0) return el.options[el.selectedIndex].text;
-      return el.value;
-    };
     const f = fileInput.files[0];
 
     const block = (title, rows) =>
@@ -276,63 +276,58 @@
   btnNext.addEventListener('click', () => { if (validate(current)) goTo(current + 1); });
   btnBack.addEventListener('click', () => goTo(current - 1));
 
-  /* ---------------- submit ---------------- */
-
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!validate(LAST)) return;
+    if ((document.querySelector('#website') || {}).value) return;
 
-    btnSubmit.disabled = true;
-    btnSubmit.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending...';
-    alertBox.innerHTML = '';
+    const now = new Date();
+    const p = n => String(n).padStart(2, '0');
+    const ref = 'BMC' + String(now.getFullYear()).slice(-2) + p(now.getDate()) + p(now.getMonth() + 1) + p(now.getHours()) + p(now.getMinutes());
+    const body = [
+      'Reference: ' + ref,
+      'Position: ' + txt('job_id'),
+      'Available from: ' + v('available_from'),
+      'Status: ' + txt('current_location'),
+      'Name: ' + v('full_name'),
+      'Nationality: ' + v('nationality'),
+      'Email: ' + v('email'),
+      'Mobile: ' + v('phone'),
+      'ID type: ' + txt('id_type'),
+      'ID number: ' + v('id_number'),
+      'City: ' + v('city'),
+      'Experience: ' + txt('years_exp'),
+      'Current job: ' + v('current_job'),
+      'Skills: ' + v('skills'),
+      'Notes: ' + v('cover_note'),
+      '',
+      'Please attach your CV to this email.'
+    ].join('\n');
+    window.location.href = 'mailto:info@basmat-almawared.com?subject=' +
+      encodeURIComponent('Application ' + ref + ' — ' + (v('job_title_hidden') || txt('job_id'))) +
+      '&body=' + encodeURIComponent(body);
 
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-      .then(r => r.json().catch(() => ({ ok: false, error: 'Unexpected server response.' })))
-      .then(data => {
-        if (data.ok) {
-          form.style.display = 'none';
-          document.querySelector('#apply-intro').style.display = 'none';
-          document.querySelector('#form-steps').style.display = 'none';
-          document.querySelector('#success-ref').textContent = data.reference || '—';
-
-          // Let the candidate copy their reference in one tap.
-          const copyBtn = document.querySelector('#copy-ref');
-          if (copyBtn && navigator.clipboard) {
-            copyBtn.addEventListener('click', () => {
-              navigator.clipboard.writeText(data.reference || '').then(() => {
-                copyBtn.innerHTML = '<i class="bi bi-check-lg"></i>';
-                setTimeout(() => { copyBtn.innerHTML = '<i class="bi bi-clipboard"></i>'; }, 1800);
-              }).catch(() => {});
-            });
-          } else if (copyBtn) {
-            copyBtn.style.display = 'none';
-          }
-          document.querySelector('#apply-success').style.display = 'block';
-          window.scrollTo({
-            top: document.querySelector('.form-wrap').offsetTop - 110,
-            behavior: 'smooth'
-          });
-        } else {
-          throw new Error(data.error || 'Submission failed.');
-        }
-      })
-      .catch(err => {
-        alertBox.innerHTML =
-          '<div class="form-error-alert">' +
-          esc(err.message) + ' Please try again, or email your CV to info@basmat-almawared.com.' +
-          '</div>';
-        btnSubmit.disabled = false;
-        btnSubmit.innerHTML = '<i class="bi bi-send"></i> Submit Application';
+    form.style.display = 'none';
+    const intro = document.querySelector('#apply-intro');
+    if (intro) intro.style.display = 'none';
+    document.querySelector('#form-steps').style.display = 'none';
+    document.querySelector('#success-ref').textContent = ref;
+    const copyBtn = document.querySelector('#copy-ref');
+    if (copyBtn && navigator.clipboard) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(ref).then(() => {
+          copyBtn.innerHTML = '<i class="bi bi-check-lg"></i>';
+          setTimeout(() => { copyBtn.innerHTML = '<i class="bi bi-clipboard"></i>'; }, 1800);
+        }).catch(() => {});
       });
+    } else if (copyBtn) {
+      copyBtn.style.display = 'none';
+    }
+    document.querySelector('#apply-success').style.display = 'block';
+    window.scrollTo({
+      top: document.querySelector('.form-wrap').offsetTop - 110,
+      behavior: 'smooth'
+    });
   });
-
-  /* ---------------- anti-spam timestamp ---------------- */
-
-  const ft = document.querySelector('#form-time');
-  if (ft) ft.value = Math.floor(Date.now() / 1000);
 
 })();
