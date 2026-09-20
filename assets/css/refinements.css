@@ -402,14 +402,17 @@ p { line-height: var(--lh-body); }
   }
 }
 
-/* The header CTA used to be hidden from 1199px down on the homepage, on the
-   grounds that the hero repeats a "Request a Quote" button at those widths.
+.header .lang-switch {
+  margin: 0;
+  padding: 8px 12px;
+}
 
-   That no longer holds. The Contact nav item has been removed as a
-   duplicate of this button, so hiding the button on mobile would leave the
-   homepage header with no route to the contact form at all — only the
-   footer. The button now stays at every width, like it does on the other
-   nine pages. */
+@media (max-width: 1200px) {
+  .header .lang-switch {
+    order: 2;
+    margin: 0 15px 0 0;
+  }
+}
 
 /* =========================================================
    4. CARDS — unify radius, border and hover
@@ -2586,6 +2589,38 @@ html {
    .service-item divs inside a section, so they inherit nothing and would
    land underneath the header. Same offsets, same breakpoint.
    ========================================================= */
+
+.features .category-block {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+}
+
+.features .category-block:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.features .category-block h3 {
+  margin-bottom: 0.75rem;
+}
+
+.features .category-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.features .category-block ul li {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.55rem;
+}
+
+.features .category-block ul i {
+  color: var(--color-brand, #8b6c38);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
 
 .services .service-item[id] {
   scroll-margin-top: 100px;

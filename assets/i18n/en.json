@@ -39,7 +39,10 @@
   "about": {
     "title": "About Us",
     "desc": "Operating since 2017. Trusted by more than 30 organisations for legal, compliant and rapid workforce deployment across the Kingdom.",
-    "heading": "We supply <strong>uniformed, background-checked</strong> personnel to <span class=\"accent\">every sector</span> of the Saudi economy."
+    "heading": "We supply <strong>uniformed, background-checked</strong> personnel to <span class=\"accent\">every sector</span> of the Saudi economy.",
+    "p1": "Basmat Al Mawared Company Limited is a licensed manpower supply company based in Riyadh. Since 2017 we have recruited, deployed and managed workforce for logistics, hospitality, cleaning, manufacturing and facilities clients across Saudi Arabia.",
+    "p2": "Every placement is made on a Qiwa contract with WPS salary payment, GOSI registration and medical insurance. Transfers run through Muqeem. We handle Nitaqat alignment so your operation stays in the green tier.",
+    "p3": "Clients keep one point of contact. We supply the people, the uniforms, the paperwork and a replacement if someone does not show. That is the whole offer."
   },
   "credentials": {
     "operatingSince": "Operating Since 2017",
