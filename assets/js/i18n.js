@@ -140,15 +140,28 @@
     return typeof val === 'string' ? val : undefined;
   }
 
+  function bindToggle(toggle) {
+    toggle.addEventListener('click', function () {
+      setLang(currentLang === 'ar' ? 'en' : 'ar');
+    });
+    toggle.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLang(currentLang === 'ar' ? 'en' : 'ar'); }
+    });
+  }
+
   function createToggle() {
+    var toggle = document.getElementById('lang-toggle');
+    if (toggle) {
+      bindToggle(toggle);
+      return;
+    }
     var header = document.querySelector('.header .container-fluid');
     if (!header) return;
-    var toggle = document.createElement('div');
+    toggle = document.createElement('div');
     toggle.id = 'lang-toggle';
     toggle.className = 'lang-switch';
     toggle.setAttribute('role', 'button');
     toggle.setAttribute('tabindex', '0');
-    // Set initial language labels based on current language - show ONLY the active language
     if (currentLang === 'ar') {
       toggle.innerHTML = '<span class="lang-label active" data-i18n-lang="ar">AR</span>';
       toggle.setAttribute('aria-label', 'Switch to English');
@@ -156,21 +169,8 @@
       toggle.innerHTML = '<span class="lang-label active" data-i18n-lang="en">EN</span>';
       toggle.setAttribute('aria-label', 'Toggle to Arabic');
     }
-    toggle.addEventListener('click', function () {
-      setLang(currentLang === 'ar' ? 'en' : 'ar');
-    });
-    toggle.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLang(currentLang === 'ar' ? 'en' : 'ar'); }
-    });
-    // Place toggle before the main logo (works for both mobile and desktop)
-    var logo = header.querySelector('.logo');
-    if (logo) {
-      header.insertBefore(toggle, logo);
-    } else if (header.firstChild) {
-      header.insertBefore(toggle, header.firstChild);
-    } else {
-      header.appendChild(toggle);
-    }
+    bindToggle(toggle);
+    header.appendChild(toggle);
   }
 
   if (document.readyState === 'loading') {

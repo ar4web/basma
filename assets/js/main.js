@@ -10,17 +10,68 @@
   "use strict";
 
   /**
-   * Apply .scrolled class to the body as the page is scrolled down
+   * Smart Header - Auto-hide on scroll down, show on scroll up/stop
    */
-  function toggleScrolled() {
-    const selectBody = document.querySelector('body');
-    const selectHeader = document.querySelector('#header');
-    if (!selectHeader) return;
-    if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
-    window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  let scrollTimeout;
+  const header = document.querySelector('#header');
+  const marqueeHeight = 36; // matches --marquee-height
+
+  function updateHeader() {
+    if (!header) return;
+    
+    const currentScrollY = window.scrollY;
+    const scrollDelta = currentScrollY - lastScrollY;
+    
+    // Add/remove scrolled class for styling
+    if (currentScrollY > 100) {
+      document.body.classList.add('scrolled');
+    } else {
+      document.body.classList.remove('scrolled');
+    }
+    
+    // Determine header visibility
+    if (currentScrollY <= marqueeHeight) {
+      // Near top - always show
+      header.classList.remove('header-hidden');
+      header.classList.add('header-visible');
+    } else if (scrollDelta > 5) {
+      // Scrolling down - hide header
+      header.classList.add('header-hidden');
+      header.classList.remove('header-visible');
+    } else if (scrollDelta < -5) {
+      // Scrolling up - show header
+      header.classList.remove('header-hidden');
+      header.classList.add('header-visible');
+    }
+    
+    lastScrollY = currentScrollY;
+    ticking = false;
   }
 
-  window.addEventListener('load', toggleScrolled);
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+    
+    // Show header when user stops scrolling
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      if (header && window.scrollY > marqueeHeight) {
+        header.classList.remove('header-hidden');
+        header.classList.add('header-visible');
+      }
+    }, 200); // Show after 200ms of no scrolling
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('load', () => {
+    if (header) {
+      header.classList.add('header-visible');
+    }
+  });
 
   /**
    * Mobile nav toggle
@@ -266,11 +317,101 @@
         '',
         this.message.value.trim()
       ].join('\n');
-      window.location.href = 'mailto:info@basmat-almawared.com?subject=' +
+      window.location.href = 'mailto:info@basmatalmawared.com?subject=' +
         encodeURIComponent('Manpower request — ' + this.subject.value.trim()) +
         '&body=' + encodeURIComponent(body);
       const sent = this.querySelector('.sent-message');
       if (sent) sent.classList.add('d-block');
+    });
+  }
+
+  /* =========================================================
+     FOOTER PROJECT SETUP FORM
+     ========================================================= */
+  const footerForm = document.querySelector('#footer-project-form');
+  if (footerForm) {
+    // Goal radio button visual selection
+    const goalLabels = footerForm.querySelectorAll('.goal-option');
+    goalLabels.forEach(label => {
+      label.addEventListener('click', function() {
+        const input = this.querySelector('input[type="radio"]');
+        if (input) {
+          input.checked = true;
+          goalLabels.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
+
+    // Initial active state
+    const checkedGoal = footerForm.querySelector('input[name="goal"]:checked');
+    if (checkedGoal) {
+      checkedGoal.closest('.goal-option').classList.add('active');
+    }
+
+    footerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Validate
+      const email = this.querySelector('#form-email');
+      const type = this.querySelector('#form-type');
+      const goal = this.querySelector('input[name="goal"]:checked');
+      const brief = this.querySelector('#form-brief');
+
+      let valid = true;
+      if (!email.value || !email.checkValidity()) {
+        email.classList.add('is-invalid');
+        valid = false;
+      } else { email.classList.remove('is-invalid'); }
+
+      if (!type.value) {
+        type.classList.add('is-invalid');
+        valid = false;
+      } else { type.classList.remove('is-invalid'); }
+
+      if (!goal) {
+        this.querySelectorAll('.goal-option').forEach(l => l.style.borderColor = 'var(--color-danger, #dc3545)');
+        valid = false;
+      } else {
+        this.querySelectorAll('.goal-option').forEach(l => l.style.borderColor = '');
+      }
+
+      if (!brief.value || brief.value.trim().length < 30) {
+        brief.classList.add('is-invalid');
+        valid = false;
+      } else { brief.classList.remove('is-invalid'); }
+
+      if (!valid) return;
+
+      // Build mailto
+      const body = [
+        'Project Type: ' + type.options[type.selectedIndex].text,
+        'Primary Goal: ' + goal.value.charAt(0).toUpperCase() + goal.value.slice(1),
+        'Brief: ' + brief.value.trim(),
+        '',
+        'Submitted by: ' + email.value.trim()
+      ].join('\n');
+
+      window.location.href = 'mailto:info@basmatalmawared.com?subject=' +
+        encodeURIComponent('New Project Setup — ' + type.options[type.selectedIndex].text) +
+        '&body=' + encodeURIComponent(body);
+
+      // Show success toast
+      const formCard = this.closest('.footer-form-card');
+      const toast = document.getElementById('form-success-toast');
+      if (toast) {
+        toast.classList.remove('d-none');
+        toast.style.animation = 'slideIn 0.3s ease';
+        setTimeout(() => {
+          toast.style.animation = 'fadeOut 0.3s ease';
+          setTimeout(() => toast.classList.add('d-none'), 300);
+        }, 4000);
+      }
+
+      // Reset
+      this.reset();
+      document.querySelectorAll('.goal-option').forEach(l => l.classList.remove('active'));
     });
   }
 

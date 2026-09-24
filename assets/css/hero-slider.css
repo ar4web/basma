@@ -30,21 +30,14 @@
   height: 100%;
   object-fit: cover;
   object-position: center 42%;
+  z-index: 0;
 }
 
-/* Warm scrim: keeps text legible over any photo and ties the imagery
-   to the brand palette instead of a neutral grey wash. */
 .hero-slider .swiper-slide::after {
   content: "";
   position: absolute;
   inset: 0;
-  /* Vertical, from master. I had this as a left-to-right ramp to push
-     contrast under the left-aligned text, but the hero photography is
-     centre-composed -- the Saudi supervisor stands dead centre with the
-     team symmetric around him -- so a left-heavy scrim buried the workers
-     on that side. The vertical ramp keeps the composition readable and
-     still measures 9.23 against the lead paragraph on the worst slide,
-     against the 4.5 needed. */
+  /* Warm scrim that ties the imagery to the brand palette */
   background:
     linear-gradient(
       to bottom,
@@ -52,6 +45,20 @@
       rgba(20, 15, 7, 0.52) 45%,
       rgba(20, 15, 7, 0.70) 100%
     );
+}
+
+/* Slide overlay (kept in markup for aria-hidden) */
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(20, 15, 7, 0.28) 0%,
+      rgba(20, 15, 7, 0.52) 45%,
+      rgba(20, 15, 7, 0.70) 100%
+    );
+  z-index: 1;
 }
 
 /* Slow zoom on the active slide — the single biggest "premium" cue */
@@ -94,7 +101,7 @@
   font-family: var(--heading-font);
   font-size: clamp(2.25rem, 5vw, 3.75rem);   /* 36 -> 60px */
   font-weight: 600;
-  line-height: 1.08;
+  line-height: 0.54;
   letter-spacing: -0.015em;
   color: var(--color-tints-0);
 }
