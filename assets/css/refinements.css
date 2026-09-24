@@ -19,23 +19,23 @@
   --heading-font: "DM Sans", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --nav-font: "Poppins", sans-serif;
 
-  /* ---- Type scale (1.200 minor third, 16px base) ---- */
-  --fs-2xs: 0.75rem;     /* 12px  — micro labels, legal */
-  --fs-xs:  0.8125rem;   /* 13px  — captions, help text */
-  --fs-sm:  0.875rem;    /* 14px  — secondary body */
-  --fs-base: 0.9375rem;  /* 15px  — UI default */
-  --fs-md:  1rem;        /* 16px  — body */
-  --fs-lg:  1.125rem;    /* 18px  — lead */
-  --fs-xl:  1.375rem;    /* 22px  — card titles */
-  --fs-2xl: 1.75rem;     /* 28px  — section sub-heads */
-  --fs-3xl: 2.25rem;     /* 36px  — section titles */
+  /* ---- Type scale (1.250 major third, 16px base) ---- */
+  --fs-2xs: 0.6875rem;    /* 11px — micro labels, legal */
+  --fs-xs:  0.75rem;      /* 12px — captions, help text */
+  --fs-sm:  0.8125rem;    /* 13px — secondary body */
+  --fs-base: 0.875rem;    /* 14px — UI default */
+  --fs-md:  1rem;         /* 16px — body */
+  --fs-lg:  1.25rem;      /* 20px — lead */
+  --fs-xl:  1.5625rem;    /* 25px — card titles */
+  --fs-2xl: 1.953125rem;  /* 31px — section sub-heads */
+  --fs-3xl: 2.44140625rem;/* 39px — section titles */
 
   /* ---- Line-heights ---- */
-  --lh-tight: 1.15;
-  --lh-heading: 1.22;
-  --lh-body: 1.68;
-  --lh-relaxed: 1.75;
-  --lh-snug: 1.35;
+  --lh-tight: 1.1;
+  --lh-heading: 1.18;
+  --lh-body: 1.7;
+  --lh-relaxed: 1.8;
+  --lh-snug: 1.3;
 
   /* ---- Heading weights ---- */
   --weight-bold: 700;
@@ -94,9 +94,49 @@
    the page surfaces on purpose: it is the label colour on gold buttons, and
    anything dimmer than #f9f7f2 drops the ratio below the 4.5 AA threshold.
    Measured 4.56 against the brand gold. */
-:root {
-  --contrast-color: #f9f7f2;
-}
+  :root {
+    --contrast-color: #f9f7f2;
+  }
+
+  /* =========================================================
+     2. PAGE-WIDE BACKGROUND PATTERN
+     The brand tile repeats across the whole body, behind everything.
+     Kept very faint so it reads as texture, not decoration.
+     ========================================================= */
+  body {
+    background-color: var(--background-color);
+    background-image:
+      url("../img/brand-tile.png");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    background-position: 0 0;
+    background-attachment: fixed;
+  }
+
+  /* The vertical gradient wash rides above the tile so the pattern is never
+     lost in a flat field. Fixed attachment keeps it stable while scrolling. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg,
+        color-mix(in srgb, var(--color-tints-750) 8%, transparent) 0%,
+        transparent 18%,
+        color-mix(in srgb, var(--color-shades-900) 6%, transparent) 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% auto;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Push every direct child of <body> above the pattern layer so the tile
+     never shows through text or form controls. */
+  body > *:not(style):not(script):not(link):not(meta) {
+    position: relative;
+    z-index: 1;
+  }
 
 /* =========================================================
    HEADER
@@ -147,8 +187,8 @@ body.scrolled .header {
 .header .logo .sitename {
   /* 0.58 of the mark height: optically matched so the cap-height of the
      wordmark aligns with the body of the mark. */
-  font-size: calc(var(--logo-h) * 0.58);
-  font-weight: 600;
+  font-size: calc(var(--logo-h) * 0.87);
+  font-weight: 900;
   letter-spacing: -0.2px;
   line-height: 1;
   margin: 0;
@@ -218,18 +258,40 @@ h6 { font-size: var(--fs-md); }
 p { line-height: var(--lh-body); }
 
 /* Section titles were 36/40/42/44px across different sections */
+.section-title {
+  text-align: center;
+  padding-bottom: 72px;
+  position: relative;
+}
+
 .section-title h2 {
-  font-size: clamp(1.875rem, 3.2vw, var(--fs-3xl));
-  font-weight: 600;
-  letter-spacing: -0.018em;
-  margin-bottom: 12px;
+  font-size: var(--fs-h2);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  margin-bottom: 24px;
+  text-wrap: balance;
+  line-height: 1.15;
+}
+
+.section-title h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  margin: 24px auto 0;
+  background: linear-gradient(90deg,
+      transparent,
+      var(--accent-color) 20%,
+      var(--accent-color) 80%,
+      transparent);
+  border-radius: 2px;
 }
 
 .section-title p {
-  font-size: var(--fs-md);
+  font-size: var(--fs-lg);
   line-height: 1.7;
   color: var(--text-muted);
-  max-width: 62ch;
+  max-width: 70ch;
   margin-left: auto;
   margin-right: auto;
 }
@@ -473,11 +535,20 @@ textarea:focus-visible,
    ========================================================= */
 
 .section {
-  padding: clamp(56px, 7vw, 88px) 0;
+  padding: clamp(80px, 10vw, 120px) 0;
+  background-image: var(--section-bg, linear-gradient(180deg,
+      var(--grad-stop-1) 0%,
+      var(--grad-stop-2) 30%,
+      var(--grad-stop-3) 70%,
+      var(--grad-stop-4) 100%));
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
 }
 
 .section-title {
-  padding-bottom: clamp(28px, 3.5vw, 44px);
+  padding-bottom: clamp(40px, 5vw, 64px);
 }
 
 /* =========================================================
@@ -841,8 +912,8 @@ body {
 }
 
 .footer .footer-about .logo .sitename {
-  font-size: calc(var(--logo-h) * 0.52);
-  font-weight: 600;
+  font-size: calc(var(--logo-h) * 0.87);
+  font-weight: 900;
   letter-spacing: 0.2px;
   line-height: 1;
   white-space: nowrap;
@@ -1138,37 +1209,25 @@ body {
    ========================================================= */
 
 .call-to-action .container {
-  /* Full bleed */
-  max-width: none;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  /* Was 76px. The band carries a headline, a paragraph and a button, and at
-     76px they sat tight against the edges. More air is what separates a
-     deliberate band from a cramped one. */
-  padding: 108px 32px;
-  /* No radius at full bleed: rounded corners against the viewport edge
-     leave slivers of page colour showing in each corner. */
-  border-radius: 0;
-  /* Dark band. Deep brown, warmer and lighter towards the lower right so
-     the panel has a light direction rather than being a flat fill. This is
-     what allows the headline gold to be saturated; see the headline note
-     below. */
-  /* Ends on #5b4726 rather than #4a3615. #onfocus directly below is
-     #5f4a26, and the old end colour sat at ratio 1.36 against it: near
-     enough to look accidental, different enough to draw a hard seam across
-     the middle of the dark zone. Landing on #5b4726 puts that step at 1.05,
-     which is imperceptible, so the CTA and the video panel read as one
-     continuous dark field. Kept a shade off exact so the headline gold
-     holds 3.32 instead of 3.16. */
-  background: linear-gradient(118deg, #2e2109 0%, #3a2a0f 46%, #5b4726 100%);
-  border-top: 1px solid rgba(192, 166, 88, 0.26);
-  /* No bottom hairline: it would draw the very seam this gradient removes. */
-  border-bottom: 0;
-  /* Containing block for the .bam-pattern layers. */
-  position: relative;
-  isolation: isolate;
-}
+    /* Full bleed */
+    max-width: none;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 108px 32px;
+    border-radius: 0;
+    /* Light band — matches the rest of the site. Warm cream at the top fading
+       to the page background at the bottom, so the band never reads as a
+       separate dark panel. */
+    background: linear-gradient(180deg,
+        color-mix(in srgb, var(--color-tints-750) 12%, var(--surface-color)) 0%,
+        var(--surface-color) 30%,
+        var(--background-color) 100%);
+    border-top: 1px solid color-mix(in srgb, var(--color-brand), transparent 80%);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-brand), transparent 84%);
+    position: relative;
+    isolation: isolate;
+  }
 
 /* Content keeps the page measure so it stays aligned with the sections
    above and below; only the band runs edge to edge. z-index lifts it above
@@ -1209,70 +1268,54 @@ body {
 }
 
 .call-to-action .img:before {
-  background: rgba(224, 179, 84, 0.16);
-}
+    background: rgba(253, 248, 238, 0.55);
+  }
 
-.call-to-action .img:after {
-  background: rgba(168, 131, 66, 0.10);
-}
+  .call-to-action .img:after {
+    background: rgba(245, 240, 228, 0.35);
+  }
 
-/* Lift the photo off the dark band so it does not float edgeless. */
+/* Lift the photo off the light band so it does not float edgeless. */
 .call-to-action .img img {
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
-}
+    box-shadow: 0 22px 50px rgba(36, 28, 15, 0.16);
+  }
 
-/* =========================================================
-   CTA HEADLINE + BRAND WATERMARK
-   ---------------------------------------------------------
-   Replaces the previous scattered-tile version. Three things were wrong
-   with it: the marks were small and repeated, which read as wallpaper
-   rather than branding; the gradient was muddy; and Fraunces was the wrong
-   serif for this brand.
+  /* =========================================================
+     CTA HEADLINE
+     ---------------------------------------------------------
+     The band is light, so the headline is brand gold on the page surface.
+     On light the gold sits at chroma 0.78 against the cream, which clears
+     3.0 with room to spare — the dark-band rationale (gold needs a dark
+     field to be legible) does not apply here.
+     ========================================================= */
 
-   THE COLOUR PROBLEM WAS THE BAND, NOT THE GRADIENT.
-   The band was a light tint, and on a light background gold cannot be
-   saturated and legible at the same time. Measured: on the light band the
-   most saturated gold that still clears 3.0 has chroma 0.55; on a dark
-   panel it is 0.75. Every attempt to enrich the gold on a light band
-   failed contrast, which is why the shipped ramp looked like mud.
-
-   So the band is now dark. That is what lets the gold actually be gold,
-   and it gives the depth the watermark needs. Average chroma of the new
-   ramp is 0.55 against 0.24 before.
-   ========================================================= */
-
-/* --- headline ----------------------------------------------------------
-   Fraunces was too mannered for this brand: quirky, wobbling curves that
-   fought the calligraphic logo. Playfair Display instead. It is a
-   Didone-style serif whose sharp vertical stress and fine hairlines are
-   much closer in spirit to the thuluth strokes in the mark, so the
-   headline and the logo now belong to the same family of shapes.
-
-   Gold on dark, which is the pairing the brand is actually built on.
-   Weakest stop measures 3.87 against the worst case, which is the lightest
+  /* --- headline ----------------------------------------------------------
+     DM Sans, not Playfair. The serif was chosen for the dark band, where a
+     Didone's sharp stress echoed the thuluth strokes in the mark. On a light
+     band a serif fights the mark instead: the logo is a wordmark, the band
+     is a wordmark, and two serif families in one row is a clash. DM Sans
+     matches the heading font everywhere else on the page, which is what
+     "belonging to the same family of shapes" actually means here. */
    corner of the band with a watermark on top of it. */
 
 .call-to-action .content h3 {
-  font-family: "Playfair Display", "Source Sans Pro", Georgia, serif;
+  font-family: var(--heading-font);
   /* main.css hardcodes 48px with no responsive override, which breaks on a
      360px phone. Same clamp shape as the section titles. */
   font-size: clamp(1.75rem, 3.4vw, 2.75rem);
   font-weight: 600;
   letter-spacing: -0.005em;
   line-height: 1.16;
-  color: #e8c46a;
+  color: var(--heading-color);
   margin-bottom: 20px;
 }
 
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .call-to-action .content h3 {
-    background: linear-gradient(
-      96deg,
-      #c9962f 0%,
-      #e0b354 30%,
-      #f0cd7d 58%,
-      #cfa03a 100%
-    );
+    background: linear-gradient(96deg,
+      color-mix(in srgb, var(--color-brand) 78%, var(--color-shades-300)) 0%,
+      var(--color-brand) 45%,
+      color-mix(in srgb, var(--color-tints-750) 85%, var(--color-brand)) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1280,8 +1323,8 @@ body {
 }
 
 .call-to-action .content h3 em {
-  font-style: italic;
-  font-weight: 700;
+  font-style: normal;
+  font-weight: var(--weight-bold);
 }
 
 .call-to-action .content h3 em:after {
@@ -1289,24 +1332,25 @@ body {
   height: 3px;
   border-radius: 2px;
   background: linear-gradient(90deg,
-    rgba(224, 179, 84, 0.85), rgba(224, 179, 84, 0.12));
+      color-mix(in srgb, var(--accent-color), transparent 20%),
+      transparent);
 }
 
 /* Supporting copy and button follow the band onto dark. */
 .call-to-action .content p {
-  color: #f0e9da;
-  opacity: 0.9;
+  color: var(--text-muted);
+  opacity: 1;
 }
 
 .call-to-action .content .cta-btn {
-  background: linear-gradient(96deg, #c0a658, #a5883f);
-  color: #2a1e08;
+  background: var(--accent-color);
+    color: var(--contrast-color);
   border: 0;
 }
 
 .call-to-action .content .cta-btn:hover {
-  background: linear-gradient(96deg, #d0b76c, #b3954a);
-  color: #2a1e08;
+  background: color-mix(in srgb, var(--accent-color) 88%, black 12%);
+    color: var(--contrast-color);
 }
 
 @media (max-width: 575px) {
@@ -1865,17 +1909,12 @@ body {
    second horizontal overflow. */
 .call-to-action .container > .bam-weave,
 .call-to-action .container > .bam-glass {
-  overflow: hidden;
-}
+    overflow: hidden;
+  }
 
-/* .onfocus .content is a padded panel, so the marks are scaled to it
-   rather than to a full-width band. */
-.onfocus .content > .bam-weave::after { width: 260px; height: 304px; }
-.onfocus .content > .bam-glass::before { width: 300px; height: 351px; }
-
-/* The footer already shows a real logo in its first column. A big cropped
-   mark behind it would read as a duplicate, so the footer keeps the
-   lattice and the glass but only one mark, pushed to the far side. */
+  /* The footer already shows a real logo in its first column. A big cropped
+     mark behind it would read as a duplicate, so the footer keeps the
+     lattice and the glass but only one mark, pushed to the far side. */
 .footer-top > .bam-weave::after { display: none; }
 .footer-top > .bam-glass::before {
   left: auto;
@@ -2016,105 +2055,56 @@ html {
 }
 
 /* =========================================================
-   DARK ZONE BLENDING — #call-to-action + #onfocus
+   SECTION TRANSITION RAMP — #call-to-action → #onfocus
    ---------------------------------------------------------
-   These two full-bleed sections sit directly on top of each other and
-   together form one dark zone in the middle of a light page. Three edges
-   were doing the wrong thing.
-
-   1. Between them: the CTA gradient used to end on #4a3615 against
-      #onfocus's #5f4a26 — ratio 1.36, a visible step. The gradient now
-      lands on #5b4726 (1.05) and the CTA's bottom hairline is gone, so the
-      two sections read as one field. Handled above.
-
-   2. Entering the zone: the page is #d5cebb and the band starts at
-      #2e2109 — a 10:1 cut with nothing easing it. A short strip above the
-      CTA carries the page colour down into the dark.
-
-   3. Leaving it: same problem in reverse under #onfocus.
-
-   The strips are ::before/::after on the sections, so no markup changes
-   and nothing shifts in the layout flow.
+   Both sections are now light, so the only transition is page
+   surface → cream band → page surface. A short fade strip at the
+   bottom of the CTA eases the full-bleed band back into the page.
    ========================================================= */
 
-.call-to-action,
-.onfocus {
-  position: relative;
-}
+  .call-to-action,
+  .onfocus {
+    position: relative;
+  }
 
-/* Fade in from the page colour above the CTA. */
-.call-to-action::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  width: 100vw;
-  height: 90px;
-  /* Opaque throughout. The first version faded to rgba(...,0), and fading
-     an opaque colour to transparent in sRGB interpolates toward transparent
-     black, which drags a grey smear through the middle. It also passed
-     through an invented khaki mid-stop that belonged to neither side. These
-     stops are the true page and band colours mixed in linear light on a
-     smoothstep curve, so the ramp is clean and does not band. */
-  background: linear-gradient(to bottom,
-              #d5cebb 0%,
-              #cbc4b2 20%,
-              #b1ab9a 40%,
-              #958e7f 55%,
-              #716a5d 70%,
-              #494033 85%,
-              #2e2109 100%);
-  pointer-events: none;
-  z-index: 1;
-}
+  /* Fade the full-bleed CTA band back into the page surface below it. */
+  .onfocus::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    width: 100vw;
+    height: 64px;
+    background: linear-gradient(to bottom,
+                var(--background-color) 0%,
+                var(--surface-color) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
 
-/* And back out to the page colour below the video panel. */
-.onfocus::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  width: 100vw;
-  height: 90px;
-  /* Same treatment, running from the #onfocus brown back out to the page. */
-  background: linear-gradient(to top,
-              #d5cebb 0%,
-              #d0c9b6 15%,
-              #c3bba8 30%,
-              #afa693 45%,
-              #978c78 60%,
-              #73634a 80%,
-              #5f4a26 100%);
-  pointer-events: none;
-  z-index: 1;
-}
+  /* The blend strip is decorative and must never sit over the content. */
+  .call-to-action > .container,
+  .onfocus > .container-fluid {
+    position: relative;
+    z-index: 2;
+  }
 
-/* The blend strips are decorative and must never sit over the content. */
-.call-to-action > .container,
-.onfocus > .container-fluid {
-  position: relative;
-  z-index: 2;
-}
+  /* The CTA band's own top padding already gives the headline clearance, but
+     the incoming blend eats into it visually. A little more at the top only. */
+  .call-to-action .container {
+    padding-top: 120px;
+  }
 
-/* The CTA band's own top padding already gives the headline clearance, but
-   the incoming blend eats into it visually. A little more at the top only. */
-.call-to-action .container {
-  padding-top: 132px;
-}
+  @media (max-width: 992px) {
+    .onfocus::before { height: 48px; }
+    .call-to-action .container { padding-top: 96px; }
+  }
 
-@media (max-width: 992px) {
-  .call-to-action::before,
-  .onfocus::after { height: 64px; }
-  .call-to-action .container { padding-top: 104px; }
-}
-
-@media (max-width: 575px) {
-  .call-to-action::before,
-  .onfocus::after { height: 48px; }
-  .call-to-action .container { padding-top: 82px; }
-}
+  @media (max-width: 575px) {
+    .onfocus::before { height: 40px; }
+    .call-to-action .container { padding-top: 76px; }
+  }
 
 /* =========================================================
    GLASS BUTTON SYSTEM — the header CTA style, site-wide
