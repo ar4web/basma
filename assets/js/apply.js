@@ -303,7 +303,7 @@
       '',
       'Please attach your CV to this email.'
     ].join('\n');
-    window.location.href = 'mailto:info@basmat-almawared.com?subject=' +
+    window.location.href = 'mailto:info@basmatalmawared.com?subject=' +
       encodeURIComponent('Application ' + ref + ' — ' + (v('job_title_hidden') || txt('job_id'))) +
       '&body=' + encodeURIComponent(body);
 

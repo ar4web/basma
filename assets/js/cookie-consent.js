@@ -150,9 +150,9 @@
                 '<span class="bam-cc-slider"></span>' +
               '</label>' +
             '</div>' +
-            '<p>Enables the embedded YouTube video and saves a CV Builder draft on your own device so ' +
-            'you do not lose your work. Your CV draft never leaves your browser unless you submit an ' +
-            'application. Declining keeps the video blocked.</p>' +
+            '<p>Improves the experience but is not essential. Today there are no functional cookies in ' +
+            'use, so this setting has no effect. It is here so that nothing can start saving data to your ' +
+            'device without your permission.</p>' +
           '</div>' +
 
           '<div class="bam-cc-group">' +
