@@ -32,7 +32,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -72,8 +72,8 @@
       "postalCode": "14226",
       "addressCountry": "SA"
     },
-    "email": "info@basmat-almawared.com",
-    "telephone": "+966569990576",
+    "email": "info@basmatalmawared.com",
+    "telephone": "+966541555270",
     "areaServed": {
       "@type": "Country",
       "name": "Saudi Arabia"
@@ -89,7 +89,24 @@
 
 <body class="index-page">
 
-  <header id="header" class="header d-flex align-items-center sticky-top">
+  <!-- Top Bar - Company Info Marquee -->
+  <div class="top-bar" id="topBar" aria-live="polite" aria-atomic="true">
+    <div class="marquee-container">
+      <div class="marquee-track" id="marqueeTrack">
+        <span class="marquee-item"><i class="bi bi-building"></i> Basmat Al Mawared Company Limited &middot; CR No. 1010649967</span>
+        <span class="marquee-separator"><i class="bi bi-circle-fill"></i></span>
+        <span class="marquee-item"><i class="bi bi-envelope"></i> Email: info@basmatalmawared.com</span>
+        <span class="marquee-separator"><i class="bi bi-circle-fill"></i></span>
+        <span class="marquee-item"><i class="bi bi-phone"></i> Mob: +966 56 999 0576</span>
+        <span class="marquee-separator"><i class="bi bi-circle-fill"></i></span>
+        <span class="marquee-item"><i class="bi bi-calendar-check"></i> Available: Sunday - Thursday, 9:00 AM - 6:00 PM</span>
+        <span class="marquee-separator"><i class="bi bi-circle-fill"></i></span>
+        <span class="marquee-item"><i class="bi bi-geo-alt"></i> RQSA4407, Riyadh, Saudi Arabia</span>
+      </div>
+    </div>
+  </div>
+
+  <header id="header" class="header d-flex align-items-center">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
@@ -116,102 +133,171 @@
   <main class="main">
 
     <!-- Hero Section -->
-    <section id="hero" class="hero section">
+    <section id="hero" class="hero section" aria-label="Basmat Al Mawared Hero">
 
-      <div class="hero-slider swiper">
+      <div class="hero-slider swiper" aria-label="Hero carousel">
         <div class="swiper-wrapper">
+
+          <!-- Slide 1: One Workforce, Every Sector -->
           <div class="swiper-slide">
-            <img src="assets/img/hero/hero-1.jpg" alt="Uniformed Basmat Al Mawared team in a Riyadh corporate lobby at sunrise" width="1920" height="1080" fetchpriority="high" decoding="async">
-            <div class="hero-slide-content">
+            <img src="assets/img/hero/hero-1.jpg" alt="Basmat Al Mawared workforce across sectors" loading="eager" decoding="async">
+            <div class="slide-overlay" aria-hidden="true"></div>
+            <div class="hero-slide-content" data-aos="fade-up">
               <div class="container">
-                <p class="hero-kicker" data-i18n="hero.kicker">Since 2017 &middot; Riyadh</p>
-                <h1 data-i18n="hero.title1">One Workforce.<br>Every Sector.</h1>
+                <p class="hero-kicker" data-i18n="hero.kicker">Since 2017 &middot; Licensed in Riyadh</p>
+                <h1 data-i18n="hero.title1"><span class="text-gradient">One Workforce.</span><br>Every Sector.</h1>
                 <p class="hero-lead" data-i18n="hero.lead1">From cleaning and security to logistics and technical trades &mdash; licensed, Qiwa-registered teams deployed across the Kingdom.</p>
                 <div class="hero-actions">
-                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
-                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                  <a href="#contact" class="btn btn-primary btn-xl">Request a Quote <i class="bi bi-arrow-right ms-2"></i></a>
+                  <a href="#services" class="btn btn-outline btn-lg"><i class="bi bi-arrow-right-circle"></i><span data-i18n="hero.explore">Explore Services</span></a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Slide 2: Logistics & Warehousing -->
           <div class="swiper-slide">
-            <img src="assets/img/hero/hero-2.jpg" alt="Logistics and warehouse personnel at a Saudi distribution centre" width="1920" height="1080" loading="lazy" decoding="async">
-            <div class="hero-slide-content">
+            <img src="assets/img/hero/hero-2.jpg" alt="Logistics and warehousing workforce" loading="lazy" decoding="async">
+            <div class="slide-overlay" aria-hidden="true"></div>
+            <div class="hero-slide-content" data-aos="fade-up">
               <div class="container">
-                <p class="hero-kicker" data-i18n="hero.kicker">Logistics &amp; Warehousing</p>
+                <p class="hero-kicker" data-i18n="hero.kicker2">Logistics & Warehousing</p>
                 <h1 data-i18n="hero.title2">Teams That<br>Keep You Moving</h1>
-                <p class="hero-lead">Forklift operators, loaders and stock controllers &mdash; background-checked, uniformed and ready for your peak season.</p>
+                <p class="hero-lead" data-i18n="hero.lead2">Forklift operators, loaders and stock controllers &mdash; background-checked, uniformed and ready for your peak season.</p>
                 <div class="hero-actions">
-                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
-                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                  <a href="#contact" class="btn btn-primary btn-xl">Request a Quote <i class="bi bi-arrow-right ms-2"></i></a>
+                  <a href="#services" class="btn btn-outline btn-lg"><i class="bi bi-arrow-right-circle"></i><span data-i18n="hero.explore">Explore Services</span></a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Slide 3: Technical & Maintenance -->
           <div class="swiper-slide">
-            <img src="assets/img/hero/hero-3.jpg" alt="Maintenance technician servicing building equipment" width="1920" height="1080" loading="lazy" decoding="async">
-            <div class="hero-slide-content">
+            <img src="assets/img/hero/hero-3.jpg" alt="Technical and maintenance workforce" loading="lazy" decoding="async">
+            <div class="slide-overlay" aria-hidden="true"></div>
+            <div class="hero-slide-content" data-aos="fade-up">
               <div class="container">
-                <p class="hero-kicker">Technical &amp; Maintenance</p>
+                <p class="hero-kicker" data-i18n="hero.kicker3">Technical & Maintenance</p>
                 <h1 data-i18n="hero.title3">Skilled Hands,<br>Certified Trades</h1>
-                <p class="hero-lead">Electricians, HVAC technicians, plumbers and carpenters. Every deployment covered by our replacement guarantee.</p>
+                <p class="hero-lead" data-i18n="hero.lead3">Electricians, HVAC technicians, plumbers and carpenters. Every deployment covered by our replacement guarantee.</p>
                 <div class="hero-actions">
-                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
-                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                  <a href="#contact" class="btn btn-primary btn-xl">Request a Quote <i class="bi bi-arrow-right ms-2"></i></a>
+                  <a href="#services" class="btn btn-outline btn-lg"><i class="bi bi-arrow-right-circle"></i><span data-i18n="hero.explore">Explore Services</span></a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Slide 4: Facilities & Hospitality -->
           <div class="swiper-slide">
-            <img src="assets/img/hero/hero-4.jpg" alt="Operations manager reviewing deployment plans with uniformed staff" width="1920" height="1080" loading="lazy" decoding="async">
-            <div class="hero-slide-content">
+            <img src="assets/img/hero/hero-4.jpg" alt="Facilities and hospitality workforce" loading="lazy" decoding="async">
+            <div class="slide-overlay" aria-hidden="true"></div>
+            <div class="hero-slide-content" data-aos="fade-up">
               <div class="container">
-                <p class="hero-kicker">Facilities &amp; Hospitality</p>
+                <p class="hero-kicker" data-i18n="hero.kicker4">Facilities & Hospitality</p>
                 <h1 data-i18n="hero.title4">Trusted by 30+<br>Organisations</h1>
-                <p class="hero-lead">Housekeeping, grounds, laundry and portering &mdash; managed end to end, with WPS payroll handled in-house.</p>
+                <p class="hero-lead" data-i18n="hero.lead4">Housekeeping, grounds, laundry and portering &mdash; managed end to end, with WPS payroll handled in-house.</p>
                 <div class="hero-actions">
-                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
-                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                  <a href="#contact" class="btn btn-primary btn-xl">Request a Quote <i class="bi bi-arrow-right ms-2"></i></a>
+                  <a href="#services" class="btn btn-outline btn-lg"><i class="bi bi-arrow-right-circle"></i><span data-i18n="hero.explore">Explore Services</span></a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Slide 5: Cleaning & Soft Services -->
           <div class="swiper-slide">
-            <img src="assets/img/hero/hero-5.jpg" alt="Uniformed cleaning team with commercial equipment in a Riyadh office atrium" width="1920" height="1080" loading="lazy" decoding="async">
-            <div class="hero-slide-content">
+            <img src="assets/img/hero/hero-5.jpg" alt="Cleaning and soft services workforce" loading="lazy" decoding="async">
+            <div class="slide-overlay" aria-hidden="true"></div>
+            <div class="hero-slide-content" data-aos="fade-up">
               <div class="container">
-                <p class="hero-kicker">Cleaning &amp; Soft Services</p>
+                <p class="hero-kicker" data-i18n="hero.kicker5">Cleaning & Soft Services</p>
                 <h1 data-i18n="hero.title5">Spotless,<br>Every Shift</h1>
-                <p class="hero-lead">Day and night cleaning crews for offices, malls and hospitals &mdash; trained, supervised and audited to an agreed scope.</p>
+                <p class="hero-lead" data-i18n="hero.lead5">Day and night cleaning crews for offices, malls and hospitals &mdash; trained, supervised and audited to an agreed scope.</p>
                 <div class="hero-actions">
-                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
-                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                  <a href="#contact" class="btn btn-primary btn-xl">Request a Quote <i class="bi bi-arrow-right ms-2"></i></a>
+                  <a href="#services" class="btn btn-outline btn-lg"><i class="bi bi-arrow-right-circle"></i><span data-i18n="hero.explore">Explore Services</span></a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Slide 6: Industrial & Manufacturing -->
           <div class="swiper-slide">
-            <img src="assets/img/hero/hero-6.jpg" alt="Industrial operators and technicians on a Saudi manufacturing floor" width="1920" height="1080" loading="lazy" decoding="async">
-            <div class="hero-slide-content">
+            <img src="assets/img/hero/hero-6.jpg" alt="Industrial and manufacturing workforce" loading="lazy" decoding="async">
+            <div class="slide-overlay" aria-hidden="true"></div>
+            <div class="hero-slide-content" data-aos="fade-up">
               <div class="container">
-                <p class="hero-kicker">Industrial &amp; Manufacturing</p>
+                <p class="hero-kicker" data-i18n="hero.kicker6">Industrial & Manufacturing</p>
                 <h1 data-i18n="hero.title6">Production Lines,<br>Fully Manned</h1>
-                <p class="hero-lead">Machine operators, QC inspectors and line assistants supplied at volume &mdash; GOSI-registered and insured from day one.</p>
+                <p class="hero-lead" data-i18n="hero.lead6">Machine operators, quality inspectors and assembly technicians deployed at scale with full MLSD compliance.</p>
                 <div class="hero-actions">
-                  <a href="#contact" class="btn-get-started scrollto">Request a Quote</a>
-                  <a href="#services" class="btn-watch-video scrollto"><i class="bi bi-arrow-right-circle"></i><span>Explore Services</span></a>
+                  <a href="#contact" class="btn btn-primary btn-xl">Request a Quote <i class="bi bi-arrow-right ms-2"></i></a>
+                  <a href="#services" class="btn btn-outline btn-lg"><i class="bi bi-arrow-right-circle"></i><span data-i18n="hero.explore">Explore Services</span></a>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
 
-        <div class="hero-pagination"></div>
-        <button class="hero-nav hero-prev" type="button" aria-label="Previous slide"><i class="bi bi-chevron-left"></i></button>
-        <button class="hero-nav hero-next" type="button" aria-label="Next slide"><i class="bi bi-chevron-right"></i></button>
+        <!-- Pagination -->
+        <div class="hero-pagination swiper-pagination" aria-label="Slide navigation"></div>
+
+        <!-- Navigation -->
+        <div class="hero-nav">
+          <button class="swiper-button-prev hero-prev" aria-label="Previous slide"><i class="bi bi-chevron-left"></i></button>
+          <button class="swiper-button-next hero-next" aria-label="Next slide"><i class="bi bi-chevron-right"></i></button>
+        </div>
+
       </div>
 
     </section><!-- /Hero Section -->
+
+    <section id="coverage" class="coverage section">
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="coverage-inner">
+
+          <img src="assets/img/coverage-bg.jpg?v=70" alt="" aria-hidden="true"
+               class="coverage-bg" width="1600" height="679"
+               loading="lazy" decoding="async">
+          <div class="coverage-scrim" aria-hidden="true"></div>
+
+          <div class="coverage-grid">
+
+            <div class="coverage-copy">
+              <p class="coverage-kicker" data-i18n="coverage.kicker">Nationwide Deployment</p>
+              <h3 class="coverage-title" data-i18n="coverage.title">Every Region.<span>Ready to Deploy.</span></h3>
+              <p class="coverage-lead" data-i18n="coverage.desc">From Riyadh to Jeddah, Dammam to NEOM &mdash; our uniformed teams mobilise wherever your operation runs. Recruitment pipelines across India, Bangladesh, Pakistan, the Philippines and Africa keep supply steady all year round.</p>
+
+              <ul class="coverage-stats">
+                <li><b>13</b><span data-i18n="coverage.stats.regions">Regions Covered</span></li>
+                <li><b>5</b><span data-i18n="coverage.stats.countries">Source Countries</span></li>
+                <li><b>2017</b><span data-i18n="coverage.stats.since">Operating Since</span></li>
+              </ul>
+
+              <a class="coverage-btn" href="#contact" data-i18n="coverage.btn">Tell Us What You Need
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+
+            <div class="coverage-visual">
+              <img src="assets/img/coverage-map.svg?v=70"
+                   alt="Map of Saudi Arabia showing Basmat Al Mawared head office in Riyadh and deployment coverage across twelve cities including Jeddah, Dammam, Makkah, Madinah, NEOM, Jubail, Yanbu, Tabuk, Abha, Hail and Buraydah"
+                   class="coverage-map" width="600" height="520"
+                   loading="lazy" decoding="async">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Coverage Section -->
 
     <!-- Featured Services Section -->
     <section id="featured-services" class="featured-services section">
@@ -286,6 +372,8 @@
         </div>
       </div>
     </section><!-- /About Section -->
+
+
 <!-- Clients Section -->
     <!-- Credentials Section -->
     <section id="credentials" class="credentials section">
@@ -306,7 +394,7 @@
           <li class="credential-item">
             <span class="credential-icon"><i class="bi bi-building-check" aria-hidden="true"></i></span>
             <h3 class="credential-title" data-i18n="credentials.commercialRegistration">Commercial Registration</h3>
-            <p class="credential-detail">CR No. YOUR-CR-NUMBER &middot; Riyadh, Saudi Arabia</p>
+            <p class="credential-detail">CR No. 1010649967 &middot; Riyadh, Saudi Arabia</p>
           </li>
           <li class="credential-item">
             <span class="credential-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></span>
@@ -371,59 +459,29 @@
 
         <div class="row gy-4">
           <div class="col-lg-2 col-md-4 col-6">
-            <a href="assets/img/certificates/cert-commercial-registration.jpg" class="cert-card glightbox" data-gallery="certificates" data-title="Commercial Registration" data-i18n="certificates.commercialRegistration">
-              <div class="cert-thumb">
-                <img src="assets/img/certificates/cert-commercial-registration-thumb.jpg" alt="Commercial Registration certificate" loading="lazy" decoding="async" width="440" height="622">
-              </div>
-              <h3 class="cert-name" data-i18n="certificates.commercialRegistration">Commercial Registration</h3>
-            </a>
+            <img src="assets/img/certificates/cert-commercial-registration.jpg" class="cert-img" alt="Commercial Registration certificate" loading="lazy" decoding="async" width="440" height="622">
+            <h3 class="cert-name" data-i18n="certificates.commercialRegistration">Commercial Registration</h3>
           </div>
           <div class="col-lg-2 col-md-4 col-6">
-            <a href="assets/img/certificates/cert-mhrsd-license.jpg" class="cert-card glightbox" data-gallery="certificates" data-title="Recruitment Licence" data-i18n="certificates.recruitmentLicence">
-              <div class="cert-thumb">
-                <img src="assets/img/certificates/cert-mhrsd-license-thumb.jpg" alt="Recruitment Licence certificate" loading="lazy" decoding="async" width="440" height="622">
-              </div>
-              <h3 class="cert-name" data-i18n="certificates.recruitmentLicence">Recruitment Licence</h3>
-            </a>
+            <img src="assets/img/certificates/cert-mhrsd-license.jpg" class="cert-img" alt="Recruitment Licence certificate" loading="lazy" decoding="async" width="440" height="622">
+            <h3 class="cert-name" data-i18n="certificates.recruitmentLicence">Recruitment Licence</h3>
           </div>
           <div class="col-lg-2 col-md-4 col-6">
-            <a href="assets/img/certificates/cert-chamber-commerce.jpg" class="cert-card glightbox" data-gallery="certificates" data-title="Chamber of Commerce" data-i18n="certificates.chamberCommerce">
-              <div class="cert-thumb">
-                <img src="assets/img/certificates/cert-chamber-commerce-thumb.jpg" alt="Chamber of Commerce certificate" loading="lazy" decoding="async" width="440" height="622">
-              </div>
-              <h3 class="cert-name" data-i18n="certificates.chamberCommerce">Chamber of Commerce</h3>
-            </a>
+            <img src="assets/img/certificates/cert-chamber-commerce.jpg" class="cert-img" alt="Chamber of Commerce certificate" loading="lazy" decoding="async" width="440" height="622">
+            <h3 class="cert-name" data-i18n="certificates.chamberCommerce">Chamber of Commerce</h3>
           </div>
           <div class="col-lg-2 col-md-4 col-6">
-            <a href="assets/img/certificates/cert-gosi.jpg" class="cert-card glightbox" data-gallery="certificates" data-title="GOSI Certificate" data-i18n="certificates.gosi">
-              <div class="cert-thumb">
-                <img src="assets/img/certificates/cert-gosi-thumb.jpg" alt="GOSI Certificate certificate" loading="lazy" decoding="async" width="440" height="622">
-              </div>
-              <h3 class="cert-name" data-i18n="certificates.gosi">GOSI Certificate</h3>
-            </a>
+            <img src="assets/img/certificates/cert-gosi.jpg" class="cert-img" alt="GOSI Certificate certificate" loading="lazy" decoding="async" width="440" height="622">
+            <h3 class="cert-name" data-i18n="certificates.gosi">GOSI Certificate</h3>
           </div>
           <div class="col-lg-2 col-md-4 col-6">
-            <a href="assets/img/certificates/cert-vat.jpg" class="cert-card glightbox" data-gallery="certificates" data-title="VAT Registration" data-i18n="certificates.vat">
-              <div class="cert-thumb">
-                <img src="assets/img/certificates/cert-vat-thumb.jpg" alt="VAT Registration certificate" loading="lazy" decoding="async" width="440" height="622">
-              </div>
-              <h3 class="cert-name" data-i18n="certificates.vat">VAT Registration</h3>
-            </a>
+            <img src="assets/img/certificates/cert-vat.jpg" class="cert-img" alt="VAT Registration certificate" loading="lazy" decoding="async" width="440" height="622">
+            <h3 class="cert-name" data-i18n="certificates.vat">VAT Registration</h3>
           </div>
           <div class="col-lg-2 col-md-4 col-6">
-            <a href="assets/img/certificates/cert-saudization.jpg" class="cert-card glightbox" data-gallery="certificates" data-title="Saudization Certificate" data-i18n="certificates.saudization">
-              <div class="cert-thumb">
-                <img src="assets/img/certificates/cert-saudization-thumb.jpg" alt="Saudization Certificate certificate" loading="lazy" decoding="async" width="440" height="622">
-              </div>
-              <h3 class="cert-name" data-i18n="certificates.saudization">Saudization Certificate</h3>
-            </a>
+            <img src="assets/img/certificates/cert-saudization.jpg" class="cert-img" alt="Saudization Certificate certificate" loading="lazy" decoding="async" width="440" height="622">
+            <h3 class="cert-name" data-i18n="certificates.saudization">Saudization Certificate</h3>
           </div>
-        </div>
-
-        <!-- REMOVE THIS NOTICE once the scanned originals replace the placeholders -->
-        <div class="cert-placeholder-note">
-          <i class="bi bi-info-circle"></i>
-          These are placeholder documents for layout purposes. Scanned originals will be uploaded before launch.
         </div>
 
       </div>
@@ -435,11 +493,7 @@
     <section id="call-to-action" class="call-to-action section">
 
 
-      <div class="container bam-pattern" data-aos="fade-up">
-        <div class="bam-weave" aria-hidden="true"></div>
-        <div class="bam-glass" aria-hidden="true"></div>
-
-
+      <div class="container" data-aos="fade-up">
         <div class="row g-5">
 
           <div class="col-lg-8 col-md-6 content d-flex flex-column justify-content-center order-last order-md-first">
@@ -461,20 +515,20 @@
     </section><!-- /Call To Action Section -->
 
     <!-- Onfocus Section -->
-    <section id="onfocus" class="onfocus section dark-background">
-
+    <section id="onfocus" class="onfocus section">
 
       <div class="container-fluid p-0" data-aos="fade-up">
 
         <div class="row g-0">
           <div class="col-lg-6 video-play position-relative">
-            <a href="assets/video/ads.mov.mp4" class="glightbox pulsating-play-btn" data-type="video" data-width="1280" aria-label="Play the Basmat Al Mawared company video"></a>
+            <video class="onfocus-video" autoplay muted loop playsinline preload="metadata" poster="assets/img/onfocus-video-bg.jpg" aria-label="Basmat Al Mawared workforce deployment video">
+              <source src="assets/video/ads.mov.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="col-lg-6">
-            <div class="content d-flex flex-column justify-content-center h-100 bam-pattern">
-              <div class="bam-weave" aria-hidden="true"></div>
-              <div class="bam-glass" aria-hidden="true"></div>
+            <div class="content d-flex flex-column justify-content-center h-100">
 
+              <span class="onfocus-kicker" data-i18n="onfocus.kicker">Workforce Compliance</span>
               <h3 data-i18n="onfocus.title">Fully Compliant, Fully Transparent Workforce Management</h3>
               <p class="fst-italic">
                 Every worker is recruited, transferred and insured in full compliance with Saudi labour law — no shortcuts, no risk.
@@ -484,7 +538,7 @@
                 <li><i class="bi bi-check-circle"></i> Background-checked personnel with valid credentials and health certificates.</li>
                 <li><i class="bi bi-check-circle"></i> Nitaqat green-tier alignment and Saudization planning for your organization.</li>
               </ul>
-              <a href="#services" class="read-more align-self-start"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+              <a href="#services" class="read-more align-self-start mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -728,9 +782,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/logistics-1.jpg" class="img-fluid" alt="Uniformed forklift operator and warehouse crew moving palletised goods" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Logistics</h4>
-                  <p>Forklift &amp; Materials Handling</p>
-                  <a href="assets/img/portfolio/logistics-1.jpg" data-gallery="portfolio-gallery-logistics" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Forklift &amp; Materials Handling</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -740,9 +792,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/hospitality-1.jpg" class="img-fluid" alt="Uniformed barista preparing espresso in a speciality coffee shop" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Hospitality</h4>
-                  <p>Baristas &amp; Coffee Shop Crew</p>
-                  <a href="assets/img/portfolio/hospitality-1.jpg" data-gallery="portfolio-gallery-hospitality" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Baristas &amp; Coffee Shop Crew</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -752,9 +802,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/cleaning-1.jpg" class="img-fluid" alt="Uniformed cleaning team maintaining a corporate tower lobby" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Cleaning</h4>
-                  <p>Commercial &amp; Soft Services</p>
-                  <a href="assets/img/portfolio/cleaning-1.jpg" data-gallery="portfolio-gallery-cleaning" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Commercial &amp; Soft Services</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -764,9 +812,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/helpers-1.jpg" class="img-fluid" alt="Uniformed general helpers loading materials onto a delivery truck" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>General Helpers</h4>
-                  <p>Loading &amp; Site Support</p>
-                  <a href="assets/img/portfolio/helpers-1.jpg" data-gallery="portfolio-gallery-helpers" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Loading &amp; Site Support</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -776,9 +822,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/industrial-1.jpg" class="img-fluid" alt="Uniformed production workers on a manufacturing assembly line" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Manufacturing</h4>
-                  <p>Production &amp; Assembly</p>
-                  <a href="assets/img/portfolio/industrial-1.jpg" data-gallery="portfolio-gallery-industrial" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Production &amp; Assembly</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -788,9 +832,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/logistics-2.jpg" class="img-fluid" alt="Uniformed warehouse operatives picking and packing orders" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Logistics</h4>
-                  <p>Pickers, Packers &amp; Sorters</p>
-                  <a href="assets/img/portfolio/logistics-2.jpg" data-gallery="portfolio-gallery-logistics" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Pickers, Packers &amp; Sorters</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -800,9 +842,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/hospitality-2.jpg" class="img-fluid" alt="Uniformed service staff attending tables in a modern restaurant" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Hospitality</h4>
-                  <p>Service &amp; Front of House</p>
-                  <a href="assets/img/portfolio/hospitality-2.jpg" data-gallery="portfolio-gallery-hospitality" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Service &amp; Front of House</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -812,9 +852,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/cleaning-2.jpg" class="img-fluid" alt="Uniformed housekeeping team servicing a modern office floor" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Cleaning</h4>
-                  <p>Housekeeping &amp; Janitorial</p>
-                  <a href="assets/img/portfolio/cleaning-2.jpg" data-gallery="portfolio-gallery-cleaning" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Housekeeping &amp; Janitorial</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -824,9 +862,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/helpers-2.jpg" class="img-fluid" alt="Uniformed helpers moving stock with a hand trolley in a storeroom" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>General Helpers</h4>
-                  <p>Stock Movement &amp; Support</p>
-                  <a href="assets/img/portfolio/helpers-2.jpg" data-gallery="portfolio-gallery-helpers" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Stock Movement &amp; Support</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -836,9 +872,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/industrial-2.jpg" class="img-fluid" alt="Uniformed factory helper and machine operator at a production machine" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Manufacturing</h4>
-                  <p>Machine Operators &amp; Helpers</p>
-                  <a href="assets/img/portfolio/industrial-2.jpg" data-gallery="portfolio-gallery-industrial" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Machine Operators &amp; Helpers</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -848,9 +882,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/logistics-1.jpg" class="img-fluid" alt="Warehouse supervisor coordinating inbound goods" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Logistics</h4>
-                  <p>Warehouse Supervisors</p>
-                  <a href="assets/img/portfolio/logistics-1.jpg" data-gallery="portfolio-gallery-logistics" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Warehouse Supervisors</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -860,9 +892,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/logistics-2.jpg" class="img-fluid" alt="Dispatchers and loaders at a fulfilment centre" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Logistics</h4>
-                  <p>Loaders, Drivers &amp; Dispatch</p>
-                  <a href="assets/img/portfolio/logistics-2.jpg" data-gallery="portfolio-gallery-logistics" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Loaders, Drivers &amp; Dispatch</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -872,9 +902,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/hospitality-1.jpg" class="img-fluid" alt="Kitchen and cafe support staff" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Hospitality</h4>
-                  <p>Kitchen Porters &amp; Stewards</p>
-                  <a href="assets/img/portfolio/hospitality-1.jpg" data-gallery="portfolio-gallery-hospitality" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Kitchen Porters &amp; Stewards</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -884,9 +912,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/hospitality-2.jpg" class="img-fluid" alt="Hotel reception and guest services staff" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Hospitality</h4>
-                  <p>Reception &amp; Guest Services</p>
-                  <a href="assets/img/portfolio/hospitality-2.jpg" data-gallery="portfolio-gallery-hospitality" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Reception &amp; Guest Services</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -896,9 +922,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/cleaning-1.jpg" class="img-fluid" alt="Deep-cleaning crew with commercial equipment" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Cleaning</h4>
-                  <p>Deep Clean &amp; Night Crews</p>
-                  <a href="assets/img/portfolio/cleaning-1.jpg" data-gallery="portfolio-gallery-cleaning" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Deep Clean &amp; Night Crews</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -908,9 +932,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/cleaning-2.jpg" class="img-fluid" alt="Facilities and waste-management team" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Cleaning</h4>
-                  <p>Waste, Laundry &amp; FM Support</p>
-                  <a href="assets/img/portfolio/cleaning-2.jpg" data-gallery="portfolio-gallery-cleaning" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Waste, Laundry &amp; FM Support</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -920,9 +942,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/helpers-1.jpg" class="img-fluid" alt="Event and site helpers" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>General Helpers</h4>
-                  <p>Event &amp; Peak-Season Crews</p>
-                  <a href="assets/img/portfolio/helpers-1.jpg" data-gallery="portfolio-gallery-helpers" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Event &amp; Peak-Season Crews</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -932,9 +952,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/helpers-2.jpg" class="img-fluid" alt="Retail stock and packing helpers" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>General Helpers</h4>
-                  <p>Retail, Packing &amp; Stores</p>
-                  <a href="assets/img/portfolio/helpers-2.jpg" data-gallery="portfolio-gallery-helpers" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Retail, Packing &amp; Stores</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -944,9 +962,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/industrial-1.jpg" class="img-fluid" alt="Quality inspectors on a production line" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Manufacturing</h4>
-                  <p>QA Inspectors &amp; Line Leads</p>
-                  <a href="assets/img/portfolio/industrial-1.jpg" data-gallery="portfolio-gallery-industrial" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>QA Inspectors &amp; Line Leads</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -956,9 +972,7 @@
                 <img width="1024" height="768" src="assets/img/portfolio/industrial-2.jpg" class="img-fluid" alt="Welders and fabricators in a plant" loading="lazy" decoding="async">
                 <div class="portfolio-info">
                   <h4>Manufacturing</h4>
-                  <p>Welders, Fitters &amp; Fabricators</p>
-                  <a href="assets/img/portfolio/industrial-2.jpg" data-gallery="portfolio-gallery-industrial" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <p>Welders, Fitters &amp; Fabricators</p><a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -972,49 +986,7 @@
     </section><!-- /Portfolio Section -->
 
     <!-- Coverage Section -->
-    <section id="coverage" class="coverage section">
 
-      <div class="container" data-aos="fade-up">
-
-        <div class="coverage-inner">
-
-          <img src="assets/img/coverage-bg.jpg?v=70" alt="" aria-hidden="true"
-               class="coverage-bg" width="1600" height="679"
-               loading="lazy" decoding="async">
-          <div class="coverage-scrim" aria-hidden="true"></div>
-
-          <div class="coverage-grid">
-
-            <div class="coverage-copy">
-              <p class="coverage-kicker" data-i18n="coverage.kicker">Nationwide Deployment</p>
-              <h3 class="coverage-title" data-i18n="coverage.title">Every Region.<span>Ready to Deploy.</span></h3>
-              <p class="coverage-lead" data-i18n="coverage.desc">From Riyadh to Jeddah, Dammam to NEOM &mdash; our uniformed teams mobilise wherever your operation runs. Recruitment pipelines across India, Bangladesh, Pakistan, the Philippines and Africa keep supply steady all year round.</p>
-
-              <ul class="coverage-stats">
-                <li><b>13</b><span data-i18n="coverage.stats.regions">Regions Covered</span></li>
-                <li><b>5</b><span data-i18n="coverage.stats.countries">Source Countries</span></li>
-                <li><b>2017</b><span data-i18n="coverage.stats.since">Operating Since</span></li>
-              </ul>
-
-              <a class="coverage-btn" href="#contact" data-i18n="coverage.btn">Tell Us What You Need
-                <i class="bi bi-arrow-right" aria-hidden="true"></i>
-              </a>
-            </div>
-
-            <div class="coverage-visual">
-              <img src="assets/img/coverage-map.svg?v=70"
-                   alt="Map of Saudi Arabia showing Basmat Al Mawared head office in Riyadh and deployment coverage across twelve cities including Jeddah, Dammam, Makkah, Madinah, NEOM, Jubail, Yanbu, Tabuk, Abha, Hail and Buraydah"
-                   class="coverage-map" width="600" height="520"
-                   loading="lazy" decoding="async">
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Coverage Section -->
 
     <!-- How We Work Section -->
     <section id="how-we-work" class="featured-services section light-background">
@@ -1122,63 +1094,6 @@
 
 </section><!-- /Team Section -->
 
-    <!-- Faq Section -->
-    <section id="faq" class="faq section">
-
-      <div class="container-fluid">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-7 d-flex flex-column justify-content-center order-2 order-lg-1">
-
-            <div class="content px-xl-5" data-aos="fade-up">
-              <h3 data-i18n="faq.title"><span>Frequently Asked </span><strong>Questions</strong></h3>
-              <p>
-                Everything you need to know about compliant manpower supply, worker transfers and deployment in Saudi Arabia.
-              </p>
-            </div>
-
-            <div class="faq-container px-xl-5" data-aos="fade-up">
-
-              <div class="faq-item faq-active">
-                <i class="faq-icon bi bi-question-circle"></i>
-                <h3 data-i18n="faq.q1.q">Are your transfers fully Qiwa and Muqeem compliant?</h3>
-                <div class="faq-content">
-                  <p>Yes. Every worker we supply is registered on the Qiwa platform and processed through official Muqeem channels, with insurance, medical and contract documentation completed before deployment.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <i class="faq-icon bi bi-question-circle"></i>
-                <h3 data-i18n="faq.q2.q">How quickly can you deploy personnel across the Kingdom?</h3>
-                <div class="faq-content">
-                  <p>Standard deployments are completed within 3-7 days depending on the role and location. For annual and enterprise agreements, we guarantee priority allocation with deployment in as little as 48 hours.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <i class="faq-icon bi bi-question-circle"></i>
-                <h3 data-i18n="faq.q3.q">How do you support Saudization and Nitaqat requirements?</h3>
-                <div class="faq-content">
-                  <p>We recruit qualified Saudi nationals for supervisory and administrative roles, and structure your workforce mix to maintain a green-tier Nitaqat rating, keeping your organization fully aligned with Vision 2030.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-            </div>
-
-          </div>
-
-          <div class="col-lg-5 order-1 order-lg-2">
-            <img width="1024" height="768" src="assets/img/faq.jpg" class="img-fluid" alt="Basmat Al Mawared client meeting about workforce requirements" data-aos="fade-up" loading="lazy" decoding="async">
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /Faq Section -->
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
@@ -1209,7 +1124,7 @@
               <h3 data-i18n="contact.sendReq">Send your requirement</h3>
               <p>Tell us the roles and the timeline. A specialist replies within 24 hours.</p>
 
-              <form id="contact-form" class="php-email-form" action="mailto:info@basmat-almawared.com" method="post" enctype="text/plain">
+              <form id="contact-form" class="php-email-form" action="mailto:info@basmatalmawared.com" method="post" enctype="text/plain">
 
                 <div class="enquiry-row">
                   <div class="enquiry-field">
@@ -1267,6 +1182,80 @@
 
     </section><!-- /Contact Section -->
 
+<!-- Faq Section -->
+    <section id="faq" class="faq section">
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title text-center" data-aos="fade-up">
+          <h2 data-i18n="faq.title"><span>Frequently Asked </span><strong>Questions</strong></h2>
+          <p>
+            Everything you need to know about compliant manpower supply, worker transfers and deployment in Saudi Arabia.
+          </p>
+        </div>
+
+        <div class="faq-container" data-aos="fade-up">
+
+          <div class="faq-item faq-active">
+            <i class="faq-icon bi bi-question-circle"></i>
+            <h3 data-i18n="faq.q1.q">Are your transfers fully Qiwa and Muqeem compliant?</h3>
+            <div class="faq-content">
+              <p>Yes. Every worker we supply is registered on the Qiwa platform and processed through official Muqeem channels, with insurance, medical and contract documentation completed before deployment.</p>
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div>
+
+          <div class="faq-item">
+            <i class="faq-icon bi bi-question-circle"></i>
+            <h3 data-i18n="faq.q2.q">How quickly can you deploy personnel across the Kingdom?</h3>
+            <div class="faq-content">
+              <p>Standard deployments are completed within 3-7 days depending on the role and location. For annual and enterprise agreements, we guarantee priority allocation with deployment in as little as 48 hours.</p>
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div>
+
+          <div class="faq-item">
+            <i class="faq-icon bi bi-question-circle"></i>
+            <h3 data-i18n="faq.q3.q">How do you support Saudization and Nitaqat requirements?</h3>
+            <div class="faq-content">
+              <p>We recruit qualified Saudi nationals for supervisory and administrative roles, and structure your workforce mix to maintain a green-tier Nitaqat rating, keeping your organization fully aligned with Vision 2030.</p>
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div>
+
+          <div class="faq-item">
+            <i class="faq-icon bi bi-question-circle"></i>
+            <h3 data-i18n="faq.q4.q">What happens if a worker does not show up?</h3>
+            <div class="faq-content">
+              <p>We provide a 48-hour guaranteed replacement under our annual and enterprise agreements. For monthly supply plans, replacement is prioritized at no additional cost.</p>
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div>
+
+          <div class="faq-item">
+            <i class="faq-icon bi bi-question-circle"></i>
+            <h3 data-i18n="faq.q5.q">Do you handle GOSI, medical insurance and WPS payroll?</h3>
+            <div class="faq-content">
+              <p>Yes — all statutory obligations are included: GOSI registration, medical insurance, WPS-compliant salary processing, and end-of-service benefit calculations.</p>
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div>
+
+          <div class="faq-item">
+            <i class="faq-icon bi bi-question-circle"></i>
+            <h3 data-i18n="faq.q6.q">Can you source roles outside your listed categories?</h3>
+            <div class="faq-content">
+              <p>Absolutely. Our listed categories cover the most common requirements, but we recruit across all MLSD-approved professions. If your role sits outside the list, we will source it.</p>
+            </div>
+            <i class="faq-toggle bi bi-chevron-right"></i>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Faq Section -->
+
   </main>
 
   <footer id="footer" class="footer">
@@ -1283,14 +1272,16 @@
               <img src="assets/img/logo.svg" alt="Basmat Al Mawared logo" width="136" height="159">
               <span class="sitename">Basmat Al Mawared</span>
             </a>
-            <div class="footer-contact pt-3">
-              <p>RQSA4407, As Salam</p>
-              <p>Riyadh 14226, Saudi Arabia</p>
-              <p class="mt-3"><strong>Phone:</strong> <a href="tel:+966569990576">+966 56 999 0576</a></p>
-              <p><strong>Email:</strong> <a href="mailto:info@basmat-almawared.com">info@basmat-almawared.com</a></p>
-            </div>
-          </div>
 
+<div class="footer-contact pt-3">
+  <p>RQSA4407, As Salam</p>
+  <p>Riyadh 14226, Saudi Arabia</p>
+  <p class="mt-3"><strong>Phone:</strong> <a href="tel:+966541555270">+966 54 155 5270</a> / <a href="tel:+966569990576">+966 56 999 0576</a></p>
+  <p><strong>Email:</strong> <a href="mailto:info@basmatalmawared.com">info@basmatalmawared.com</a></p>
+  <p><strong>General:</strong> <a href="mailto:muaz@basmat-almawared.com">muaz@basmat-almawared.com</a></p>
+</div>
+
+          </div>
 
 
           <div class="col-lg-3 col-md-4 footer-links">
@@ -1312,11 +1303,90 @@
               <li><a href="apply.html" data-i18n="footer.careers.applyNow">Apply Now</a></li>
             </ul>
           </div>
+</div>
 
-        </div>
       </div>
     </div>
 
+    </div>
+
+
+    <!-- Project Setup Modal -->
+    <div class="modal fade" id="projectFormModal" tabindex="-1" aria-labelledby="projectFormModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="border: none; border-radius: 16px; box-shadow: 0 24px 64px rgba(36,28,15,0.15);">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title" id="projectFormModalLabel" style="font-family: var(--heading-font); font-weight: 700; color: var(--heading-color);">Create New Project</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4 p-md-5">
+            <p class="text-muted text-center mb-4" style="font-size: 15px;">Tell us about your project so we can tailor the experience for you.</p>
+
+            <form id="footer-project-form" class="needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label for="form-email" class="form-label fw-medium" style="color: var(--heading-color); font-size: 14px;">Work Email</label>
+                  <div class="position-relative">
+                    <input type="email" class="form-control" id="form-email" placeholder="you@company.com" required style="padding-right: 44px; border-radius: 8px; border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%); background: color-mix(in srgb, var(--color-tints-500) 8%, var(--surface-color)); transition: all 0.25s;">
+                    <span class="position-absolute top-50 end-0 translate-middle-y me-3 text-muted" style="font-size: 18px; pointer-events: none;"><i class="bi bi-envelope"></i></span>
+                  </div>
+                  <div class="invalid-feedback d-block" style="font-size: 13px; margin-top: 4px;">Please enter a valid email address.</div>
+                </div>
+
+                <div class="col-12">
+                  <label for="form-type" class="form-label fw-medium" style="color: var(--heading-color); font-size: 14px;">Project Type</label>
+                  <select class="form-select" id="form-type" required style="border-radius: 8px; border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%); background: color-mix(in srgb, var(--color-tints-500) 8%, var(--surface-color));">
+                    <option value="" disabled selected>Select project type</option>
+                    <option value="web">Web Application</option>
+                    <option value="mobile">Mobile App</option>
+                    <option value="saas">SaaS Platform</option>
+                    <option value="internal">Internal Tool</option>
+                  </select>
+                  <div class="invalid-feedback d-block" style="font-size: 13px; margin-top: 4px;">Please select a project type.</div>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label fw-medium" style="color: var(--heading-color); font-size: 14px;">Primary Goal</label>
+                  <div class="d-flex gap-2 flex-wrap" role="radiogroup" aria-label="Primary Goal">
+                    <label class="goal-option flex-1 min-w-0" style="min-width: 100px;">
+                      <input type="radio" name="goal" value="launch" class="d-none" required>
+                      <span class="d-flex flex-1 align-items-center justify-content-center gap-2 rounded-3 border px-3 py-2 text-sm transition-all cursor-pointer" style="border-color: color-mix(in srgb, var(--default-color), transparent 85%); background: color-mix(in srgb, var(--color-tints-500) 6%, var(--surface-color)); color: var(--default-color);" data-value="launch">Launch</span>
+                    </label>
+                    <label class="goal-option flex-1 min-w-0" style="min-width: 100px;">
+                      <input type="radio" name="goal" value="scale" class="d-none" required>
+                      <span class="d-flex flex-1 align-items-center justify-content-center gap-2 rounded-3 border px-3 py-2 text-sm transition-all cursor-pointer" style="border-color: color-mix(in srgb, var(--default-color), transparent 85%); background: color-mix(in srgb, var(--color-tints-500) 6%, var(--surface-color)); color: var(--default-color);" data-value="scale">Scale</span>
+                    </label>
+                    <label class="goal-option flex-1 min-w-0" style="min-width: 100px;">
+                      <input type="radio" name="goal" value="prototype" class="d-none" required>
+                      <span class="d-flex flex-1 align-items-center justify-content-center gap-2 rounded-3 border px-3 py-2 text-sm transition-all cursor-pointer" style="border-color: color-mix(in srgb, var(--default-color), transparent 85%); background: color-mix(in srgb, var(--color-tints-500) 6%, var(--surface-color)); color: var(--default-color);" data-value="prototype">Prototype</span>
+                    </label>
+                  </div>
+                  <div class="invalid-feedback d-block" style="font-size: 13px; margin-top: 4px;">Please choose your primary goal.</div>
+                </div>
+
+                <div class="col-12">
+                  <label for="form-brief" class="form-label fw-medium" style="color: var(--heading-color); font-size: 14px;">Project Brief</label>
+                  <textarea class="form-control" id="form-brief" rows="4" placeholder="Describe what you're building and what problem it solves..." required style="border-radius: 8px; border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%); background: color-mix(in srgb, var(--color-tints-500) 8%, var(--surface-color)); resize: vertical;"></textarea>
+                  <div class="form-text" style="color: var(--text-muted); font-size: 13px;">The more context you provide, the better we can assist you.</div>
+                  <div class="invalid-feedback d-block" style="font-size: 13px; margin-top: 4px;">Please describe your project (minimum 30 characters).</div>
+                </div>
+              </div>
+
+              <div class="modal-footer border-0 pt-0 justify-content-center">
+                <button type="submit" class="btn w-100 py-3 rounded-3 fw-medium" style="font-size: 15px; letter-spacing: 0.5px; border-radius: 8px; background: linear-gradient(135deg, var(--color-brand), color-mix(in srgb, var(--color-brand) 70%, var(--color-shades-900))); border: none; color: var(--contrast-color); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(198,16,0,0.35)'" onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                  <i class="bi bi-rocket-takeoff me-2"></i>Create Project
+                </button>
+              </div>
+            </form>
+
+            <div id="form-success-toast" class="d-none mt-3 p-3 rounded-3 text-center" style="background: linear-gradient(135deg, #d4edda, #c3e6cb); border: 1px solid #c3e6cb; color: #155724; display: flex; align-items: center; justify-content: center; gap: 10px;">
+              <i class="bi bi-check-circle-fill animate-pulse" style="font-size: 20px;"></i>
+              <strong>Your project setup is complete 🎉</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="copyright text-center">
       <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
 
@@ -1333,7 +1403,7 @@
           </div>
           <div class="credits">
             
-            Basmat Al Mawared Company Limited &middot; CR No. YOUR-CR-NUMBER &middot; Riyadh, Saudi Arabia
+            Basmat Al Mawared Company Limited &middot; CR No. 1010649967 &middot; Riyadh, Saudi Arabia
           </div>
           <div class="credits">
             <a href="cookie-policy.html" data-i18n="footer.cookiePolicy">Cookie Policy</a> &middot;
